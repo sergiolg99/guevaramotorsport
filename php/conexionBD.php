@@ -13,10 +13,13 @@ print "<table border='1'>";
     print "<th> Contrasenna </th>";
     print "<th> Nombre </th>";
     print "<th> Direccion </th>";
+    print "<th> DNI </th>";
+    print "<th> is_admin </th>";
+    print "<th> is_active </th>";
     
     while ($fila=$resultado->fetch_array(MYSQLI_ASSOC)) {
         print "<tr>";
-            print "<td>".$fila['Id_user']."</td>";
+            print "<td>".$fila['id_usuario']."</td>";
             
             print "<td>".$fila['email']."</td>";
             
@@ -25,6 +28,13 @@ print "<table border='1'>";
             print "<td>".$fila['nombre']."</td>";
 
             print "<td>".$fila['direccion']."</td>";
+
+            print "<td>".$fila['dni']."</td>";
+
+            print "<td>".$fila['is_admin']."</td>";
+
+            print "<td>".$fila['is_active']."</td>";
+
         print "</tr>";
     }
 print "</table>";
