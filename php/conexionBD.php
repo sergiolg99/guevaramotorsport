@@ -17,6 +17,11 @@ print "<table border='1'>";
     print "<th> is_admin </th>";
     print "<th> is_active </th>";
     
+
+    hola
+
+
+    
     while ($fila=$resultado->fetch_array(MYSQLI_ASSOC)) {
         print "<tr>";
             print "<td>".$fila['id_usuario']."</td>";
