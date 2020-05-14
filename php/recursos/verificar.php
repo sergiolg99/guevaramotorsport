@@ -40,4 +40,4 @@ if ($userBD == $usuario and $passwordBD == $contrasenna and $is_admin == true) {
     die('Sin permiso de administrador');
 } else {
     die('Error');
-};
+}
