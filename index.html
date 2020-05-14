@@ -10,7 +10,7 @@
     <!-- CSS para modal Inicio Sesión-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
     <!-- CSS Propio -->
-    <link rel="stylesheet" href="css/estilos.min.css" />
+    <link rel="stylesheet" href="css/estilos.css" />
     <!-- CSS para carrusel infinito -->
     <link rel="stylesheet" href="css/infinite-slider.css" />
     <link rel="icon" type="image/png" href="./recursos/imagenes/logo.png" />
@@ -36,7 +36,7 @@
                 <a class="nav-link" href="index.html">INICIO&nbsp;</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./recursos/taller.html">RESERVAR CITA&nbsp;</a>
+                <a class="nav-link" href="./recursos/taller.php">RESERVAR CITA&nbsp;</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="./recursos/tienda.html">TIENDA&nbsp;</a>
@@ -100,7 +100,7 @@
                 DETALLE</span>
             </h2>
             <br>
-            <a class="btn btn-lg bonito" href="recursos/taller.html">PIDE CITA YA</a>
+            <a class="btn btn-lg bonito" href="recursos/taller.php">PIDE CITA YA</a>
           </div>
         </div>
         <div class="carousel-item">
@@ -199,18 +199,18 @@
                 <div class="modal-body mb-1">
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput10">CORREO
+                    <input type="email" id="inputEmailLogin" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailLogin">CORREO
                       ELECTRÓNICO</label>
                   </div>
 
                   <div class="md-form form-sm mb-4">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput11">CONTRASEÑA</label>
+                    <input type="password" id="inputPasswordLogin" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordLogin">CONTRASEÑA</label>
                   </div>
                   <div class="text-center mt-2">
-                    <button class="btn btn-info">INICIAR SESIÓN </button>
+                    <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
                   </div>
                 </div>
                 <!--Footer-->
@@ -234,21 +234,22 @@
                 <div class="modal-body">
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput12">CORREO
+                    <input type="email" id="inputEmailRegister" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailRegister">CORREO
                       ELECTRÓNICO</label>
                   </div>
 
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput13">CONTRASEÑA</label>
+                    <input type="password" id="inputPasswordRegister1" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto"
+                      for="inputPasswordRegister1">CONTRASEÑA</label>
                   </div>
 
                   <div class="md-form form-sm mb-4">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput14">REPITA LA
+                    <input type="password" id="inputPasswordRegister2" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister2">REPITA LA
                       CONTRASEÑA</label>
                   </div>
 
@@ -304,6 +305,8 @@
             </div>
           </div>
         </div>
+        <br>
+        <a class="btn btn-sm admin" href="php/index.php">ADMINISTRAR</a>
       </div>
     </div>
 

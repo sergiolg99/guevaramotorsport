@@ -12,6 +12,10 @@
     background-color: #f8f8f8;
 }
 
+.fondoLisoColor {
+    background-color: #283443;
+}
+
 #cajaContacto {
     margin-top: 2%;
     background: #50505a;
@@ -31,7 +35,7 @@
 }
 
 .navbar.navbar-light .navbar-nav .nav-item .nav-link {
-    color: rgba(0,0,0,.5);
+    color: rgba(0, 0, 0, .5);
     -webkit-transition: .35s;
     transition: .35s;
     font-weight: 500;
@@ -152,7 +156,7 @@ a:hover {
     padding: .375rem .75rem;
     font-size: 1rem;
     border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .btn-info {
@@ -176,13 +180,24 @@ a:hover {
     color: #fff !important;
     background-color: #000 !important;
     border: 1px solid #000 !important;
-    font-size: 16px; 
+    font-size: 16px;
 }
 
 .btn-outline-info:hover {
     color: #000 !important;
     background-color: #fff !important;
     border-color: #000 !important;
+}
+
+.admin {
+    color: white;
+    border: 1px solid white !important;
+    border-color: white !important;
+}
+
+.admin:hover {
+    background-color: white !important;
+    color: black !important;
 }
 
 /*----------------------------------- INDEX ----------------------------------*/
@@ -532,7 +547,7 @@ h2.fuerte {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
     -webkit-box-shadow: 0 0 0 0;
 }
@@ -939,4 +954,78 @@ only screen and (max-width: 1000px) {
     background-color: #9fd9ff;
     color: white;
     border: 1px solid #9fd9ff;
+}
+
+
+
+
+/*-------------------------------- ADMIN ---------------------------------*/
+.login-form {
+    width: 100%;
+    padding: 160px 35px 0;
+    align-content: center;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.login-form input {
+    font-size: 22px;
+    padding: 0.5% 0 0.5% 3%;
+}
+
+.login-form input::placeholder {
+    font-size: 16px;
+}
+
+.h1_admin {
+    font-weight: bold;
+    color: white;
+}
+
+.input_admin {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    width: 73%;
+    padding: 0.4%;
+    margin-bottom: 1%;
+}
+
+.login-admin {
+    color: white;
+    background-color: #409eff;
+    border-color: #409eff;
+    width: 73%;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.login-admin:hover {
+    color: white;
+    background-color: #7fbbfa;
+    border-color: #7fbbfa;
+}
+
+.center {
+    margin-left: 22%;
+}
+
+.fondoLisoColor #response {
+    text-align: center;
+    margin-top: 3%;
+    font-size: 18px;
+    color: red;
+}
+
+.fondoLisoColor .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 16px;
 }

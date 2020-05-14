@@ -50,6 +50,15 @@ $('#back-to-top').click(function () {
   return false;
 });
 
+// MODAL SESIÓN ***************************************************************
+function inicioSesion() {
+  let email = document.getElementById("inputEmailLogin");
+  let password = document.getElementById("inputPasswordLogin");
+
+  $('#inicarSesion').add('hidden');
+
+}
+
 // FORMULARIO CONTACTO ********************************************************
 function enviarFormulario() {
   let nombre = new String(document.getElementById("nombre").value);

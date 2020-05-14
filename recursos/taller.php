@@ -103,7 +103,9 @@
                   <br><br>
 
                   <label>Año:</label>
-                  <input type="number" name="año" class="datosReserva noFocus" placeholder="Año de fabricación">
+                  <select name="año" id="anno" class="datosReserva noFocus">
+                    <option value="0">Selecciona...</option>
+                  </select>
                 </fieldset>
               </div>
             </div>
@@ -307,10 +309,18 @@
     <button class="back-to-top" id="back-to-top"></button>
 
 
+    <script>
+      function ComboAno() {
+        var n = (new Date()).getFullYear()
+        var select = document.getElementById("anno");
+        for (var i = n; i >= 1950; i--) select.options.add(new Option(i, i));
+      };
+      window.onload = ComboAno;
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="../js/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
     <script src="../js/funciones.js"></script>
   </body>
 
