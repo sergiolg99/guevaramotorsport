@@ -267,11 +267,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script>
     function borrarUsuario(id) {
       $('#deleteUserModal').modal();
-      $('#submit').onclick(function(e) {
+      $('#submit').click(function(e) {
         e.preventDefault();
-        data: {
-          "id_usuario" == id;
-        }
+        data = {
+          "id_usuario": id
+        };
 
         $.ajax({
           url: "deleteUser.php",
@@ -283,6 +283,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         }).done(function(echo) {
 
           if (echo == "exito") {
+            $('#deleteUserModal').modal('hide')
             alert("Usuario borrado con éxito");
             window.location.replace("usuarios.php")
           } else if (echo == "error") {

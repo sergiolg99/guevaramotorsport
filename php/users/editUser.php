@@ -222,7 +222,7 @@ $fila = mysqli_fetch_array($result)
                         </div>
                         <div class="form-row">
                             <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked>
+                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" value="<?php echo $fila["is_admin"]; ?>">
                                 <label class="custom-control-label" for="inputIsAdmin">Is Admin</label>
                             </div>
                         </div>
@@ -269,9 +269,24 @@ $fila = mysqli_fetch_array($result)
     <!-- Custom scripts for all pages-->
     <script src="../../js/sidebar-admin.min.js"></script>
     <script>
+        $(document).ready(function() {
+            let isAdmin = $('#inputIsAdmin').val();
+            if (isAdmin == 1 ) {
+                $("#inputIsAdmin").prop("checked", true);
+            } else {
+                $("#inputIsAdmin").prop("checked", false);
+            }
+        });
         $("#editUser").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
+            let isCheck = $('#inputIsAdmin').is(":checked");
+
+            if (isCheck == true) {
+                $("#inputIsAdmin").val(1);
+            } else {
+                $("#inputIsAdmin").val(0);
+            }
             e.preventDefault();
+            //Evitamos que se envíe por defecto
             //Creamos un FormData con los datos del mismo formulario
             data = $('#editUser').serialize();
             $.ajax({

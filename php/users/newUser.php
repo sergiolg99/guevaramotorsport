@@ -179,7 +179,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             </div>
                             <div class="form-group col-md-8">
                                 <label for="inputLastName">Apellidos</label>
-                                <input type="text" class="form-control" id="inputLastName" name="apellido" required>
+                                <input type="text" class="form-control" id="inputLastName" name="apellidos" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="inputCP">Cod. Postal</label>
-                                <input type="text" class="form-control" id="inputCP" maxlength="5" name="CP" required>
+                                <input type="text" class="form-control" id="inputCP" maxlength="5" name="cp" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -216,7 +216,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </div>
                         <div class="form-row">
                             <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked>
+                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked value="1">
                                 <label class="custom-control-label" for="inputIsAdmin">Is Admin</label>
                             </div>
                         </div>
