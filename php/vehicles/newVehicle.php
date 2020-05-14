@@ -94,17 +94,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="usuarios.php">Usuarios</a>
+                            <a class="collapse-item" href="../users/usuarios.php">Usuarios</a>
                             <a class="collapse-item" href="#">Vehículos</a>
                         </div>
                     </div>
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
-						<span>Modelos Vehículos</span>
-					</a>
+                    <a class="nav-link" href="vehiculos.php">
+                        <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+                        <span>Modelos Vehículos</span>
+                    </a>
                 </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -138,8 +138,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="usuarios.php">Usuarios</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Nuevo Usuario</li>
+                            <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nuevo Vehículo</li>
                         </ol>
                     </nav>
 
@@ -168,67 +168,39 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <div class="container-fluid">
 
                     <!-- Content Row -->
-                    <form action="" method="POST" id="createUser">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" name="email" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="password" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputName">Nombre</label>
-                                <input type="text" class="form-control" id="inputName" name="nombre" required>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label for="inputLastName">Apellidos</label>
-                                <input type="text" class="form-control" id="inputLastName" name="apellidos" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Dirección</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="Calle Mayor 72" name="direccion" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Localidad</label>
-                                <input type="text" class="form-control" id="inputCity" name="localidad" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputProvince">Provincia</label>
-                                <select id="inputProvince" class="form-control" name="provincia" required>
-                                    <option value="0">Selecciona...</option>
-                                    <?php
-                                    $query = $conexion->query("SELECT * FROM provincias");
-                                    while ($provincia = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $provincia['nombre'] . '">' . $provincia['nombre'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCP">Cod. Postal</label>
-                                <input type="text" class="form-control" id="inputCP" maxlength="5" name="cp" required>
-                            </div>
-                        </div>
+                    <form action="" method="POST" id="createVehicle">
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="inputDNI">DNI</label>
-                                <input type="text" class="form-control" id="inputDNI" maxlength="9" placeholder="12345678A" name="dni" required>
+                                <label for="fabricante">Fabricante</label>
+                                <select id="fabricante" class="form-control" name="fabricante" required>
+                                    <?php
+                                    /* $query = $conexion->query("SELECT * FROM moto_makers");
+                                    while ($fabricante = mysqli_fetch_array($query)) {
+                                        echo '<option value="' . $fabricante['nombre'] . '">' . $fabricante['nombre'] . '</option>';
+                                    } */
+                                    ?>
+                                </select>
+                                <a class="btn btn-primary noFocus" href="newVehicle.php" style="margin-top: 2%" role="button"><i class="fas fa-plus"></i> Añadir Fabricante</a>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked value="1">
-                                <label class="custom-control-label" for="inputIsAdmin">Is Admin</label>
+                            <div class="form-group col-md-2"></div>
+                            <div class="form-group col-md-3">
+                                <label for="modelo">Modelo</label>
+                                <select id="modelo" class="form-control" name="modelo" required>
+                                    <option value="0">Esperando...</option>
+
+                                </select>
+                                <a class="btn btn-primary noFocus" href="newVehicle.php" style="margin-top: 2%" role="button"><i class="fas fa-plus"></i> Añadir Modelo</a>
                             </div>
                         </div>
                         <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Crear Usuario</button>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="cilindrada">Cilindrada</label>
+                                <input type="number" class="form-control" id="cilindrada" placeholder="Cilindrada en cc" name="cilindrada" required>
+                            </div>
+                        </div>
+                        <br><br>
+                        <button class="btn btn-primary" type="submit" id="submit">Crear Vehículo</button>
                     </form>
                 </div>
             </div>
@@ -269,15 +241,43 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
     <!-- Custom scripts for all pages-->
     <script src="../../js/sidebar-admin.min.js"></script>
-    <script>
-        $("#createUser").on("submit", function(e) {
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $.ajax({
+                type: "POST",
+                url: "getMarcas.php",
+                success: function(response) {
+                    $('#fabricante').html(response).fadeIn();
+                }
+            });
+
+            $("#fabricante").change(function() {
+                fabricante = $('#fabricante').val();
+                $.ajax({
+                    type: "POST",
+                    data: "fabricante=" + fabricante,
+                    url: "getModelos.php",
+                    success: function(response) {
+                        $('#modelo').html(response).fadeIn();
+                    }
+                });
+            })
+        });
+
+        $("#createVehicle").on("submit", function(e) {
             //Evitamos que se envíe por defecto
             e.preventDefault();
             //Creamos un FormData con los datos del mismo formulario
-            data = $('#createUser').serialize();
+            modelo = $('#modelo').val();
+            cilindrada = $('#cilindrada').val();
+            var data = {
+                "modelo": modelo,
+                "cilindrada": cilindrada
+            };
             $.ajax({
                 //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "createUser.php",
+                url: "createVehicle.php",
                 //Definimos el tipo de método de envío
                 type: "POST",
                 //Definimos el tipo de datos que vamos a enviar y recibir
@@ -291,10 +291,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 //comprobamos si la respuesta no es vacía
                 if (echo == "exito") {
                     //Si hay respuesta mostramos el mensaje
-                    alert("Usuario creado con éxito");
-                    window.location.replace("usuarios.php")
-                } else if (echo == "existe") {
-                    alert("Este usuario ya existe");
+                    alert("Vehículo creado con éxito");
+                    window.location.replace("vehiculos.php")
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                 }

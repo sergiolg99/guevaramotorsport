@@ -105,6 +105,14 @@ $fila = mysqli_fetch_array($result)
                         </div>
                     </div>
                 </li>
+
+                <li class="nav-item">
+					<a class="nav-link" href="../vehicles/vehiculos.php">
+						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+						<span>Modelos Vehículos</span>
+					</a>
+                </li>
+                
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
