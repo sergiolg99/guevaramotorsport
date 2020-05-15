@@ -93,7 +93,7 @@ $fila = mysqli_fetch_array($result)
                 </div>
 
                 <!-- Nav Item - Charts -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
                         <i class="fas fa-users"></i>
                         <span>Usuarios</span>
@@ -111,15 +111,15 @@ $fila = mysqli_fetch_array($result)
                         <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
                         <span>Modelos Vehículos</span>
                     </a>
-                    </>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
 
-                    <!-- Divider -->
-                    <hr class="sidebar-divider d-none d-md-block">
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
 
-                    <!-- Sidebar Toggler (Sidebar) -->
-                    <div class="text-center d-none d-md-inline">
-                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                    </div>
             </div>
             <div class="text-center">
                 <div class="container">
@@ -173,7 +173,9 @@ $fila = mysqli_fetch_array($result)
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <div class="form-group col" style="text-align: -webkit-right;">
+                        <a class="btn btn-outline-dark" id="asociarVehiculo" data-toggle="modal" data-target="#asociarVehiculoUsuario" style="color: black;"><i class="fas fa-edit"></i> Asociar Vehículo</a>
+                    </div>
                     <!-- Content Row -->
                     <form action="" method="POST" id="editUser">
                         <div class="form-row">
@@ -255,6 +257,62 @@ $fila = mysqli_fetch_array($result)
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Modal Asociar Vehiculo a Usuario -->
+    <div class="modal fade" id="asociarVehiculoUsuario" tabindex="-1" role="dialog" aria-labelledby="asociarVehiculoUsuarioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="asociarVehiculoUsuarioLabel">Asociar vehículo a usuario</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="fabricante">Fabricante</label>
+                                <select id="fabricante" class="form-control" name="fabricante" required>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="modelo">Modelo</label>
+                                <select id="modelo" class="form-control" name="modelo" required>
+                                    <option value="0">Esperando...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cilindrada">Cilindrada</label>
+                                <select id="cilindrada" class="form-control" name="cilindrada" required>
+                                    <option value="0">Esperando...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="year">Año</label>
+                                <input type="text" class="form-control" name="year" id="year" placeholder="Año" maxlength="4" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label for="matricula">Matrícula</label>
+                                <input type="text" class="form-control" name="matricula" id="matricula" maxlength="8" placeholder="Matrícula" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" onclick="asociarVehiculoUsuario()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -279,7 +337,6 @@ $fila = mysqli_fetch_array($result)
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="../../js/sidebar-admin.min.js"></script>
     <script>
@@ -290,35 +347,58 @@ $fila = mysqli_fetch_array($result)
             } else {
                 $("#inputIsAdmin").prop("checked", false);
             }
+
+            $.ajax({
+                type: "POST",
+                url: "../vehicles/getMarcasMotos.php",
+                success: function(response) {
+                    $('#fabricante').html(response).fadeIn();
+                }
+            });
+
+            $("#fabricante").change(function() {
+                fabricante = $('#fabricante').val();
+                $.ajax({
+                    type: "POST",
+                    data: "fabricante=" + fabricante,
+                    url: "../vehicles/getModelosMotos.php",
+                    success: function(response) {
+                        $('#modelo').html(response).fadeIn();
+                    }
+                });
+            });
+
+            $("#modelo").change(function() {
+                modelo = $('#modelo').val();
+                $.ajax({
+                    type: "POST",
+                    data: "modelo=" + modelo,
+                    url: "../vehicles/getCilindradaMotos.php",
+                    success: function(response) {
+                        $('#cilindrada').html(response).fadeIn();
+                    }
+                });
+            });
         });
+
         $("#editUser").on("submit", function(e) {
             let isCheck = $('#inputIsAdmin').is(":checked");
-
             if (isCheck == true) {
                 $("#inputIsAdmin").val(1);
             } else {
                 $("#inputIsAdmin").val(0);
             }
             e.preventDefault();
-            //Evitamos que se envíe por defecto
-            //Creamos un FormData con los datos del mismo formulario
             data = $('#editUser').serialize();
             $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
                 url: "updateUser.php?id_usuario=<?php echo $fila["id_usuario"]; ?>",
-                //Definimos el tipo de método de envío
                 type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
                 dataType: "HTML",
-                //Definimos la información que vamos a enviar
                 data: data,
-                //Deshabilitamos el caché
                 cache: false,
+
             }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
                 if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
                     alert("Usuario actualizado con éxito");
                     window.location.replace("usuarios.php")
                 } else {
@@ -326,6 +406,41 @@ $fila = mysqli_fetch_array($result)
                 }
             });
         });
+
+        function asociarVehiculoUsuario() {
+            usuario = <?php echo $_GET["id_usuario"]; ?>;
+            moto = $('#cilindrada').val();
+            year = $('#year').val();
+            matricula = $('#matricula').val().toUpperCase();
+            if (usuario !== "" && moto != 0 && year !== "" && matricula !== "") {
+                data = {
+                    usuario: usuario,
+                    moto: moto,
+                    year: year,
+                    matricula: matricula
+                };
+
+                $.ajax({
+                    url: "asociarUsuariosVehiculos.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        alert("Vehículo asociado");
+                        window.location.replace("usuarios.php")
+                    } else if (echo == "existe") {
+                        alert("Esta matrícula ya existe");
+                    } else if (echo == "error") {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            } else {
+                alert("Faltan datos");
+            }
+
+        };
     </script>
 </body>
 

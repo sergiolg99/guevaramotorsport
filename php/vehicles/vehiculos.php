@@ -181,7 +181,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                         while ($fila = mysqli_fetch_array($result)) { ?>
                                             <tr>
                                                 <td>
-                                                    <?php $consulta2 = "SELECT motos.id_moto ,moto_models.fabricante, moto_makers.nombre FROM motos 
+                                                    <?php $consulta2 = "SELECT moto_makers.nombre FROM motos 
                                                         INNER JOIN moto_models ON motos.modelo = moto_models.id 
                                                         INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id WHERE motos.id_moto = $fila[id_moto]";
                                                     $result2 = mysqli_query($conexion, $consulta2);
