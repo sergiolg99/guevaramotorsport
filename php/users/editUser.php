@@ -101,7 +101,7 @@ $fila = mysqli_fetch_array($result)
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="usuarios.php">Usuarios</a>
-                            <a class="collapse-item" href="#">Vehículos</a>
+                            <a class="collapse-item" href="usuarios_vehiculos.php">Vehículos</a>
                         </div>
                     </div>
                 </li>

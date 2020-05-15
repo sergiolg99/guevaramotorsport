@@ -95,7 +95,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					<div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<a class="collapse-item" href="users/usuarios.php">Usuarios</a>
-							<a class="collapse-item" href="#">Vehículos</a>
+							<a class="collapse-item" href="users/usuarios_vehiculos.php">Vehículos</a>
 						</div>
 					</div>
 				</li>

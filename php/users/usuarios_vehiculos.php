@@ -86,8 +86,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </a>
           <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="#">Usuarios</a>
-              <a class="collapse-item" href="usuarios_vehiculos.php">Vehículos</a>
+              <a class="collapse-item" href="usuarios.php">Usuarios</a>
+              <a class="collapse-item" href="#">Vehículos</a>
             </div>
           </div>
         </li>
@@ -130,8 +130,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Lista de Usuarios</li>
+              <li class="breadcrumb-item"><a href="usuarios.php">Usuarios</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Lista de Usuarios por Vehículos</li>
             </ol>
           </nav>
 
@@ -162,46 +162,58 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <a class="btn btn-primary noFocus" href="newUser.php" role="button"><i class="fas fa-plus"></i> Añadir Usuario</a>
-                <br><br>
-                <table class="table" id="users" width="100%" cellspacing="0" style="max-height: 100%">
+                <table class="table" id="usuarios_vehiculos" width="100%" cellspacing="0" style="max-height: 100%">
                   <thead>
                     <tr>
-                      <th>Email</th>
                       <th>Nombre</th>
-                      <th>Direccion</th>
-                      <th>DNI</th>
-                      <th>Admin</th>
-                      <th>Acciones</th>
+                      <th>email</th>
+                      <th>Modelo</th>
+                      <th>Matrícula</th>
+                      <th>Año</th>
+                      <th>Activo</th>
+                      <th>Acción</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM usuarios";
+                    $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php echo $fila["email"]; ?></td>
-                        <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
-                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
-                            $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                        <td><?php $consulta2 = "SELECT usuarios.nombre, usuarios.apellidos FROM motos_usuarios 
+                                                  INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id = $fila[id]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"] . ", " . $fila["cp"];
-                            }; ?></td>
-                        <td><?php echo $fila["dni"]; ?></td>
+                              echo $fila2["nombre"] . " " . $fila2["apellidos"];
+                            };
+                            ?></td>
+                        <td><?php $consulta3 = "SELECT usuarios.email FROM motos_usuarios 
+                                                  INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id = $fila[id]";
+                            $result3 = mysqli_query($conexion, $consulta3);
+                            while ($fila3 = mysqli_fetch_array($result3)) {
+                              echo $fila3["email"];
+                            }
+                            ?></td>
+                        <td><?php $consulta4 = "SELECT moto_models.nombre FROM motos_usuarios 
+                                                  INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE motos_usuarios.id = $fila[id]";
+                            $result4 = mysqli_query($conexion, $consulta4);
+                            while ($fila4 = mysqli_fetch_array($result4)) {
+                              echo $fila4["nombre"];
+                            }
+                            ?></td>
+                        <td><?php echo $fila["matricula"]; ?></td>
+                        <td><?php echo $fila["year"]; ?></td>
                         <td><?php
-                            if ($fila['is_admin'] == 1) {
+                            if ($fila['is_active'] == 1) {
                               echo "<span class='fas fa-check-circle' style='color:green';></span>";
                             } else {
-                              echo "<span class='fas fa-minus-circle' style='color:red';></span>";
+                              echo "<span class='fas fa-times-circle' style='color:red';></span>";
                             }
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editUser.php?id_usuario=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -224,27 +236,26 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--Delete User Modal-->
-  <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <!--Delete Usuario_Vehiculo Modal-->
+  <div class="modal fade" id="deleteUserVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserVehicleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteUserModal">Borrar Usuario</h5>
+          <h5 class="modal-title" id="deleteUserVehicleModal">Borrar relación</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Estas seguro que quieres borrar este usuario?
+          Estas seguro que quieres borrar esta relación?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Usuario</button>
+          <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar</button>
         </div>
       </div>
     </div>
   </div>
-  <!--Delete User Modal-->
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -265,7 +276,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     </div>
   </div>
 
-
   <!-- Bootstrap core JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -274,29 +284,28 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#users').DataTable();
-    });
+      $('#usuarios_vehiculos').DataTable();
+    })
 
-    function borrarUsuario(id) {
-      $('#deleteUserModal').modal();
+    function borrarUsuarioVehiculo(id) {
+      $('#deleteUserVehicleModal').modal();
       $('#submit').click(function(e) {
         e.preventDefault();
         data = {
-          "id_usuario": id
+          "id": id
         };
 
         $.ajax({
-          url: "deleteUser.php",
+          url: "deleteUserVehicle.php",
           type: "POST",
           dataType: "HTML",
           data: data,
           cache: false,
 
         }).done(function(echo) {
-
           if (echo == "exito") {
-            alert("Usuario borrado con éxito");
-            window.location.replace("usuarios.php")
+            alert("Relación borrada con éxito");
+            window.location.replace("usuarios_vehiculos.php")
           } else if (echo == "error") {
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
           }
