@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('localhost', 'sergio', 'desarrolloweb', 'guevaramotorsport');
+require_once('recursos/conexionBD.php');
 
 $consulta = $conexion->query("SELECT (id_usuario) FROM usuarios");
 $cuentaUsuarios = $consulta->num_rows;
@@ -99,6 +99,14 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 						</div>
 					</div>
 				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="vehicles/vehiculos.php">
+						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+						<span>Modelos Vehículos</span>
+					</a>
+				</li>
+
 				<!-- Divider -->
 				<hr class="sidebar-divider d-none d-md-block">
 

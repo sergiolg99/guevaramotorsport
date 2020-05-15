@@ -29,16 +29,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Custom styles for this template-->
     <link href="../../css/sidebar-admin.css" rel="stylesheet">
-
-    <style type="text/css">
-        .custom-control-input {
-            font-size: 25px;
-        }
-
-        input::placeholder {
-            font-size: 14px;
-        }
-    </style>
+    <!-- Custom styles for datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
 </head>
 
 <body id="page-top">
@@ -94,17 +86,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="usuarios.php">Usuarios</a>
+                            <a class="collapse-item" href="../users/usuarios.php">Usuarios</a>
                             <a class="collapse-item" href="#">Vehículos</a>
                         </div>
                     </div>
                 </li>
 
-                <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
-						<span>Modelos Vehículos</span>
-					</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+                        <span>Modelos Vehículos</span>
+                    </a>
                 </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -126,7 +118,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" style="max-height: 100%">
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -138,8 +130,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="usuarios.php">Usuarios</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Nuevo Usuario</li>
+                            <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Lista de Vehículos</li>
                         </ol>
                     </nav>
 
@@ -166,72 +158,69 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Content Row -->
-                    <form action="" method="POST" id="createUser">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" name="email" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="password" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputName">Nombre</label>
-                                <input type="text" class="form-control" id="inputName" name="nombre" required>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label for="inputLastName">Apellidos</label>
-                                <input type="text" class="form-control" id="inputLastName" name="apellidos" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Dirección</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="Calle Mayor 72" name="direccion" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Localidad</label>
-                                <input type="text" class="form-control" id="inputCity" name="localidad" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputProvince">Provincia</label>
-                                <select id="inputProvince" class="form-control" name="provincia" required>
-                                    <option value="0">Selecciona...</option>
-                                    <?php
-                                    $query = $conexion->query("SELECT * FROM provincias");
-                                    while ($provincia = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $provincia['nombre'] . '">' . $provincia['nombre'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCP">Cod. Postal</label>
-                                <input type="text" class="form-control" id="inputCP" maxlength="5" name="cp" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="inputDNI">DNI</label>
-                                <input type="text" class="form-control" id="inputDNI" maxlength="9" placeholder="12345678A" name="dni" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked value="1">
-                                <label class="custom-control-label" for="inputIsAdmin">Is Admin</label>
+                    <!-- DataTable -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <a class="btn btn-primary noFocus" href="newVehicle.php" role="button"><i class="fas fa-plus"></i> Añadir Vehículo</a>
+                                <br><br>
+                                <table class="table" id="vehicles" width="100%" cellspacing="0" style="max-height: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Fabricante</th>
+                                            <th>Modelo</th>
+                                            <th>Cilindrada</th>
+                                            <th>Activo</th>
+                                            <th style="width: 12%">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $consulta = "SELECT * FROM motos";
+                                        $result = mysqli_query($conexion, $consulta);
+                                        while ($fila = mysqli_fetch_array($result)) { ?>
+                                            <tr>
+                                                <td>
+                                                    <?php $consulta2 = "SELECT motos.id_moto ,moto_models.fabricante, moto_makers.nombre FROM motos 
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
+                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id WHERE motos.id_moto = $fila[id_moto]";
+                                                    $result2 = mysqli_query($conexion, $consulta2);
+                                                    while ($fila2 = mysqli_fetch_array($result2)) {
+                                                        echo $fila2["nombre"];
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td><?php $consulta3 = "SELECT motos.id_moto ,moto_models.nombre FROM motos 
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id WHERE motos.id_moto = $fila[id_moto]";
+                                                    $result3 = mysqli_query($conexion, $consulta3);
+                                                    while ($fila3 = mysqli_fetch_array($result3)) {
+                                                        echo $fila3["nombre"];
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td><?php echo $fila["cilindrada"] . " cc"; ?></td>
+                                                <td><?php
+                                                    if ($fila['is_active'] == 1) {
+                                                        echo "<span class='fas fa-check-circle' style='color:green';></span>";
+                                                    } else {
+                                                        echo "<span class='fas fa-minus-circle' style='color:red';></span>";
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-danger noFocus" onclick="borrarVehiculo('<?php echo $fila["id_moto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Crear Usuario</button>
-                    </form>
+                    </div>
                 </div>
+                <!-- /.container-fluid -->
             </div>
+            <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -241,6 +230,28 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!--Delete User Modal-->
+    <div class="modal fade" id="deleteVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteVehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteVehicleModal">Borrar Vehículo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Estas seguro que quieres borrar este vehículo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Vehículo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Delete User Modal-->
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -264,43 +275,45 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
     <!-- Bootstrap core JavaScript-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
+    <!-- Page level plugins -->
     <script src="../../js/sidebar-admin.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
     <script>
-        $("#createUser").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
-            e.preventDefault();
-            //Creamos un FormData con los datos del mismo formulario
-            data = $('#createUser').serialize();
-            $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "createUser.php",
-                //Definimos el tipo de método de envío
-                type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
-                dataType: "HTML",
-                //Definimos la información que vamos a enviar
-                data: data,
-                //Deshabilitamos el caché
-                cache: false,
-            }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
-                if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
-                    alert("Usuario creado con éxito");
-                    window.location.replace("usuarios.php")
-                } else if (echo == "existe") {
-                    alert("Este usuario ya existe");
-                } else {
-                    alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
-                }
-            });
+        $(document).ready(function() {
+            $('#vehicles').DataTable();
         });
     </script>
+    <script>
+        function borrarVehiculo(id) {
+            $('#deleteVehicleModal').modal();
+            $('#submit').click(function(e) {
+                e.preventDefault();
+                data = {
+                    "id_moto": id
+                };
+
+                $.ajax({
+                    url: "deleteVehicle.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+
+                }).done(function(echo) {
+
+                    if (echo == "exito") {
+                        $('#deleteVehicleModal').modal('hide');
+                        alert("Vehículo borrado con éxito");
+                        window.location.replace("vehiculos.php")
+                    } else {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            });
+        };
+    </script>
+
 </body>
 
 </html>

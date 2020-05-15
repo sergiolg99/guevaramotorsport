@@ -1,9 +1,12 @@
 <?php
 // Carga la configuración 
-$config = parse_ini_file('../../configBD.ini');
+$usuario = "sergio";
+$contrasena = "desarrolloweb";
+$servidor = "localhost";
+$bd = "guevaramotorsport";
 
-// Conexión con los datos del 'configBD.ini' 
-$conexion = mysqli_connect('localhost',$config['username'],$config['password'],$config['dbname']);
+// Conexión a la Base de Datos 
+$conexion = mysqli_connect($servidor, $usuario, $contrasena, $bd);
 
 // Si la conexión falla, aparece el error 
 if($conexion === false) { 

@@ -79,7 +79,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         </div>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
             <i class="fas fa-users"></i>
             <span>Usuarios</span>
@@ -90,6 +90,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
               <a class="collapse-item" href="#">Vehículos</a>
             </div>
           </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../vehicles/vehiculos.php">
+            <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+            <span>Modelos Vehículos</span>
+          </a>
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -176,7 +183,20 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                       <tr>
                         <td><?php echo $fila["email"]; ?></td>
                         <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
-                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", " . $fila["provincia"] . ", " . $fila["cp"]; ?></td>
+                        <?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                        $result2 = mysqli_query($conexion, $consulta2);
+                        while ($fila2 = mysqli_fetch_array($result2)) {
+                          echo $fila2["nombre"];
+                        }
+                        ?>
+                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
+                            $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                            $result2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($result2)) {
+                              echo $fila2["nombre"] . ", " . $fila["cp"];
+                            }; ?></td>
                         <td><?php echo $fila["dni"]; ?></td>
                         <td><?php
                             if ($fila['is_admin'] == 1) {
@@ -225,7 +245,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           Estas seguro que quieres borrar este usuario?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Usuario</button>
         </div>
       </div>
