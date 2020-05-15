@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('localhost', 'sergio', 'desarrolloweb', 'guevaramotorsport');
+require_once('recursos/conexionBD.php');
 
 $consulta = $conexion->query("SELECT (id_usuario) FROM usuarios");
 $cuentaUsuarios = $consulta->num_rows;

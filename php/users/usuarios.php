@@ -93,11 +93,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         </li>
 
         <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
-						<span>Modelos Vehículos</span>
-					</a>
-                </li>
+          <a class="nav-link" href="../vehicles/vehiculos.php">
+            <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+            <span>Modelos Vehículos</span>
+          </a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -183,7 +183,20 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                       <tr>
                         <td><?php echo $fila["email"]; ?></td>
                         <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
-                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", " . $fila["provincia"] . ", " . $fila["cp"]; ?></td>
+                        <?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                        $result2 = mysqli_query($conexion, $consulta2);
+                        while ($fila2 = mysqli_fetch_array($result2)) {
+                          echo $fila2["nombre"];
+                        }
+                        ?>
+                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
+                            $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                            $result2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($result2)) {
+                              echo $fila2["nombre"] . ", " . $fila["cp"];
+                            }; ?></td>
                         <td><?php echo $fila["dni"]; ?></td>
                         <td><?php
                             if ($fila['is_admin'] == 1) {

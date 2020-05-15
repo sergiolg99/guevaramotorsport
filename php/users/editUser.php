@@ -107,19 +107,19 @@ $fila = mysqli_fetch_array($result)
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
-						<span>Modelos Vehículos</span>
-					</a>
-                </li>
-                
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
+                    <a class="nav-link" href="../vehicles/vehiculos.php">
+                        <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+                        <span>Modelos Vehículos</span>
+                    </a>
+                    </>
 
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
             </div>
             <div class="text-center">
                 <div class="container">
@@ -207,12 +207,18 @@ $fila = mysqli_fetch_array($result)
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputProvince">Provincia</label>
-                                <select id="inputProvince" class="form-control" name="provincia" required selec="<?php echo $fila["provincia"]; ?>">
-                                    <option selected value="<?php echo $fila["provincia"]; ?>"><?php echo $fila["provincia"]; ?></option>
+                                <select id="inputProvince" class="form-control" name="provincia" required>
+                                    <option selected value="<?php echo $fila["provincia"]; ?>"><?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                                                                                                $result2 = mysqli_query($conexion, $consulta2);
+                                                                                                while ($fila2 = mysqli_fetch_array($result2)) {
+                                                                                                    echo $fila2["nombre"];
+                                                                                                };
+                                                                                                ?></option>
                                     <?php
                                     $query = $conexion->query("SELECT * FROM provincias");
                                     while ($provincia = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $provincia['nombre'] . '">' . $provincia['nombre'] . '</option>';
+                                        echo '<option value="' . $provincia['id'] . '">' . $provincia['nombre'] . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -279,7 +285,7 @@ $fila = mysqli_fetch_array($result)
     <script>
         $(document).ready(function() {
             let isAdmin = $('#inputIsAdmin').val();
-            if (isAdmin == 1 ) {
+            if (isAdmin == 1) {
                 $("#inputIsAdmin").prop("checked", true);
             } else {
                 $("#inputIsAdmin").prop("checked", false);
