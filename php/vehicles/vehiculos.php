@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </div>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="#">
                         <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
                         <span>Modelos Vehículos</span>
@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Vehículos</a></li>
+                            <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Lista de Vehículos</li>
                         </ol>
                     </nav>
@@ -181,11 +181,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                         while ($fila = mysqli_fetch_array($result)) { ?>
                                             <tr>
                                                 <td>
-                                                    <?php $consulta2 = "SELECT motos.id_moto ,moto_models.fabricante FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id WHERE motos.id_moto = $fila[id_moto]";
+                                                    <?php $consulta2 = "SELECT motos.id_moto ,moto_models.fabricante, moto_makers.nombre FROM motos 
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
+                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id WHERE motos.id_moto = $fila[id_moto]";
                                                     $result2 = mysqli_query($conexion, $consulta2);
                                                     while ($fila2 = mysqli_fetch_array($result2)) {
-                                                        echo $fila2["fabricante"];
+                                                        echo $fila2["nombre"];
                                                     }
                                                     ?>
                                                 </td>
@@ -244,7 +245,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     Estas seguro que quieres borrar este vehículo?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Vehículo</button>
                 </div>
             </div>
@@ -305,7 +306,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         $('#deleteVehicleModal').modal('hide');
                         alert("Vehículo borrado con éxito");
                         window.location.replace("vehiculos.php")
-                    } else if (echo == "error") {
+                    } else {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }
                 });

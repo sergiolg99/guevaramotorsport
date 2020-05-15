@@ -172,24 +172,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="fabricante">Fabricante</label>
-                                <select id="fabricante" class="form-control" name="fabricante" required>
-                                    <?php
-                                    /* $query = $conexion->query("SELECT * FROM moto_makers");
-                                    while ($fabricante = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $fabricante['nombre'] . '">' . $fabricante['nombre'] . '</option>';
-                                    } */
-                                    ?>
+                                <select id="fabricante" class="form-control fabricante" name="fabricante" required>
                                 </select>
-                                <a class="btn btn-primary noFocus" href="newVehicle.php" style="margin-top: 2%" role="button"><i class="fas fa-plus"></i> Añadir Fabricante</a>
+                                <a class="btn btn-primary noFocus" data-toggle="modal" data-target="#newMaker" style="margin-top: 2%; color: white" role="button"><i class="fas fa-plus"></i> Añadir Fabricante</a>
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-3">
                                 <label for="modelo">Modelo</label>
                                 <select id="modelo" class="form-control" name="modelo" required>
                                     <option value="0">Esperando...</option>
-
                                 </select>
-                                <a class="btn btn-primary noFocus" href="newVehicle.php" style="margin-top: 2%" role="button"><i class="fas fa-plus"></i> Añadir Modelo</a>
+                                <a class="btn btn-primary noFocus" data-toggle="modal" data-target="#newModel" style="margin-top: 2; color: white" role="button"><i class="fas fa-plus"></i> Añadir Modelo</a>
                             </div>
                         </div>
                         <br><br>
@@ -200,7 +193,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             </div>
                         </div>
                         <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Crear Vehículo</button>
+                        <button class="btn btn-primary btn-lg" type="submit" id="submit">Crear Vehículo</button>
                     </form>
                 </div>
             </div>
@@ -213,6 +206,56 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Modal crear fabricante -->
+    <div class="modal fade" id="newMaker" tabindex="-1" role="dialog" aria-labelledby="newMakerLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newMakerLabel">Crear nuevo fabricante de motos</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputNewMaker">Nombre</label>
+                    <input type="text" id="inputNewMaker" class="form-control" placeholder="Fabricante" name="inputNewMaker" required>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="button" onclick="newMaker()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal crear modelo -->
+    <div class="modal fade" id="newModel" tabindex="-1" role="dialog" aria-labelledby="newModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newModelLabel">Crear nuevo modelo de motos</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="fabricante">Fabricante</label>
+                    <select id="fabricanteModal" class="form-control fabricante" name="fabricante" required>
+                    </select>
+                    <br>
+                    <label for="inputNewModel">Nombre</label>
+                    <input type="text" id="inputNewModel" class="form-control" placeholder="Modelo" name="inputNewModel" required>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="button" onclick="newModel()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -238,22 +281,20 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="../../js/sidebar-admin.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
             $.ajax({
                 type: "POST",
                 url: "getMarcas.php",
                 success: function(response) {
-                    $('#fabricante').html(response).fadeIn();
+                    $('.fabricante').html(response).fadeIn();
                 }
             });
 
-            $("#fabricante").change(function() {
-                fabricante = $('#fabricante').val();
+            $("#fabricante.fabricante").change(function() {
+                fabricante = $('.fabricante').val();
                 $.ajax({
                     type: "POST",
                     data: "fabricante=" + fabricante,
@@ -298,6 +339,60 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 }
             });
         });
+    </script>
+    <script>
+        function newMaker() {
+            var nombre = $('#inputNewMaker').val();
+            if (nombre == "") {
+                alert("Faltan datos");
+            } else {
+                $.ajax({
+                    url: "createMaker.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: 'nombre=' + nombre,
+                    cache: false,
+
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        window.location.replace("newVehicle.php")
+                        alert("Fabricante creado con éxito");
+                    } else if (echo == "existe") {
+                        alert("Este fabricante ya existe");
+                    } else {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            }
+
+        };
+
+        function newModel() {
+            var fabricante = $('#fabricanteModal').val();
+            var nombre = $('#inputNewModel').val();
+            if (fabricante == "" || nombre == "") {
+                alert("Faltan datos");
+            } else {
+                $.ajax({
+                    url: "createModel.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: 'nombre=' + nombre + '&fabricante=' + fabricante,
+                    cache: false,
+
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        window.location.replace("newVehicle.php")
+                        alert("Modelo creado con éxito");
+                    } else if (echo == "existe") {
+                        alert("Este modelo ya existe");
+                    } else {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            }
+
+        };
     </script>
 </body>
 

@@ -8,5 +8,5 @@ $borrarVehiculo = "DELETE FROM `motos` WHERE `id_moto` = $id";
 if ($conexion->query($borrarVehiculo) === TRUE) {
     die('exito');
 } else {
-    die('error');
+    die();
 }

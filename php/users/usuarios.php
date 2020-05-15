@@ -79,7 +79,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         </div>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
             <i class="fas fa-users"></i>
             <span>Usuarios</span>
@@ -232,7 +232,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           Estas seguro que quieres borrar este usuario?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Usuario</button>
         </div>
       </div>
