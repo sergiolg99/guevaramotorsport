@@ -1,13 +1,13 @@
 <?php
 require_once('recursos/conexionBD.php');
 
-$consulta = $conexion->query("SELECT (id_usuario) FROM usuarios");
+$consulta = $conexion->query("SELECT 'id_usuario' FROM usuarios");
 $cuentaUsuarios = $consulta->num_rows;
 
-$consulta = $conexion->query("SELECT (id_moto) FROM motos");
+$consulta = $conexion->query("SELECT 'id_moto' FROM motos");
 $cuentaMotos = $consulta->num_rows;
 
-$consulta = $conexion->query("SELECT (id_producto) FROM productos");
+$consulta = $conexion->query("SELECT 'id_producto' FROM productos");
 $cuentaProductos = $consulta->num_rows;
 
 //Reanudamos la sesión
@@ -63,29 +63,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 				<!-- Divider -->
 				<hr class="sidebar-divider">
 
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-						<i class="fas fa-fw fa-cog"></i>
-						<span>Components</span>
-					</a>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<h6 class="collapse-header">Custom Components:</h6>
-							<a class="collapse-item" href="buttons.html">Buttons</a>
-							<a class="collapse-item" href="cards.html">Cards</a>
-						</div>
-					</div>
-				</li>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider">
-
-				<!-- Heading -->
-				<div class="sidebar-heading">
-					Addons
-				</div>
-
 				<!-- Nav Item - Charts -->
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
@@ -95,15 +72,22 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					<div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<a class="collapse-item" href="users/usuarios.php">Usuarios</a>
-							<a class="collapse-item" href="#">Vehículos</a>
+							<a class="collapse-item" href="users/usuarios_vehiculos.php">Vehículos</a>
 						</div>
 					</div>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link" href="vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+						<i class="fas fa-motorcycle"></i>
 						<span>Modelos Vehículos</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="products/productos.php">
+						<i class="fas fa-shopping-cart"></i>
+						<span>Productos en venta</span>
 					</a>
 				</li>
 

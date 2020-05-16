@@ -6,12 +6,12 @@ $usuario = $_POST["email"];
 $contrasenna = $_POST["contrasenna"];
 
 //Filtro anti-XSS
-/* $usuario = htmlspecialchars(mysqli_real_escape_string($conexion, $usuario));
-$contrasenna = htmlspecialchars(mysqli_real_escape_string($conexion, $contrasenna)); */
+$usuario = htmlspecialchars(mysqli_real_escape_string($conexion, $usuario));
+$contrasenna = htmlspecialchars(mysqli_real_escape_string($conexion, $contrasenna));
 
 
 //Escribimos la consulta necesaria
-$consulta = "SELECT * FROM `usuarios` WHERE email='" . $usuario . "'";
+$consulta = "SELECT * FROM `usuarios` WHERE email='$usuario'";
 
 //Obtenemos los resultados
 $resultado = mysqli_query($conexion, $consulta);
@@ -30,10 +30,9 @@ if ($userBD == $usuario and $passwordBD == $contrasenna and $is_admin == true) {
     $_SESSION['usuario'] = $datos['nombre'];
     $_SESSION['estado'] = 'Autenticado';
 
-    /* Sesión iniciada, si se desea, se puede redireccionar desde el servidor */
+    /* Sesión iniciada */
 
     //Si los datos no son correctos, o están vacíos, muestra un error
-    //Además, hay un script que vacía los campos con la clase "acceso" (formulario)
 } else if ($userBD != $usuario || $usuario == "" || $contrasenna == "" || $passwordBD != $contrasenna) {
     die('Datos Incorrectos');
 } else if ($is_admin == false) {

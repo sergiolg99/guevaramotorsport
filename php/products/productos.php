@@ -56,15 +56,15 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <hr class="sidebar-divider">
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
             <i class="fas fa-users"></i>
             <span>Usuarios</span>
           </a>
           <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="#">Usuarios</a>
-              <a class="collapse-item" href="usuarios_vehiculos.php">Vehículos</a>
+              <a class="collapse-item" href="../users/usuarios.php">Usuarios</a>
+              <a class="collapse-item" href="../users/usuarios_vehiculos.php">Vehículos</a>
             </div>
           </div>
         </li>
@@ -76,13 +76,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="../products/productos.php">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Productos en venta</span>
-          </a>
+        <li class="nav-item active">
+					<a class="nav-link" href="productos.php">
+						<i class="fas fa-shopping-cart"></i>
+						<span>Productos en venta</span>
+					</a>
         </li>
-
+        
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -115,14 +115,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Lista de Usuarios</li>
+              <li class="breadcrumb-item"><a href="#">Productos</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Lista de Productos en venta</li>
             </ol>
           </nav>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -147,37 +146,39 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <a class="btn btn-primary noFocus" href="newUser.php" role="button"><i class="fas fa-plus"></i> Añadir Usuario</a>
+                <a class="btn btn-primary noFocus" href="newProduct.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
                 <br><br>
-                <table class="table" id="users" width="100%" cellspacing="0" style="max-height: 100%">
+                <table class="table" id="products" width="100%" cellspacing="0" style="max-height: 100%">
                   <thead>
                     <tr>
-                      <th>Email</th>
                       <th>Nombre</th>
-                      <th>Direccion</th>
-                      <th>DNI</th>
-                      <th>Admin</th>
+                      <th>Descripción</th>
+                      <th>Imagen</th>
+                      <th>Precio</th>
+                      <th>Stock</th>
+                      <th>Active</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM usuarios";
+                    $consulta = "SELECT `id_producto`, `nombre`, `precio`, `descripcion`, `stock`, `is_active` FROM productos";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php echo $fila["email"]; ?></td>
-                        <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
-                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
-                            $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
-                            $result2 = mysqli_query($conexion, $consulta2);
-                            while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"] . ", " . $fila["cp"];
-                            }; ?></td>
-                        <td><?php echo $fila["dni"]; ?></td>
+                        <td><?php echo $fila["nombre"]; ?></td>
+                        <td><?php echo $fila["descripcion"]; ?></td>
+                        <td><img src="obtenerImagen.php?id=<?php echo $fila["id_producto"]; ?>" width="80" height="80" id="imagenProducto" /></td>
+                        <td><?php echo $fila["precio"] . " €"; ?></td>
                         <td><?php
-                            if ($fila['is_admin'] == 1) {
+                            if ($fila['stock'] > 0) {
+                              echo $fila['stock'];
+                            } else {
+                              echo "<span class='fas fa-exclamation-circle' style='color:red';></span>";
+                            }
+                            ?></td>
+                        <td><?php
+                            if ($fila['is_active'] == 1) {
                               echo "<span class='fas fa-check-circle' style='color:green';></span>";
                             } else {
                               echo "<span class='fas fa-minus-circle' style='color:red';></span>";
@@ -185,8 +186,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editUser.php?id=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-danger noFocus" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -209,27 +210,27 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--Delete User Modal-->
-  <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <!--Delete Product Modal-->
+  <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteUserModal">Borrar Usuario</h5>
+          <h5 class="modal-title" id="deleteProductModal">Borrar Producto</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Estas seguro que quieres borrar este usuario?
+          Estas seguro que quieres borrar este producto?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Usuario</button>
+          <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Producto</button>
         </div>
       </div>
     </div>
   </div>
-  <!--Delete User Modal-->
+  <!--Delete Product Modal-->
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -259,19 +260,19 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#users').DataTable();
+      $('#products').DataTable();
     });
 
-    function borrarUsuario(id) {
-      $('#deleteUserModal').modal();
+    function borrarProducto(id) {
+      $('#deleteProductModal').modal();
       $('#submit').click(function(e) {
         e.preventDefault();
         data = {
-          "id_usuario": id
+          "id_producto": id
         };
 
         $.ajax({
-          url: "deleteUser.php",
+          url: "deleteProduct.php",
           type: "POST",
           dataType: "HTML",
           data: data,
@@ -280,8 +281,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         }).done(function(echo) {
 
           if (echo == "exito") {
-            alert("Usuario borrado con éxito");
-            window.location.replace("usuarios.php")
+            alert("Producto borrado con éxito");
+            window.location.replace("productos.php")
           } else if (echo == "error") {
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
           }

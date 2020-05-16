@@ -71,25 +71,25 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="usuarios.php">Usuarios</a>
-                            <a class="collapse-item" href="usuarios_vehiculos.php">Vehículos</a>
+                            <a class="collapse-item" href="../users/usuarios.php">Usuarios</a>
+                            <a class="collapse-item" href="../users/usuarios_vehiculos.php">Vehículos</a>
                         </div>
                     </div>
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle"></i>
-						<span>Modelos Vehículos</span>
-					</a>
+                    <a class="nav-link" href="../vehicles/vehiculos.php">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>Modelos Vehículos</span>
+                    </a>
                 </li>
 
-                <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
-				</li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -98,6 +98,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
+
             </div>
             <div class="text-center">
                 <div class="container">
@@ -123,8 +124,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="usuarios.php">Usuarios</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Nuevo Usuario</li>
+                            <li class="breadcrumb-item"><a href="productos.php">Productos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nuevo Producto</li>
                         </ol>
                     </nav>
 
@@ -151,69 +152,46 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Content Row -->
-                    <form action="" method="POST" id="createUser">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" name="email" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="password" required>
-                            </div>
-                        </div>
+                    <form action="" method="POST" id="createProduct" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputName">Nombre</label>
-                                <input type="text" class="form-control" id="inputName" name="nombre" required>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
                             </div>
-                            <div class="form-group col-md-8">
-                                <label for="inputLastName">Apellidos</label>
-                                <input type="text" class="form-control" id="inputLastName" name="apellidos" required>
+                            <div class="form-group col-md-2"></div>
+                            <div class="form-group col-md-4">
+                                <label for="inputName">Precio</label>
+                                <input type="number" class="form-control" id="precio" name="precio" step="0.01" placeholder="Precio en €" required>
                             </div>
                         </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label for="descripcion">Descripcion</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción del producto" required>
+                            </div>
+                        </div>
+                        <br>
                         <div class="form-group">
-                            <label for="inputAddress">Dirección</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="Calle Mayor 72" name="direccion" required>
+                            <label for="imagen">Imagen</label>
+                            <input type="file" class="form-control-file" id="imagen" name="imagen" required>
                         </div>
+                        <br>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Localidad</label>
-                                <input type="text" class="form-control" id="inputCity" name="localidad" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputProvince">Provincia</label>
-                                <select id="inputProvince" class="form-control" name="provincia" required>
-                                    <option value="0">Selecciona...</option>
-                                    <?php
-                                    $query = $conexion->query("SELECT `id`, `nombre` FROM provincias");
-                                    while ($provincia = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $provincia['id'] . '">' . $provincia['nombre'] . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                             <div class="form-group col-md-2">
-                                <label for="inputCP">Cod. Postal</label>
-                                <input type="text" class="form-control" id="inputCP" maxlength="5" name="cp" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="inputDNI">DNI</label>
-                                <input type="text" class="form-control" id="inputDNI" maxlength="9" placeholder="12345678A" name="dni" required>
+                                <label for="stock">Stock</label>
+                                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock disponible" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="inputIsAdmin" name="is_admin" checked value="1">
-                                <label class="custom-control-label" for="inputIsAdmin">Is Admin</label>
+                                <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" checked value="1">
+                                <label class="custom-control-label" for="is_active">Activo</label>
                             </div>
                         </div>
                         <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Crear Usuario</button>
+                        <button class="btn btn-primary" type="submit" id="submit">Crear Producto</button>
                     </form>
                 </div>
             </div>
@@ -251,39 +229,45 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="../../js/sidebar-admin.min.js"></script>
     <script>
-        $("#createUser").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
+        $("#createProduct").on("submit", function(e) {
             e.preventDefault();
-            //Creamos un FormData con los datos del mismo formulario
-            data = $('#createUser').serialize();
             $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "createUser.php",
-                //Definimos el tipo de método de envío
+                url: "createProduct.php",
                 type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
-                dataType: "HTML",
-                //Definimos la información que vamos a enviar
-                data: data,
-                //Deshabilitamos el caché
+                data: new FormData(this),
+                contentType: false,
                 cache: false,
+                processData: false,
+
             }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
                 if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
-                    alert("Usuario creado con éxito");
-                    window.location.replace("usuarios.php")
+                    alert("Producto creado con éxito");
+                    window.location.replace("productos.php")
                 } else if (echo == "existe") {
-                    alert("Este usuario ya existe");
+                    alert("Este producto ya existe");
+                } else if (echo == "errorImagen") {
+                    alert("Imagen no disponible");
+                } else if (echo == "formato") {
+                    alert("Formato de archivo no permitido o excede el tamaño límite de Kbytes.");
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                 }
             });
+        });
+
+        /* Validación tipo fichero */
+        $("#imagen").change(function() {
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg"];
+            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
+                alert('Por favor, selecciona un tipo de archivo válido (JPEG/JPG/PNG).');
+                $("#imagen").val('');
+                return false;
+            }
         });
     </script>
 </body>

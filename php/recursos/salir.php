@@ -1,8 +1,5 @@
 <?php
-//Reanudamos la sesión
 session_start();
-
-//Requerimos los datos de la conexión a la BBDD
 require_once('conexionBD.php');
 
 //Des-establecemos todas las sesiones
