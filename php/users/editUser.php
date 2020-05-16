@@ -14,7 +14,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     $usuario = $_SESSION['usuario'];
 }
 
-$id = $_GET['id_usuario'];
+$id = $_GET['id'];
 
 $consulta = "SELECT * FROM usuarios WHERE id_usuario = '$id'";
 $result = mysqli_query($conexion, $consulta);
@@ -69,29 +69,6 @@ $fila = mysqli_fetch_array($result)
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Components</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Addons
-                </div>
-
                 <!-- Nav Item - Charts -->
                 <li class="nav-item active">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
@@ -108,10 +85,18 @@ $fila = mysqli_fetch_array($result)
 
                 <li class="nav-item">
                     <a class="nav-link" href="../vehicles/vehiculos.php">
-                        <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+                        <i class="fas fa-motorcycle"></i>
                         <span>Modelos Vehículos</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+					<a class="nav-link" href="../products/productos.php">
+						<i class="fas fa-shopping-cart"></i>
+						<span>Productos en venta</span>
+					</a>
+				</li>
+
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -391,7 +376,7 @@ $fila = mysqli_fetch_array($result)
             e.preventDefault();
             data = $('#editUser').serialize();
             $.ajax({
-                url: "updateUser.php?id_usuario=<?php echo $fila["id_usuario"]; ?>",
+                url: "updateUser.php?id=<?php echo $fila["id_usuario"]; ?>",
                 type: "POST",
                 dataType: "HTML",
                 data: data,
@@ -408,7 +393,7 @@ $fila = mysqli_fetch_array($result)
         });
 
         function asociarVehiculoUsuario() {
-            usuario = <?php echo $_GET["id_usuario"]; ?>;
+            usuario = <?php echo $_GET["id"]; ?>;
             moto = $('#cilindrada').val();
             year = $('#year').val();
             matricula = $('#matricula').val().toUpperCase();

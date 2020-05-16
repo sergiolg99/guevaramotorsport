@@ -55,29 +55,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
-          </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Components:</h6>
-              <a class="collapse-item" href="buttons.html">Buttons</a>
-              <a class="collapse-item" href="cards.html">Cards</a>
-            </div>
-          </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Addons
-        </div>
-
         <!-- Nav Item - Charts -->
         <li class="nav-item active">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
@@ -94,10 +71,18 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
         <li class="nav-item">
           <a class="nav-link" href="../vehicles/vehiculos.php">
-            <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+            <i class="fas fa-motorcycle"></i>
             <span>Modelos Vehículos</span>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../products/productos.php">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Productos en venta</span>
+          </a>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -200,7 +185,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editUser.php?id_usuario=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-outline-warning noFocus" href="editUser.php?id=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
                           <a class="btn btn-danger noFocus" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>

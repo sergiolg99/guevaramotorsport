@@ -5,7 +5,7 @@ $email = $_POST['email'];
 if (!isset($_POST['is_admin'])) 
 $_POST['is_admin'] = 0;
 
-$buscarUsuario = "SELECT * FROM usuarios WHERE email = '$email'";
+$buscarUsuario = "SELECT 'id_usuario' FROM usuarios WHERE email = '$email'";
 $resultado = $conexion->query($buscarUsuario);
 $existe = mysqli_num_rows($resultado);
 
