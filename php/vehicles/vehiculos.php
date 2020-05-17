@@ -77,11 +77,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../products/productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -193,6 +193,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     ?>
                                                 </td>
                                                 <td>
+                                                    <a class="btn btn-outline-warning noFocus" href="editVehicle.php?id=<?php echo $fila["id_moto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
                                                     <a class="btn btn-danger noFocus" onclick="borrarVehiculo('<?php echo $fila["id_moto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                                 </td>
                                             </tr>

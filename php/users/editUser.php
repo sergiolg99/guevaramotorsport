@@ -91,11 +91,11 @@ $fila = mysqli_fetch_array($result)
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../products/productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -197,12 +197,13 @@ $fila = mysqli_fetch_array($result)
                                 <label for="inputProvince">Provincia</label>
                                 <select id="inputProvince" class="form-control" name="provincia" required>
                                     <option selected value="<?php echo $fila["provincia"]; ?>"><?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
-                                                                                                $result2 = mysqli_query($conexion, $consulta2);
-                                                                                                while ($fila2 = mysqli_fetch_array($result2)) {
-                                                                                                    echo $fila2["nombre"];
-                                                                                                };
-                                                                                                ?></option>
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id 
+                                                        WHERE usuarios.id_usuario = $fila[id_usuario]";
+                                                        $result2 = mysqli_query($conexion, $consulta2);
+                                                        while ($fila2 = mysqli_fetch_array($result2)) {
+                                                            echo $fila2["nombre"];
+                                                        };
+                                                        ?></option>
                                     <?php
                                     $query = $conexion->query("SELECT * FROM provincias");
                                     while ($provincia = mysqli_fetch_array($query)) {
