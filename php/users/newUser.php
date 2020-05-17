@@ -78,18 +78,18 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../vehicles/vehiculos.php">
-						<i class="fas fa-motorcycle"></i>
-						<span>Modelos Vehículos</span>
-					</a>
+                    <a class="nav-link" href="../vehicles/vehiculos.php">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>Modelos Vehículos</span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../products/productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -155,13 +155,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     <!-- Content Row -->
                     <form action="" method="POST" id="createUser">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="inputEmail">Email</label>
                                 <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" name="email" required>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="inputPassword">Contraseña</label>
                                 <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="password" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword2">Repite la contraseña</label>
+                                <input type="password" class="form-control" id="inputPassword2" placeholder="Repite la contraseña" name="password2" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -256,34 +260,32 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script src="../../js/sidebar-admin.min.js"></script>
     <script>
         $("#createUser").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
-            e.preventDefault();
-            //Creamos un FormData con los datos del mismo formulario
-            data = $('#createUser').serialize();
-            $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "createUser.php",
-                //Definimos el tipo de método de envío
-                type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
-                dataType: "HTML",
-                //Definimos la información que vamos a enviar
-                data: data,
-                //Deshabilitamos el caché
-                cache: false,
-            }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
-                if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
-                    alert("Usuario creado con éxito");
-                    window.location.replace("usuarios.php")
-                } else if (echo == "existe") {
-                    alert("Este usuario ya existe");
-                } else {
-                    alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
-                }
-            });
+            password1 = $('#inputPassword').val();
+            password2 = $('#inputPassword2').val();
+            if (password1 != password2) {
+                e.preventDefault();
+                alert("Contraseñas no iguales");
+            } else {
+                e.preventDefault();
+                data = $('#createUser').serialize();
+                $.ajax({
+                    url: "createUser.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        alert("Usuario creado con éxito");
+                        window.location.replace("usuarios.php")
+                    } else if (echo == "existe") {
+                        alert("Este usuario ya existe");
+                    } else {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            }
         });
     </script>
 </body>

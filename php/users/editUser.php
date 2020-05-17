@@ -160,6 +160,7 @@ $fila = mysqli_fetch_array($result)
                 <div class="container-fluid">
                     <div class="form-group col" style="text-align: -webkit-right;">
                         <a class="btn btn-outline-dark" id="asociarVehiculo" data-toggle="modal" data-target="#asociarVehiculoUsuario" style="color: black;"><i class="fas fa-edit"></i> Asociar Vehículo</a>
+                        <a class="btn btn-warning" id="changePassword" data-toggle="modal" data-target="#changePasswordModal" style="color: black;"><i class="fas fa-key"></i> Cambiar Contraseña</a>
                     </div>
                     <!-- Content Row -->
                     <form action="" method="POST" id="editUser">
@@ -170,7 +171,7 @@ $fila = mysqli_fetch_array($result)
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" name="password" required value="<?php echo $fila["password"]; ?>">
+                                <input type="password" class="form-control" id="inputPassword" name="password" required value="<?php echo $fila["password"]; ?>" disabled>
                             </div>
                         </div>
                         <div class="form-row">
@@ -293,6 +294,42 @@ $fila = mysqli_fetch_array($result)
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
                     <button class="btn btn-primary" onclick="asociarVehiculoUsuario()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cambiar Contraseña -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Cambiar contraseña</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="password1">Contraseña</label>
+                                <input type="password" class="form-control" name="password1" id="password1" placeholder="Contraseña" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="password2">Repite la contraseña</label>
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Repite la contraseña" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" onclick="changePassword()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -424,7 +461,34 @@ $fila = mysqli_fetch_array($result)
             } else {
                 alert("Faltan datos");
             }
+        };
 
+        function changePassword() {
+            password1 = $('#password1').val();
+            password2 = $('#password2').val();
+            if (password1 != "" && password1 == password2) {
+                data = {
+                    password1: password1,
+                    password2: password2
+                };
+
+                $.ajax({
+                    url: "changePassword.php?id=<?php echo $_GET["id"]; ?>;",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        alert("Contraseña cambiada");
+                        window.location.replace("editUser.php?id=<?php echo $_GET["id"]; ?>")
+                    } else if (echo == "error") {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            } else {
+                alert("Faltan datos");
+            }
         };
     </script>
 </body>

@@ -61,8 +61,6 @@
     </nav>
   </header>
 
-
-
   <div id="main">
     <div id="container">
       <form name="cita" class="reserva" method="POST" enctype="text/plain">
@@ -289,7 +287,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function(e) {
       $.ajax({
         type: "POST",
         url: "../php/vehicles/getMarcas.php",
