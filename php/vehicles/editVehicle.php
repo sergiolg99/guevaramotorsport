@@ -13,6 +13,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     require('../recursos/sesiones.php');
     $usuario = $_SESSION['usuario'];
 }
+
+$id = $_GET['id'];
+
+$consulta = "SELECT * FROM motos WHERE id_moto = '$id'";
+$result = mysqli_query($conexion, $consulta);
+$fila = mysqli_fetch_array($result)
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +83,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </div>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="vehiculos.php">
                         <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
                         <span>Modelos Vehículos</span>
@@ -85,11 +91,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </li>
 
                 <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../products/productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -124,7 +130,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Nuevo Vehículo</li>
+                            <li class="breadcrumb-item active" aria-current="page">Editar Vehículo</li>
                         </ol>
                     </nav>
 
@@ -153,11 +159,25 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <div class="container-fluid">
 
                     <!-- Content Row -->
-                    <form action="" method="POST" id="createVehicle">
+                    <form action="" method="POST" id="editVehicle">
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="fabricante">Fabricante</label>
                                 <select id="fabricante" class="form-control fabricante" name="fabricante" required>
+                                    <?php $consulta2 = "SELECT moto_makers.nombre, moto_makers.id FROM motos
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id
+                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                                        WHERE motos.id_moto = $fila[id_moto]";
+                                    $result2 = mysqli_query($conexion, $consulta2);
+                                    while ($fila2 = mysqli_fetch_array($result2)) {
+                                        echo '<option selected value="' . $fila2["id"] . '">' . $fila2["nombre"] . '</option>';
+                                    };
+                                    $query = "SELECT id, nombre FROM moto_makers ORDER BY nombre";
+                                    $result = mysqli_query($conexion, $query);
+
+                                    while ($fila3 = mysqli_fetch_array($result)) {
+                                        echo '<option value="' . $fila3["id"] . '">' . $fila3["nombre"] . '</option>';
+                                    } ?>
                                 </select>
                                 <a class="btn btn-primary noFocus" data-toggle="modal" data-target="#newMaker" style="margin-top: 2%; color: white" role="button"><i class="fas fa-plus"></i> Añadir Fabricante</a>
                             </div>
@@ -165,7 +185,14 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             <div class="form-group col-md-3">
                                 <label for="modelo">Modelo</label>
                                 <select id="modelo" class="form-control" name="modelo" required>
-                                    <option value="0">Esperando...</option>
+                                    <?php $consulta4 = "SELECT moto_models.nombre, moto_models.id FROM motos 
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
+                                                        WHERE motos.id_moto = $fila[id_moto]";
+                                    $result4 = mysqli_query($conexion, $consulta4);
+                                    while ($fila4 = mysqli_fetch_array($result4)) {
+                                        echo '<option selected value="' . $fila4["id"] . '">' . $fila4["nombre"] . '</option>';
+                                    };
+                                    ?>
                                 </select>
                                 <a class="btn btn-primary noFocus" data-toggle="modal" data-target="#newModel" style="margin-top: 2%; color: white" role="button"><i class="fas fa-plus"></i> Añadir Modelo</a>
                             </div>
@@ -174,11 +201,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="cilindrada">Cilindrada</label>
-                                <input type="number" class="form-control" id="cilindrada" placeholder="Cilindrada en cc" name="cilindrada" required>
+                                <input type="number" class="form-control" id="cilindrada" placeholder="Cilindrada en cc" name="cilindrada" required value="<?php echo $fila['cilindrada']; ?>">
                             </div>
                         </div>
                         <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Crear Vehículo</button>
+                        <button class="btn btn-primary" type="submit" id="submit">Actualizar Vehículo</button>
                     </form>
                 </div>
             </div>
@@ -227,7 +254,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </div>
                 <div class="modal-body">
                     <label for="fabricante">Fabricante</label>
-                    <select id="fabricanteModal" class="form-control fabricante" name="fabricante" required>
+                    <select id="fabricanteModal" class="form-control" name="fabricante" required>
                     </select>
                     <br>
                     <label for="inputNewModel">Nombre</label>
@@ -274,12 +301,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 type: "POST",
                 url: "getMarcas.php",
                 success: function(response) {
-                    $('.fabricante').html(response).fadeIn();
+                    $('#fabricanteModal').html(response).fadeIn();
                 }
             });
 
-            $("#fabricante.fabricante").change(function() {
-                fabricante = $('.fabricante').val();
+            $("#fabricante").change(function() {
+                fabricante = $('#fabricante').val();
                 $.ajax({
                     type: "POST",
                     data: "fabricante=" + fabricante,
@@ -288,13 +315,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         $('#modelo').html(response).fadeIn();
                     }
                 });
-            })
+            });
         });
 
-        $("#createVehicle").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
+        $("#editVehicle").on("submit", function(e) {
             e.preventDefault();
-            //Creamos un FormData con los datos del mismo formulario
             modelo = $('#modelo').val();
             cilindrada = $('#cilindrada').val();
             var data = {
@@ -302,22 +327,15 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 "cilindrada": cilindrada
             };
             $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "createVehicle.php",
-                //Definimos el tipo de método de envío
+                url: "updateVehicle.php?id=<?php echo $fila["id_moto"]; ?>",
                 type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
                 dataType: "HTML",
-                //Definimos la información que vamos a enviar
                 data: data,
-                //Deshabilitamos el caché
                 cache: false,
+
             }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
                 if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
-                    alert("Vehículo creado con éxito");
+                    alert("Vehículo actualiado con éxito");
                     window.location.replace("vehiculos.php")
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");

@@ -67,7 +67,7 @@ var baseDeDatos = [{
     },
     {
         id: 9,
-        nombre: 'Candado antirrobo',
+        nombre: 'Candado antirobo',
         precio: 19,
         imagen: 'imagenes/productos/candado.jpg',
         descripcion: 'Candado de la mas alta calidad para evitar el robo de nuestras motos.',
