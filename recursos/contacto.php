@@ -27,11 +27,11 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
   <!-- CSS Propio -->
   <link rel="stylesheet" href="../css/estilos.css" />
-  <link rel="icon" type="image/png" href="imagenes/logo.png" />
+  <link rel="icon" type="image/png" href="./imagenes/logo.png" />
   <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>
 
-<body class="fondoLiso">
+<body class="fondoLiso" onload="ajax()">
   <header class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light h5" style="background-color: white;">
       <div class="container">
@@ -45,7 +45,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <li class="nav-item">
               <a class="nav-link" href="../index.php">INICIO&nbsp;</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="taller.php">RESERVAR CITA&nbsp;</a>
             </li>
             <li class="nav-item">
@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <li class="nav-item">
               <a class="nav-link" href="../index.php">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
             </li>
             <li class="nav-item" id="iniciarSesion" <?php print($showLogin) ?>>
@@ -83,115 +83,54 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     </nav>
   </header>
 
+
+
   <div id="main">
-    <div id="container">
-      <form name="cita" class="reserva" method="POST" enctype="text/plain">
-        <div class="row">
-          <h2 id="titulo">Solicitud de cita previa &#128394;</h2>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="moto">
-              <fieldset class="fieldsetTaller">
-                <legend>Datos de la moto</legend>
-                <label>Marca:</label>
-                <select name="fabricante" id="fabricante" class="selectMarca"></select>
-                <br><br>
-                <label>Modelo:</label>
-                <select name="modelo" id="modelo" class="selectMarca">
-                  <option value="0">Esperando...</option>
-                </select>
-
-                <br><br>
-
-                <label>Año:</label>
-                <select name="año" id="anno" class="datosReserva noFocus">
-                  <option value="0">Selecciona...</option>
-                </select>
-              </fieldset>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+          <form name="contacto" class="contacto" onsubmit="return enviarFormulario();" method="post" enctype="text/plain">
+            <h3 class="h3">Envíanos un correo electrónico &#128394;</h3>
+            <br>
+            <div class="form-row">
+              <div class="campoDatos">
+                <input type="text" class="form-control datosContacto noFocus" id="inputName" placeholder="¿Como te llamas?" required>
+              </div>
+              <div class="campoDatos">
+                <input type="email" class="form-control datosContacto noFocus" id="inputMail" placeholder="Correo electrónico" required>
+              </div>
             </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="datosPersonales">
-              <fieldset class="fieldsetTaller">
-                <legend>Datos Personales</legend>
-                <label>Nombre completo:</label>
-                <input type="text" name="nombre" class="datosReserva noFocus" value="" size="26" placeholder="Nombre y apellidos" />
-
-                <br><br>
-
-                <label>Teléfono de contacto:</label>
-                <input type="tel" name="telefono" class="datosReserva noFocus" value="" maxlength="9" placeholder="Número de movil" />
-
-                <br><br>
-
-                <label>Email:</label>
-                <input type="email" name="email1" class="datosReserva noFocus" value="" size="25" placeholder="example@correo.com" />
-              </fieldset>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="datosCita">
-              <fieldset class="fieldsetTaller">
-                <legend>Datos de la cita</legend>
-                <label>Día de la cita:</label>
-                <input type="date" id="fecha" name="fecha" class="datosReserva noFocus">
-                <br><br>
-                <label>Hora:</label>
-                <input type="time" id="hora" name="hora" class="datosReserva noFocus">
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="comentariosTaller">
-              <label>Comentarios:</label>
-              <textarea name="comentarios" class="comentariosReserva noFocus" rows="8" placeholder="Escriba aquí sus peticiones y comentarios"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div id="botonesTaller">
-            <button onclick="funcionReset()" class="botonBonitoTaller">RESETEAR</button>
-            <button onclick="comprobarEnviar()" class="botonBonitoTaller enviarTaller">ENVIAR</button>
-          </div>
-        </div>
-      </form>
-
-      <br>
-
-      <div id="cajaContacto">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <i class="fas fa-phone-alt"></i> Teléfono: <a href="tel:+34634473757" style="color:white;" title="Llamar por teléfono">666 66
-                66
-                66</a>
+            <div class="form-row">
+              <div class="campoDatos">
+                <input type="tel" class="form-control datosContacto noFocus" id="inputPhone" placeholder="Nº de teléfono" minlength="9" maxlength="9">
+              </div>
+              <div class="campoDatos">
+                <input type="text" class="form-control datosContacto noFocus" id="inputAsunto" placeholder="Asunto" required>
+              </div>
             </div>
             <br>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              &#9993; Email: <a href="mailto:sergiolg_99@hotmail.com?Subject=Contacto%20desde%20la%20pagina%20web" style="color:white;" title="Enviar correo">info@guevaramotorsport.com</a>
+            <div class="form-row" style="padding: 0 12px 8px 6px">
+
+              <textarea name="descripcion" cols="53" rows="8" class="form-control datosContacto comentariosContacto noFocus" placeholder="Cuéntanos en detalle..." required></textarea>
+
             </div>
-          </div>
-          <hr>
-          <div class="row copy">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div id="copyright">
-                Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo
-                una licencia Creative Commons <i class="fab fa-creative-commons"></i> Attribution 4.0 International
-                <br>
-                Copyright&copy; 2020 Guevara MotorSport. Todos los derechos reservados</div>
-            </div>
+            <button onclick="enviarFormulario()" class="botonBonitoContacto">ENVIAR</button>
+          </form>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+          <div id="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2965.2201380756032!2d-4.5118914331608595!3d41.995550881629015!2m3!1f0!2f0!3f0
+        !3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd47b1ca3937f617%3A0x7fa6f11d305233ff!2sCobarsa%20Volkswagen!5e0!3m2!1ses!2ses!4v1574166414522!5m2!1ses!2ses" width="100%" height="510px" frameborder="0" style="border-radius:15px;"></iframe>
           </div>
         </div>
       </div>
+
+      <br><br>
+
+      <h2>Gasolineras en Palencia</h2>
+      <hr>
+      <div id="ajax"></div>
     </div>
 
     <!--Modal: Inicio sesion / registrarse -->
@@ -284,8 +223,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 <!--Footer-->
                 <div class="modal-footer">
                   <div class="options text-right">
-                    <p class="pt-1">Ya tienes una cuenta? <a data-toggle="tab" href="#tabLogin" class="blue-text">Inicia
-                        Sesión</a></p>
+                    <p class="pt-1">Ya tienes una cuenta? <a data-toggle="tab" href="#tabLogin" class="blue-text">Inicia Sesión</a></p>
                   </div>
                   <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                 </div>
@@ -296,6 +234,33 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
           </div>
         </div>
         <!--/.Content-->
+      </div>
+    </div>
+
+    <br><br>
+
+    <div id="cajaContacto">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <i class="fas fa-phone-alt"></i> Teléfono: <a href="tel:+34634473757" style="color:white;" title="Llamar por teléfono">666 66 66
+              66</a>
+          </div>
+          <br>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            &#9993; Email: <a href="mailto:sergiolg_99@hotmail.com?Subject=Contacto%20desde%20la%20pagina%20web" style="color:white;" title="Enviar correo">info@guevaramotorsport.com</a>
+          </div>
+        </div>
+        <hr>
+        <div class="row copy">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="copyright">
+              Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo
+              una licencia Creative Commons <i class="fab fa-creative-commons"></i> Attribution 4.0 International
+              <br>
+              Copyright&copy; 2020 Guevara MotorSport. Todos los derechos reservados</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -321,42 +286,46 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
   <button class="back-to-top" id="back-to-top"></button>
 
+  <script>
+    function ajax() {
+      $.ajax({
+        url: "../php/ajax.php",
+        type: "post",
+        dataType: "JSON",
 
+        beforeSend: function() {
+          $("#ajax").html("<h5> Cargando Datos...</h5>");
+        },
+
+        success: function(datos) {
+          $("#ajax").html("");
+          for (var i = 0; i < 10; i++) {
+            $("#ajax").append("<li><b>" + datos[i]["rotulo"] +
+              "</b><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Dirección: " + datos[i]["direccion"] +
+              "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Precio gasóleo: " + datos[i]["precio_gasoleo"] +
+              " € " +
+              "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Precio gasolina 95: " + datos[i][
+                "precio_gasolina95"
+              ] + " €" +
+              "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Precio gasolina 98: " + datos[i][
+                "precio_gasolina98"
+              ] + "</li> <br>");
+          }
+        },
+
+        error: function(xhr, excepcion, textoError) {
+          alert("Ocurrió un " + excepcion);
+          alert("Ha ocurrido el error " + xhr.status + ": " + textoError);
+          $("#ajax").html("");
+        }
+      })
+    }
+  </script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
-  <script>
-    $(document).ready(function(e) {
-      $.ajax({
-        type: "POST",
-        url: "../php/vehicles/getMarcas.php",
-        success: function(response) {
-          $('#fabricante').html(response).fadeIn();
-        }
-      });
-
-      $("#fabricante").change(function() {
-        fabricante = $('#fabricante').val();
-        $.ajax({
-          type: "POST",
-          data: "fabricante=" + fabricante,
-          url: "../php/vehicles/getModelos.php",
-          success: function(response) {
-            $('#modelo').html(response).fadeIn();
-          }
-        });
-      })
-    });
-
-    function ComboAno() {
-      var n = (new Date()).getFullYear()
-      var select = document.getElementById("anno");
-      for (var i = n; i >= 1950; i--) select.options.add(new Option(i, i));
-    };
-    window.onload = ComboAno;
-  </script>
 </body>
 
 </html>

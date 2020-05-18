@@ -12,7 +12,11 @@ session_destroy();
 mysqli_close($conexion);
 
 //Redireccionamos a el index
-header("Location: ../");
+if (isset($_GET['action'])) {
+  header("Location: ../../");
+} else {
+  header("Location: ../administrar.php");
+}
 die();
 ?>
 <!doctype html>

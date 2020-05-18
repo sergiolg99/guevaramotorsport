@@ -52,11 +52,79 @@ $('#back-to-top').click(function () {
 
 // MODAL SESIÓN ***************************************************************
 function inicioSesion() {
-  let email = document.getElementById("inputEmailLogin");
-  let password = document.getElementById("inputPasswordLogin");
+  let email = $('#inputEmailLogin').val();
+  let contrasenna = $('#inputPasswordLogin').val();
+  var data = {
+    email: email,
+    contrasenna: contrasenna
+  };
 
-  $('#inicarSesion').add('hidden');
+  $.ajax({
+    url: "php/recursos/verificar.php?action=cliente",
+    type: "POST",
+    dataType: "HTML",
+    data: data,
+    cache: false,
 
+  }).done(function (echo) {
+    if (echo !== "") {
+      $("#response").html(echo);
+    } else {
+      // window.location.replace("");
+      window.location.replace("");
+    }
+  });
+}
+
+function registrarse() {
+  let email = $('#inputEmailRegister').val();
+  let password = $('#inputPasswordRegister1').val();
+  let password2 = $('#inputPasswordRegister2').val();
+
+  if (password == password2) {
+    var data = {
+      email: email,
+      password: password
+    };
+
+    $.ajax({
+      url: "php/users/createUser.php?action=cliente",
+      type: "POST",
+      dataType: "HTML",
+      data: data,
+      cache: false,
+
+    }).done(function (echo) {
+      if (echo == "exito") {
+        alert("Usuario creado con éxito");
+        var data1 = {
+          email: email,
+          contrasenna: password
+        };
+      
+        $.ajax({
+          url: "php/recursos/verificar.php?action=cliente",
+          type: "POST",
+          dataType: "HTML",
+          data: data1,
+          cache: false,
+      
+        }).done(function (echo) {
+          if (echo !== "") {
+            $("#response").html(echo);
+          } else {
+            window.location.replace("");
+          }
+        });
+      } else if (echo == "existe") {
+        alert("Este usuario ya existe");
+      } else {
+        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+      }
+    });
+  } else {
+    $("#response").text("Las contraseñas no son iguales");
+  }
 }
 
 // FORMULARIO CONTACTO ********************************************************
@@ -176,7 +244,7 @@ function pagar() {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
           alert("Compra realizada correctamente");
-          window.open('../index.html');
+          window.open('../index.php');
           localStorage.removeItem('carrito');
           localStorage.removeItem('total');
           window.close();
