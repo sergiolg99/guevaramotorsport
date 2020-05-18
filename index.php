@@ -1,5 +1,5 @@
 <?php
-require_once('php/recursos/conexionBD.php');
+require_once('admin/recursos/conexionBD.php');
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
@@ -10,7 +10,9 @@ if (!isset($_SESSION['usuario'])) {
   $showUser = "style='';";
   $showLogin = "style='display: none'";
   $usuario = $_SESSION['usuario'];
+  $id_usuario = $_SESSION['id_usuario'];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,7 +71,7 @@ if (!isset($_SESSION['usuario'])) {
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" style="color: black">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" style="color: black" href="editUser.php?id=<?php echo $id_usuario; ?>">MIS DATOS</a>
                 <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -302,7 +304,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>
       </div>
       <br>
-      <a class="btn btn-sm admin" href="php/administrar.php">ADMINISTRAR</a>
+      <a class="btn btn-sm admin" href="admin/administrar.php">ADMINISTRAR</a>
     </div>
   </div>
 
@@ -320,7 +322,7 @@ if (!isset($_SESSION['usuario'])) {
         <br>
         <div class="modal-footer">
           <button class="btn" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="php/recursos/salir.php?action=cliente">Cerrar Sesión</a>
+          <a class="btn btn-primary" href="admin/recursos/salir.php?action=cliente">Cerrar Sesión</a>
         </div>
       </div>
     </div>

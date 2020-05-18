@@ -1,5 +1,5 @@
 <?php
-require_once('../php/recursos/conexionBD.php');
+require_once('../admin/recursos/conexionBD.php');
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
@@ -313,7 +313,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         <div class="modal-body">Selecciona "Cerrar Sesión" si estas listo para terminar tu sesión actual.</div>
         <div class="modal-footer">
           <button class="btn" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="../php/recursos/salir.php?action=cliente">Cerrar Sesión</a>
+          <a class="btn btn-primary" href="../admin/recursos/salir.php?action=cliente">Cerrar Sesión</a>
         </div>
       </div>
     </div>
@@ -331,7 +331,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     $(document).ready(function(e) {
       $.ajax({
         type: "POST",
-        url: "../php/vehicles/getMarcas.php",
+        url: "../admin/vehicles/getMarcas.php",
         success: function(response) {
           $('#fabricante').html(response).fadeIn();
         }
@@ -342,7 +342,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         $.ajax({
           type: "POST",
           data: "fabricante=" + fabricante,
-          url: "../php/vehicles/getModelos.php",
+          url: "../admin/vehicles/getModelos.php",
           success: function(response) {
             $('#modelo').html(response).fadeIn();
           }

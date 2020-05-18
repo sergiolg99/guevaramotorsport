@@ -372,7 +372,6 @@ only screen and (max-width: 556px) {
 #ajax li {
     display: inline;
     padding: 1em;
-    width: 33%;
 }
 
 
@@ -555,6 +554,7 @@ h2.fuerte {
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
     -webkit-box-shadow: 0 0 0 0;
+    box-shadow: none;
 }
 
 .finalizarPago {

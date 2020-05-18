@@ -34,6 +34,7 @@ if ($action == "cliente") {
         } else {
             $_SESSION['usuario'] = $datos['nombre'];
         }
+        $_SESSION['id_usuario'] = $datos['id_usuario'];
         $_SESSION['estado'] = 'Cliente';
 
         /* Sesión iniciada */

@@ -1,5 +1,5 @@
 <?php
-require_once('../php/recursos/conexionBD.php');
+require_once('../admin/recursos/conexionBD.php');
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
@@ -278,7 +278,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         <div class="modal-body">Selecciona "Cerrar Sesión" si estas listo para terminar tu sesión actual.</div>
         <div class="modal-footer">
           <button class="btn" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="../php/recursos/salir.php?action=cliente">Cerrar Sesión</a>
+          <a class="btn btn-primary" href="../admin/recursos/salir.php?action=cliente">Cerrar Sesión</a>
         </div>
       </div>
     </div>
@@ -289,7 +289,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   <script>
     function ajax() {
       $.ajax({
-        url: "../php/ajax.php",
+        url: "../admin/ajax.php",
         type: "post",
         dataType: "JSON",
 

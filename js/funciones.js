@@ -60,7 +60,7 @@ function inicioSesion() {
   };
 
   $.ajax({
-    url: "php/recursos/verificar.php?action=cliente",
+    url: "admin/recursos/verificar.php?action=cliente",
     type: "POST",
     dataType: "HTML",
     data: data,
@@ -88,7 +88,7 @@ function registrarse() {
     };
 
     $.ajax({
-      url: "php/users/createUser.php?action=cliente",
+      url: "admin/users/createUser.php?action=cliente",
       type: "POST",
       dataType: "HTML",
       data: data,
@@ -103,7 +103,7 @@ function registrarse() {
         };
       
         $.ajax({
-          url: "php/recursos/verificar.php?action=cliente",
+          url: "admin/recursos/verificar.php?action=cliente",
           type: "POST",
           dataType: "HTML",
           data: data1,
