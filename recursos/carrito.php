@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 } else {
     $showUser = "style='';";
     $showLogin = "style='display: none'";
-    $estado = $_SESSION['estado'];
+    $id_usuario = $_SESSION['id_usuario'];
     $usuario = $_SESSION['usuario'];
 }
 ?>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                 <i class="fas fa-user-circle"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                                <a class="dropdown-item usuarioDropdown" style="color: black">MIS DATOS</a>
+                                <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php?id=<?php echo $id_usuario; ?>" style="color: black">MIS DATOS</a>
                                 <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
