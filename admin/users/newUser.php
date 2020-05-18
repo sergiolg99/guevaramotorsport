@@ -206,8 +206,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="inputDNI">DNI</label>
-                                <input type="text" class="form-control" id="inputDNI" maxlength="9" placeholder="12345678A" name="dni" required>
+                                <label for="inputPhone">Teléfono</label>
+                                <input type="tel" class="form-control" id="inputPhone" maxlength="9" placeholder="Nº de Teléfono" name="telefono" required>
                             </div>
                         </div>
                         <div class="form-row">

@@ -219,8 +219,8 @@ $fila = mysqli_fetch_array($result)
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="inputDNI">DNI</label>
-                                <input type="text" class="form-control" id="inputDNI" maxlength="9" name="dni" required value="<?php echo $fila["dni"]; ?>">
+                                <label for="inputPhone">Teléfono</label>
+                                <input type="tel" class="form-control" id="inputPhone" maxlength="9" name="telefono" required value="<?php echo $fila["telefono"]; ?>">
                             </div>
                         </div>
                         <div class="form-row">
@@ -424,6 +424,8 @@ $fila = mysqli_fetch_array($result)
                 if (echo == "exito") {
                     alert("Usuario actualizado con éxito");
                     window.location.replace("usuarios.php")
+                } else if (echo == "existe") {
+                        alert("Este correo ya existe, pruebe con otro");
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                 }

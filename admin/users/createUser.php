@@ -17,9 +17,9 @@ if ($existe == 1) {
     $password = sha1($password);
 
     if (!isset($_GET['action'])) {
-        $query = "INSERT INTO usuarios (email, password, nombre, apellidos, direccion, localidad, provincia, cp, dni, is_admin) 
+        $query = "INSERT INTO usuarios (email, password, nombre, apellidos, direccion, localidad, provincia, cp, telefono, is_admin) 
         VALUES ('$email', '$password', '$_POST[nombre]', '$_POST[apellidos]', '$_POST[direccion]', '$_POST[localidad]', 
-        '$_POST[provincia]', '$_POST[cp]', '$_POST[dni]', '$_POST[is_admin]')";
+        '$_POST[provincia]', '$_POST[cp]', '$_POST[telefono]', '$_POST[is_admin]')";
     } else if ($_GET['action'] == "cliente") {
         $query = "INSERT INTO usuarios (email, password, is_admin) 
         VALUES ('$email', '$password', '$_POST[is_admin]')";

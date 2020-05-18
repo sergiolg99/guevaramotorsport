@@ -71,8 +71,8 @@ if (!isset($_SESSION['usuario'])) {
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" style="color: black" href="editUser.php?id=<?php echo $id_usuario; ?>">MIS DATOS</a>
-                <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
+                <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php?id=<?php echo $id_usuario; ?>">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                   CERRAR SESIÓN
