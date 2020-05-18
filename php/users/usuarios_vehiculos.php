@@ -147,7 +147,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table" id="usuarios_vehiculos" width="100%" cellspacing="0" style="max-height: 100%">
+                <table class="table" id="usuarios_vehiculos" cellspacing="0" >
                   <thead>
                     <tr>
                       <th>Nombre</th>

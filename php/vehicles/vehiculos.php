@@ -149,7 +149,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             <div class="table-responsive">
                                 <a class="btn btn-primary noFocus" href="newVehicle.php" role="button"><i class="fas fa-plus"></i> Añadir Vehículo</a>
                                 <br><br>
-                                <table class="table" id="vehicles" width="100%" cellspacing="0" style="max-height: 100%">
+                                <table class="table" id="vehicles" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Fabricante</th>

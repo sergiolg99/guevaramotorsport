@@ -77,12 +77,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         </li>
 
         <li class="nav-item active">
-					<a class="nav-link" href="productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
+          <a class="nav-link" href="productos.php">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Productos en venta</span>
+          </a>
         </li>
-        
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -148,7 +148,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
               <div class="table-responsive">
                 <a class="btn btn-primary noFocus" href="newProduct.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
                 <br><br>
-                <table class="table" id="products" width="100%" cellspacing="0" style="max-height: 100%">
+                <table class="table" id="products" cellspacing="0" style="display: block; height: 485px; overflow-y: scroll">
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -192,6 +192,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                       </tr>
                     <?php }; ?>
                   </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Descripción</th>
+                      <th>Imagen</th>
+                      <th>Precio</th>
+                      <th>Stock</th>
+                      <th>Active</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>
