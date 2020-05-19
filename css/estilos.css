@@ -391,7 +391,6 @@ only screen and (max-width: 556px) {
 
 /*----------------------------- RESERVA TALLER --------------------------------*/
 .reserva {
-    margin-top: 2%;
     width: 98%;
     height: auto;
     padding: 2% 4% 2.5% 4.5%;
@@ -418,7 +417,6 @@ only screen and (max-width: 556px) {
 
 .botonBonitoTaller {
     width: 48%;
-    min-width: min-content;
     height: 100%;
     margin: auto;
     font-family: 'Montserrat', sans-serif;
@@ -476,14 +474,6 @@ only screen and (max-width: 556px) {
 
 .datosReserva:focus {
     border-bottom: 2px solid black;
-}
-
-.datosReserva:invalid {
-    box-shadow: 0 0 5px 1px red;
-}
-
-.datosReserva:focus:invalid {
-    outline: none;
 }
 
 .datosReserva::placeholder {
@@ -973,6 +963,18 @@ only screen and (max-width: 1000px) {
     background-color: #9fd9ff;
     color: white;
     border: 1px solid #9fd9ff;
+}
+
+/*-------------------------------- MIS DATOS -----------------------------*/
+#misDatos {
+    width: 35%;
+    margin-left: 3%;
+    font-size: 20px;
+}
+
+#misVehiculos {
+    width: 50%;
+    margin-left: 47%;
 }
 
 

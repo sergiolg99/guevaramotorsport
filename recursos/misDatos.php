@@ -16,7 +16,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
 $consulta = "SELECT * FROM usuarios WHERE id_usuario = '$id'";
 $result = mysqli_query($conexion, $consulta);
-$fila = mysqli_fetch_array($result)
+$fila = mysqli_fetch_array($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -89,79 +90,86 @@ $fila = mysqli_fetch_array($result)
     <div id="main">
         <div class="container-fluid">
             <br>
-            <div class="row" style="margin-left: 5%; margin-right: 5%;">
-                <div class="form-group col-md-6">
-                    <h2 id="titulo">Mis Datos Personales</h2>
+            <div class="row" style="margin-left: 4%; margin-right: 4%;">
+                <div class="form-group col-md-4">
+                    <h2 id="titulo">Mi Cuenta</h2>
                 </div>
-                <div class="form-group col-md-5" style="text-align: -webkit-right; margin-top: 1%;">
-                    <a class="btn btn-warning" id="changePassword" data-toggle="modal" data-target="#changePasswordModal" style="color: black;"><i class="fas fa-key"></i> Cambiar Contraseña</a>
+                <div class="form-group col-md-2"></div>
+                <div class="form-group col-md-5">
+                    <h2 id="titulo">Mis Vehículos</h2>
                 </div>
             </div>
 
             <!-- Content Row -->
-            <form action="" method="POST" id="editPersonalData" style="margin-left: 5%; margin-right: 5%;">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" name="email" required value="<?php echo $fila["email"]; ?>">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword">Contraseña</label>
-                        <input type="password" class="form-control" id="inputPassword" name="password" required value="<?php echo $fila["password"]; ?>" disabled>
-                    </div>
+            <div class="row">
+                <div class="form-group col-md-4" style="margin-left: 3%; font-size: 20px;">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" id="email" name="email" disabled value="<?php echo $fila["email"]; ?>">
+                    <br>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="email" disabled placeholder="No especificado" value="<?php echo $fila["nombre"]; ?>">
+                    <br>
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" disabled placeholder="No especificado" value="<?php echo $fila["apellidos"]; ?>">
+                    <br>
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" disabled placeholder="No especificado" value="<?php echo $fila["telefono"]; ?>">
+                    <br><br>
+                    <a class="btn btn-primary" type="button" href="editData.php"><i class="fas fa-edit"></i> Modificar Datos</a>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="inputName">Nombre</label>
-                        <input type="text" class="form-control" id="inputName" name="nombre" placeholder="Nombre" required value="<?php echo $fila["nombre"]; ?>">
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="inputLastName">Apellidos</label>
-                        <input type="text" class="form-control" id="inputLastName" name="apellidos" placeholder="Apellidos" required value="<?php echo $fila["apellidos"]; ?>">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress">Dirección</label>
-                    <input type="text" class="form-control" id="inputAddress" name="direccion" placeholder="Dirección" required value="<?php echo $fila["direccion"]; ?>">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">Localidad</label>
-                        <input type="text" class="form-control" id="inputCity" name="localidad" placeholder="Localidad" required value="<?php echo $fila["localidad"]; ?>">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputProvince">Provincia</label>
-                        <select id="inputProvince" class="form-control" name="provincia" required>
-                            <option selected value="<?php echo $fila["provincia"]; ?>"><?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id 
-                                                        WHERE usuarios.id_usuario = $fila[id_usuario]";
-                                                                                        $result2 = mysqli_query($conexion, $consulta2);
-                                                                                        while ($fila2 = mysqli_fetch_array($result2)) {
-                                                                                            echo $fila2["nombre"];
-                                                                                        };
-                                                                                        ?></option>
+
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-6">
+                    <table class="table" id="usuarios_vehiculos" cellspacing="0" style="margin-top: 2%">
+                        <thead>
+                            <tr>
+                                <th>Fabricante</th>
+                                <th>Modelo</th>
+                                <th>Matrícula</th>
+                                <th>Año</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <?php
-                            $query = $conexion->query("SELECT * FROM provincias");
-                            while ($provincia = mysqli_fetch_array($query)) {
-                                echo '<option value="' . $provincia['id'] . '">' . $provincia['nombre'] . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputCP">Cod. Postal</label>
-                        <input type="text" class="form-control" id="inputCP" maxlength="5" name="cp" placeholder="Cod. Postal" required value="<?php echo $fila["cp"]; ?>">
+                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios WHERE id_usuario = '$id'";
+                            $result = mysqli_query($conexion, $consulta);
+                            while ($fila2 = mysqli_fetch_array($result)) { ?>
+                                <tr>
+                                    <td><?php $consulta3 = "SELECT moto_makers.nombre FROM motos_usuarios 
+                                                  INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                                  WHERE motos_usuarios.id = $fila2[id]";
+                                        $result3 = mysqli_query($conexion, $consulta3);
+                                        while ($fila3 = mysqli_fetch_array($result3)) {
+                                            echo $fila3["nombre"];
+                                        }
+                                        ?></td>
+                                    <td><?php $consulta4 = "SELECT moto_models.nombre FROM motos_usuarios 
+                                                  INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id 
+                                                  WHERE motos_usuarios.id = $fila2[id]";
+                                        $result4 = mysqli_query($conexion, $consulta4);
+                                        while ($fila4 = mysqli_fetch_array($result4)) {
+                                            echo $fila4["nombre"];
+                                        }
+                                        ?></td>
+                                    <td><?php echo $fila2["matricula"]; ?></td>
+                                    <td><?php echo $fila2["year"]; ?></td>
+                                    <td>
+                                        <a class="btn btn-danger noFocus" onclick="borrarUsuarioVehiculo('<?php echo $fila2["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                    </td>
+                                </tr>
+                            <?php }; ?>
+                        </tbody>
+                    </table>
+                    <div class="form-group col" style="text-align: -webkit-left">
+                        <br><br>
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#addVehicle" style="color: white"><i class="fas fa-plus"></i> Añadir Vehículo</a>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="inputPhone">Nº de Teléfono</label>
-                        <input type="tel" class="form-control" id="inputPhone" maxlength="9" name="telefono" placeholder="Nº Teléfono" required value="<?php echo $fila["telefono"]; ?>">
-                    </div>
-                </div>
-                <br><br>
-                <button class="btn btn-primary" type="submit" id="submit">Actualizar Usuario</button>
-            </form>
+            </div>
         </div>
         <br><br>
         <div id="cajaContacto">
@@ -191,12 +199,34 @@ $fila = mysqli_fetch_array($result)
         </div>
     </div>
 
-    <!-- Modal Cambiar Contraseña -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!--Delete Usuario_Vehiculo Modal-->
+    <div class="modal fade" id="deleteUserVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserVehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="changePasswordModalLabel">Cambiar contraseña</h5>
+                    <h5 class="modal-title" id="deleteUserVehicleModal">Borrar Vehículo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 18px">
+                    Estas seguro que quieres borrar este vehículo?
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Asociar Vehiculo a Usuario -->
+    <div class="modal fade" id="addVehicle" tabindex="-1" role="dialog" aria-labelledby="addVehicleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addVehicleLabel">Añadir Vehículo</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -204,16 +234,36 @@ $fila = mysqli_fetch_array($result)
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-12">
-                                <label for="password1">Contraseña</label>
-                                <input type="password" class="form-control" name="password1" id="password1" placeholder="Contraseña" required>
+                            <div class="col-md-4">
+                                <label for="fabricante">Fabricante</label>
+                                <select id="fabricante" class="form-control" name="fabricante" required>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="modelo">Modelo</label>
+                                <select id="modelo" class="form-control" name="modelo" required>
+                                    <option value="0">Esperando...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cilindrada">Cilindrada</label>
+                                <select id="cilindrada" class="form-control" name="cilindrada" required>
+                                    <option value="0">Esperando...</option>
+                                </select>
                             </div>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
-                                <label for="password2">Repite la contraseña</label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Repite la contraseña" required>
+                            <div class="col-md-3">
+                                <label for="year">Año</label>
+                                <input type="text" class="form-control" name="year" id="year" placeholder="Año" maxlength="4">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label for="matricula">Matrícula</label>
+                                <input type="text" class="form-control" name="matricula" id="matricula" maxlength="8" placeholder="Matrícula">
                             </div>
                         </div>
                     </div>
@@ -221,7 +271,7 @@ $fila = mysqli_fetch_array($result)
                 <br>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary" onclick="changePassword()">Guardar</button>
+                    <button class="btn btn-primary" onclick="addVehicle()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -254,54 +304,98 @@ $fila = mysqli_fetch_array($result)
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../js/funciones.js"></script>
     <script>
-        $("#editPersonalData").on("submit", function(e) {
-            e.preventDefault();
-            data = $('#editPersonalData').serialize();
+        $(document).ready(function() {
             $.ajax({
-                url: "../admin/users/updateUser.php?id=<?php echo $id; ?>",
                 type: "POST",
-                dataType: "HTML",
-                data: data,
-                cache: false,
-
-            }).done(function(echo) {
-                if (echo == "exito") {
-                    alert("Usuario actualizado con éxito");
-                    window.location.replace("");
-                } else if (echo == "existe") {
-                    alert("Este correo ya existe, pruebe con otro");
-                } else {
-                    alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                url: "../admin/vehicles/getMarcasMotos.php",
+                success: function(response) {
+                    $('#fabricante').html(response).fadeIn();
                 }
+            });
+
+            $("#fabricante").change(function() {
+                fabricante = $('#fabricante').val();
+                $.ajax({
+                    type: "POST",
+                    data: "fabricante=" + fabricante,
+                    url: "../admin/vehicles/getModelosMotos.php",
+                    success: function(response) {
+                        $('#modelo').html(response).fadeIn();
+                    }
+                });
+            });
+
+            $("#modelo").change(function() {
+                modelo = $('#modelo').val();
+                $.ajax({
+                    type: "POST",
+                    data: "modelo=" + modelo,
+                    url: "../admin/vehicles/getCilindradaMotos.php",
+                    success: function(response) {
+                        $('#cilindrada').html(response).fadeIn();
+                    }
+                });
             });
         });
 
-        function changePassword() {
-            password1 = $('#password1').val();
-            password2 = $('#password2').val();
-            if (password1 != "" && password1 == password2) {
+        function addVehicle() {
+            usuario = <?php echo $_SESSION['id_usuario']; ?>;
+            moto = $('#cilindrada').val();
+            year = $('#year').val();
+            matricula = $('#matricula').val().toUpperCase();
+            if (usuario !== "" && moto != 0 && year !== "" && matricula !== "") {
                 data = {
-                    password1: password1,
-                    password2: password2
+                    usuario: usuario,
+                    moto: moto,
+                    year: year,
+                    matricula: matricula
                 };
 
                 $.ajax({
-                    url: "../admin/users/changePassword.php?id=<?php echo $id; ?>;",
+                    url: "../admin/users/asociarUsuariosVehiculos.php",
                     type: "POST",
                     dataType: "HTML",
                     data: data,
                     cache: false,
                 }).done(function(echo) {
                     if (echo == "exito") {
-                        alert("Contraseña cambiada");
-                        window.location.replace("")
+                        alert("Vehículo añadido a tu cuenta");
+                        window.location.replace("misDatos.php")
+                    } else if (echo == "existe") {
+                        alert("Esta matrícula ya existe");
                     } else if (echo == "error") {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }
                 });
             } else {
-                alert("Datos incorrectos");
+                alert("Faltan datos");
             }
+        }
+
+        function borrarUsuarioVehiculo(id) {
+            $('#deleteUserVehicleModal').modal();
+            $('#submit').click(function(e) {
+                e.preventDefault();
+                data = {
+                    "id": id
+                };
+
+                $.ajax({
+                    url: "../admin/users/deleteUserVehicle.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        alert("Vehículo borrado con éxito");
+                        window.location.replace("misDatos.php")
+                    } else if (echo == "error") {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            });
         };
     </script>
 </body>

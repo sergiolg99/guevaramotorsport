@@ -318,7 +318,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 if (echo == "exito") {
                     //Si hay respuesta mostramos el mensaje
                     alert("Vehículo creado con éxito");
-                    window.location.replace("vehiculos.php")
+                    window.location.replace("vehiculos.php");
+                }else if (echo == "existe") {
+                    alert("Este vehículo ya existe");
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                 }

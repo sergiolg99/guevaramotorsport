@@ -6,12 +6,17 @@ session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   $showUser = "style='display: none'";
   $showLogin = "style='';";
+  $usuario = "";
 } else {
   $showUser = "style='';";
   $showLogin = "style='display: none'";
   $id_usuario = $_SESSION['id_usuario'];
   $usuario = $_SESSION['usuario'];
 }
+
+$consulta = "SELECT `email`, `nombre`, `apellidos`, `telefono` FROM `usuarios` WHERE id_usuario = '$id_usuario'";
+$result = mysqli_query($conexion, $consulta);
+$fila = mysqli_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +73,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php?id=<?php echo $id_usuario; ?>" style="color: black">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
                 <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -85,32 +90,60 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
   <div id="main">
     <div id="container">
-      <form name="cita" class="reserva" method="POST" enctype="text/plain">
+      <form name="cita" id="cita" class="reserva" method="POST" enctype="text/plain">
         <div class="row">
-          <h2 id="titulo">Solicitud de cita previa &#128394;</h2>
+          <h2 id="titulo">Solicitud de cita previa <i class="fas fa-clipboard-list"></i></h2>
         </div>
-
         <br>
-
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="moto">
+            <div id="">
               <fieldset class="fieldsetTaller">
                 <legend>Datos de la moto</legend>
-                <label>Marca:</label>
-                <select name="fabricante" id="fabricante" class="selectMarca"></select>
-                <br><br>
-                <label>Modelo:</label>
-                <select name="modelo" id="modelo" class="selectMarca">
-                  <option value="0">Esperando...</option>
-                </select>
-
-                <br><br>
-
-                <label>Año:</label>
-                <select name="año" id="anno" class="datosReserva noFocus">
-                  <option value="0">Selecciona...</option>
-                </select>
+                <?php
+                if (isset($_SESSION['usuario'])) {
+                  echo '<div class="custom-control custom-radio custom-control-inline">
+                        <input class="custom-control-input" type="radio" name="selectMotoOptions" id="motoPropiaRadio" value="motoPropia">
+                        <label class="custom-control-label" for="motoPropiaRadio">Seleccionar desde tus vehículos</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input class="custom-control-input" type="radio" name="selectMotoOptions" id="otraMotoRadio" value="otraMoto">
+                        <label class="custom-control-label" for="otraMotoRadio">Seleccionar otra moto</label>
+                      </div> <br><br>';
+                }
+                ?>
+                <div id="otraMoto" <?php if (isset($_SESSION['usuario'])) {
+                                      echo 'style="display: none";';
+                                    } ?>>
+                  <label>Marca:</label>
+                  <select name="fabricante" id="fabricante" class="selectMarca"></select>
+                  <br><br>
+                  <label>Modelo:</label>
+                  <select name="modelo" id="modelo" class="selectMarca">
+                    <option value="0">Esperando...</option>
+                  </select>
+                  <br><br>
+                  <label>Cilindrada:</label>
+                  <select name="cilindrada" id="cilindrada" class="selectMarca" required>
+                    <option value="0">Esperando...</option>
+                  </select>
+                </div>
+                <div id="motoPropia" style="display: none">
+                  <label>Selecciona tu moto:</label>
+                  <select name="moto" id="moto" class="selectMarca " required>
+                    <option value="0">Selecciona tu moto...</option>
+                    <?php
+                    $query = "SELECT moto_models.nombre, motos_usuarios.matricula, motos.id_moto FROM motos_usuarios 
+                    INNER JOIN motos on motos_usuarios.id_moto = motos.id_moto
+                    INNER JOIN moto_models on motos.modelo = moto_models.id 
+                    WHERE motos_usuarios.id_usuario = $id_usuario";
+                    $resultado = mysqli_query($conexion, $query);
+                    while ($datos = mysqli_fetch_array($resultado)) {
+                      echo '<option value="' . $datos['id_moto'] . '">' . $datos['nombre']  . " / " . $datos['matricula'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
               </fieldset>
             </div>
           </div>
@@ -119,18 +152,14 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <div id="datosPersonales">
               <fieldset class="fieldsetTaller">
                 <legend>Datos Personales</legend>
-                <label>Nombre completo:</label>
-                <input type="text" name="nombre" class="datosReserva noFocus" value="" size="26" placeholder="Nombre y apellidos" />
-
+                <label>Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="datosReserva noFocus" placeholder="Nombre" value="<?php echo $fila["nombre"]; ?>" required>
                 <br><br>
-
                 <label>Teléfono de contacto:</label>
-                <input type="tel" name="telefono" class="datosReserva noFocus" value="" maxlength="9" placeholder="Número de movil" />
-
+                <input type="tel" name="telefono" id="telefono" class="datosReserva noFocus" maxlength="9" placeholder="Número de movil" required value="<?php echo $fila["telefono"]; ?>">
                 <br><br>
-
                 <label>Email:</label>
-                <input type="email" name="email1" class="datosReserva noFocus" value="" size="25" placeholder="example@correo.com" />
+                <input type="email" name="email" id="email" class="datosReserva noFocus" placeholder="Correo electrónico" value="<?php echo $fila["email"]; ?>">
               </fieldset>
             </div>
           </div>
@@ -142,7 +171,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
               <fieldset class="fieldsetTaller">
                 <legend>Datos de la cita</legend>
                 <label>Día de la cita:</label>
-                <input type="date" id="fecha" name="fecha" class="datosReserva noFocus">
+                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" min="2020-05-19" max="2020-12-31" required>
                 <br><br>
                 <label>Hora:</label>
                 <input type="time" id="hora" name="hora" class="datosReserva noFocus">
@@ -153,14 +182,14 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div id="comentariosTaller">
               <label>Comentarios:</label>
-              <textarea name="comentarios" class="comentariosReserva noFocus" rows="8" placeholder="Escriba aquí sus peticiones y comentarios"></textarea>
+              <textarea name="comentarios" id="comentarios" class="comentariosReserva noFocus" rows="8" maxlength="249" placeholder="Escriba aquí sus peticiones y comentarios"></textarea>
             </div>
           </div>
         </div>
         <div class="row">
           <div id="botonesTaller">
-            <button onclick="funcionReset()" class="botonBonitoTaller">RESETEAR</button>
-            <button onclick="comprobarEnviar()" class="botonBonitoTaller enviarTaller">ENVIAR</button>
+            <button type="reset" class="botonBonitoTaller">RESETEAR</button>
+            <button type="submit" class="botonBonitoTaller enviarTaller">ENVIAR</button>
           </div>
         </div>
       </form>
@@ -195,22 +224,20 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     </div>
 
     <!--Modal: Inicio sesion / registrarse -->
-    <div class="modal fade" id="inicioSesion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="inicioSesion" tabindex="0" role="dialog" aria-hidden="true">
       <div class="modal-dialog cascading-modal" role="document">
         <!--Content-->
         <div class="modal-content form-elegant">
-
           <!--Modal cascading tabs-->
           <div class="modal-c-tabs">
-
             <!-- Pestañas -->
             <ul class="nav nav-tabs md-tabs tabs-2 red darken-1" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tabLogin" role="tab"><i class="fas fa-user mr-1"></i>
+                <a class="nav-link active" data-toggle="tab" href="#tabLogin" role="tab"><strong class="fas fa-user mr-1"></strong>
                   INICIAR SESIÓN</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tabRegister" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                <a class="nav-link" data-toggle="tab" href="#tabRegister" role="tab"><strong class="fas fa-user-plus mr-1"></strong>
                   REGISTRARSE</a>
               </li>
             </ul>
@@ -219,24 +246,23 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <div class="tab-content">
               <!--Panel Login-->
               <div class="tab-pane fade in show active" id="tabLogin" role="tabpanel">
-
                 <!--Body-->
                 <div class="modal-body mb-1">
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput10">CORREO
+                    <input type="email" id="inputEmailLogin" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailLogin">CORREO
                       ELECTRÓNICO</label>
                   </div>
-
                   <div class="md-form form-sm mb-4">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput11">CONTRASEÑA</label>
+                    <input type="password" id="inputPasswordLogin" class="form-control form-control-sm">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordLogin">CONTRASEÑA</label>
                   </div>
                   <div class="text-center mt-2">
-                    <button class="btn btn-info">INICIAR SESIÓN </button>
+                    <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
                   </div>
+                  <div id="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -247,39 +273,34 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                   </div>
                   <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                 </div>
-
               </div>
               <!--/.Panel Login-->
 
               <!--Panel Registro-->
               <div class="tab-pane fade" id="tabRegister" role="tabpanel">
-
                 <!--Body-->
                 <div class="modal-body">
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput12">CORREO
+                    <input type="email" id="inputEmailRegister" class="form-control form-control-sm validate">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailRegister">CORREO
                       ELECTRÓNICO</label>
                   </div>
-
                   <div class="md-form form-sm mb-5">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput13">CONTRASEÑA</label>
+                    <input type="password" id="inputPasswordRegister1" class="form-control form-control-sm">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister1">CONTRASEÑA</label>
                   </div>
-
                   <div class="md-form form-sm mb-4">
                     <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="modalLRInput14">REPITA LA
+                    <input type="password" id="inputPasswordRegister2" class="form-control form-control-sm">
+                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister2">REPITA LA
                       CONTRASEÑA</label>
                   </div>
-
                   <div class="text-center form-sm mt-2">
-                    <button class="btn btn-info">REGISTRARSE </button>
+                    <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
                   </div>
-
+                  <div id="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -292,7 +313,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
               </div>
               <!--/.Panel Registro-->
             </div>
-
           </div>
         </div>
         <!--/.Content-->
@@ -328,10 +348,32 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
   <script>
-    $(document).ready(function(e) {
+    $(document).ready(function() {
+      if ($('#nombre').val() != "") {
+        $("#nombre").prop('disabled', true);
+      }
+      if ($('#telefono').val() != "") {
+        $("#telefono").prop('disabled', true);
+      }
+      if ($('#email').val() != "") {
+        $("#email").prop('disabled', true);
+      }
+
+      $('input:radio[name="selectMotoOptions"]').change(
+        function() {
+          if (this.checked && this.value == 'motoPropia') {
+            $("#motoPropia").css("display", "");
+            $("#otraMoto").css("display", "none");
+          } else if (this.checked && this.value == 'otraMoto') {
+            $("#motoPropia").css("display", "none");
+            $("#otraMoto").css("display", "");
+          }
+        }
+      );
+
       $.ajax({
         type: "POST",
-        url: "../admin/vehicles/getMarcas.php",
+        url: "../admin/vehicles/getMarcasMotos.php",
         success: function(response) {
           $('#fabricante').html(response).fadeIn();
         }
@@ -342,20 +384,77 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         $.ajax({
           type: "POST",
           data: "fabricante=" + fabricante,
-          url: "../admin/vehicles/getModelos.php",
+          url: "../admin/vehicles/getModelosMotos.php",
           success: function(response) {
             $('#modelo').html(response).fadeIn();
           }
         });
-      })
+      });
+
+      $("#modelo").change(function() {
+        modelo = $('#modelo').val();
+        $.ajax({
+          type: "POST",
+          data: "modelo=" + modelo,
+          url: "../admin/vehicles/getCilindradaMotos.php",
+          success: function(response) {
+            $('#cilindrada').html(response).fadeIn();
+          }
+        });
+      });
     });
 
-    function ComboAno() {
-      var n = (new Date()).getFullYear()
-      var select = document.getElementById("anno");
-      for (var i = n; i >= 1950; i--) select.options.add(new Option(i, i));
-    };
-    window.onload = ComboAno;
+    $("#cita").on("submit", function(e) {
+      e.preventDefault();
+      id_usuario = "<?php echo $_SESSION['id_usuario']; ?>";
+      comentarios = $('#comentarios').val();
+      fecha = $('#fecha').val() + " " + $('#hora').val() + ":00";
+      nombre = $('#nombre').val();
+      telefono = $('#telefono').val();
+      email = $('#email').val();
+
+      if (id_usuario != "") {
+        tipoUser = "cliente";
+      } else {
+        tipoUser = "visitante"
+      }
+      if ($('#cilindrada').val() == "0") {
+        moto = $('#moto').val();
+      } else {
+        moto = $('#cilindrada').val();
+      }
+
+      if (moto == "0") {
+        alert("Selecciona una moto");
+      } else {
+        data = {
+          tipoUser: tipoUser,
+          moto: moto,
+          id_usuario: id_usuario,
+          nombre: nombre,
+          telefono: telefono,
+          email: email,
+          comentarios: comentarios,
+          fecha: fecha
+        };
+
+        $.ajax({
+          url: "citaTaller.php",
+          type: "POST",
+          dataType: "HTML",
+          data: data,
+          cache: false,
+
+        }).done(function(echo) {
+          if (echo == "exito") {
+            alert("Cita creada con éxito");
+            window.location.replace("../index.php");
+          } else {
+            alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+          }
+        });
+      }
+    });
   </script>
 </body>
 

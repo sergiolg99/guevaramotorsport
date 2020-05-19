@@ -204,6 +204,13 @@ $fila = mysqli_fetch_array($result)
                                 <input type="number" class="form-control" id="cilindrada" placeholder="Cilindrada en cc" name="cilindrada" required value="<?php echo $fila['cilindrada']; ?>">
                             </div>
                         </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="custom-switch form-control-lg">
+                                <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="<?php echo $fila["is_active"]; ?>">
+                                <label class="custom-control-label" for="is_active">Is Active</label>
+                            </div>
+                        </div>
                         <br><br>
                         <button class="btn btn-primary" type="submit" id="submit">Actualizar Vehículo</button>
                     </form>
@@ -297,6 +304,13 @@ $fila = mysqli_fetch_array($result)
     <script src="../../js/sidebar-admin.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            let isActive = $('#is_active').val();
+            if (isActive == 1) {
+                $("#is_active").prop("checked", true);
+            } else {
+                $("#is_active").prop("checked", false);
+            }
+
             $.ajax({
                 type: "POST",
                 url: "getMarcas.php",
@@ -319,12 +333,20 @@ $fila = mysqli_fetch_array($result)
         });
 
         $("#editVehicle").on("submit", function(e) {
+            let isCheck = $('#is_active').is(":checked");
+            if (isCheck == true) {
+                $("#is_active").val(1);
+            } else {
+                $("#is_active").val(0);
+            }
             e.preventDefault();
             modelo = $('#modelo').val();
             cilindrada = $('#cilindrada').val();
+            is_active = $('#is_active').val();
             var data = {
                 "modelo": modelo,
-                "cilindrada": cilindrada
+                "cilindrada": cilindrada,
+                "is_active": is_active
             };
             $.ajax({
                 url: "updateVehicle.php?id=<?php echo $fila["id_moto"]; ?>",

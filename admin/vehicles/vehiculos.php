@@ -154,7 +154,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                         <tr>
                                             <th>Fabricante</th>
                                             <th>Modelo</th>
-                                            <th>Cilindrada</th>
+                                            <th>Cilindrada en cc</th>
                                             <th>Activo</th>
                                             <th style="width: 12%">Acción</th>
                                         </tr>
@@ -183,7 +183,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?>
                                                 </td>
-                                                <td><?php echo $fila["cilindrada"] . " cc"; ?></td>
+                                                <td><?php echo $fila["cilindrada"];?></td>
                                                 <td><?php
                                                     if ($fila['is_active'] == 1) {
                                                         echo "<span class='fas fa-check-circle' style='color:green';></span>";
