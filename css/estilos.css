@@ -26,6 +26,11 @@
     text-align: center;
 }
 
+.usuarioDropdown{
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .copy {
     font-size: 14px;
 }
@@ -49,8 +54,23 @@
     color: #000;
 }
 
-a.dropdown-item:hover {
-    color: white;
+.navbar .dropdown-menu a {
+    color: rgba(0, 0, 0, .5);
+    padding: 8px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.dropdown-item:hover {
+    color: black !important;
+    text-decoration: none;
+    background-color: transparent !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: black !important;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 button.back-to-top {
@@ -152,7 +172,6 @@ a:hover {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: transparent;
     padding: .375rem .75rem;
     font-size: 1rem;
     border-radius: .25rem;
@@ -367,7 +386,6 @@ only screen and (max-width: 556px) {
 #ajax li {
     display: inline;
     padding: 1em;
-    width: 33%;
 }
 
 
@@ -550,6 +568,7 @@ h2.fuerte {
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
     -webkit-box-shadow: 0 0 0 0;
+    box-shadow: none;
 }
 
 .finalizarPago {

@@ -47,7 +47,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
     <footer class="footer">
         <div class="container">
-            <span class="text-muted"><a href="../index.html">Regresar a la página principal</a></span>
+            <span class="text-muted"><a href="../index.php">Regresar a la página principal</a></span>
         </div>
     </footer>
 
@@ -63,7 +63,7 @@ error_reporting(E_ALL ^ E_NOTICE);
             //Llamamos a la función AJAX de jQuery
             $.ajax({
                 //Definimos la URL del archivo al cual vamos a enviar los datos
-                url: "recursos/verificar.php",
+                url: "recursos/verificar.php?action=admin",
                 //Definimos el tipo de método de envío
                 type: "POST",
                 //Definimos el tipo de datos que vamos a enviar y recibir

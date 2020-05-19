@@ -16,6 +16,6 @@ if (isset($_POST['email'])) {
 
 
     // Ahora se envía el e-mail usando la función mail() de PHP
-    $headers = 'De: '.$email_from."\r\n" . 'Reply-To: '.$email_from."\r\n" . 'X-Mailer: PHP/' . phpversion();
+    $headers = 'De: '.$email_from."\r\n" . 'Reply-To: '.$email_from."\r\n" . 'X-Mailer: admin/' . phpversion();
     @mail($email_to, $email_subject, $email_message, $headers);
 }

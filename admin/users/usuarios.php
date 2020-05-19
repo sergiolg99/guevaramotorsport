@@ -155,7 +155,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                       <th>Email</th>
                       <th>Nombre</th>
                       <th>Direccion</th>
-                      <th>DNI</th>
+                      <th>Teléfono</th>
                       <th>Admin</th>
                       <th>Acciones</th>
                     </tr>
@@ -175,7 +175,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             while ($fila2 = mysqli_fetch_array($result2)) {
                               echo $fila2["nombre"] . ", " . $fila["cp"];
                             }; ?></td>
-                        <td><?php echo $fila["dni"]; ?></td>
+                        <td><?php echo $fila["telefono"]; ?></td>
                         <td><?php
                             if ($fila['is_admin'] == 1) {
                               echo "<span class='fas fa-check-circle' style='color:green';></span>";
