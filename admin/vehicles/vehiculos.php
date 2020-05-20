@@ -34,28 +34,18 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 </head>
 
 <body id="page-top">
-
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="navbar-nav" style="height: 95%">
-                <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" href="../dashboard.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-
-                <!-- Divider -->
                 <hr class="sidebar-divider">
-
-                <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
                         <i class="fas fa-users"></i>
@@ -68,25 +58,25 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </div>
                     </div>
                 </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href="#">
                         <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
                         <span>Modelos Vehículos</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="../products/productos.php">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Productos en venta</span>
                     </a>
                 </li>
-
-                <!-- Divider -->
+                <li class="nav-item">
+					<a class="nav-link" href="../tasks/citas.php">
+						<i class="fas fa-wrench"></i>
+						<span>Citas Taller</span>
+					</a>
+				</li>
                 <hr class="sidebar-divider d-none d-md-block">
-
-                <!-- Sidebar Toggler (Sidebar) -->
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -97,8 +87,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </div>
             </div>
         </ul>
-        <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
