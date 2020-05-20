@@ -48,28 +48,18 @@ $fila = mysqli_fetch_array($result)
 </head>
 
 <body id="page-top">
-
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="navbar-nav" style="height: 95%">
-                <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" href="../dashboard.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-
-                <!-- Divider -->
                 <hr class="sidebar-divider">
-
-                <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
                         <i class="fas fa-users"></i>
@@ -82,25 +72,25 @@ $fila = mysqli_fetch_array($result)
                         </div>
                     </div>
                 </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href="vehiculos.php">
                         <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
                         <span>Modelos Vehículos</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="../products/productos.php">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Productos en venta</span>
                     </a>
                 </li>
-
-                <!-- Divider -->
+                <li class="nav-item">
+					<a class="nav-link" href="../tasks/citas.php">
+						<i class="fas fa-wrench"></i>
+						<span>Citas Taller</span>
+					</a>
+				</li>
                 <hr class="sidebar-divider d-none d-md-block">
-
-                <!-- Sidebar Toggler (Sidebar) -->
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -111,8 +101,6 @@ $fila = mysqli_fetch_array($result)
                 </div>
             </div>
         </ul>
-        <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -202,6 +190,13 @@ $fila = mysqli_fetch_array($result)
                             <div class="form-group col-md-3">
                                 <label for="cilindrada">Cilindrada</label>
                                 <input type="number" class="form-control" id="cilindrada" placeholder="Cilindrada en cc" name="cilindrada" required value="<?php echo $fila['cilindrada']; ?>">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="custom-switch form-control-lg">
+                                <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="<?php echo $fila["is_active"]; ?>">
+                                <label class="custom-control-label" for="is_active">Is Active</label>
                             </div>
                         </div>
                         <br><br>
@@ -297,6 +292,13 @@ $fila = mysqli_fetch_array($result)
     <script src="../../js/sidebar-admin.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            let isActive = $('#is_active').val();
+            if (isActive == 1) {
+                $("#is_active").prop("checked", true);
+            } else {
+                $("#is_active").prop("checked", false);
+            }
+
             $.ajax({
                 type: "POST",
                 url: "getMarcas.php",
@@ -319,12 +321,20 @@ $fila = mysqli_fetch_array($result)
         });
 
         $("#editVehicle").on("submit", function(e) {
+            let isCheck = $('#is_active').is(":checked");
+            if (isCheck == true) {
+                $("#is_active").val(1);
+            } else {
+                $("#is_active").val(0);
+            }
             e.preventDefault();
             modelo = $('#modelo').val();
             cilindrada = $('#cilindrada').val();
+            is_active = $('#is_active').val();
             var data = {
                 "modelo": modelo,
-                "cilindrada": cilindrada
+                "cilindrada": cilindrada,
+                "is_active": is_active
             };
             $.ajax({
                 url: "updateVehicle.php?id=<?php echo $fila["id_moto"]; ?>",

@@ -60,7 +60,7 @@ function inicioSesion() {
   };
 
   $.ajax({
-    url: "admin/recursos/verificar.php?action=cliente",
+    url: "../admin/recursos/verificar.php?action=cliente",
     type: "POST",
     dataType: "HTML",
     data: data,
@@ -88,7 +88,7 @@ function registrarse() {
     };
 
     $.ajax({
-      url: "admin/users/createUser.php?action=cliente",
+      url: "../admin/users/createUser.php?action=cliente",
       type: "POST",
       dataType: "HTML",
       data: data,
@@ -103,7 +103,7 @@ function registrarse() {
         };
       
         $.ajax({
-          url: "admin/recursos/verificar.php?action=cliente",
+          url: "../admin/recursos/verificar.php?action=cliente",
           type: "POST",
           dataType: "HTML",
           data: data1,
@@ -244,10 +244,9 @@ function pagar() {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
           alert("Compra realizada correctamente");
-          window.open('../index.php');
+          window.location.replace("../index.php")
           localStorage.removeItem('carrito');
           localStorage.removeItem('total');
-          window.close();
         }
       }
     }

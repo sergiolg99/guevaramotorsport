@@ -9,7 +9,6 @@ $existe = mysqli_num_rows($resultado);
 if ($existe == 1) {
     die('existe');
 } else {
-
     $query = "INSERT INTO `moto_makers`(`nombre`) VALUES ('$_POST[nombre]')";
 
     if ($conexion->query($query) === TRUE) {

@@ -1,0 +1,4 @@
+$usuario = "id11718734_sergiolg99";
+$contrasena = "Desarrolloweb1!";
+$servidor = "localhost";
+$bd = "id11718734_guevaramotorsport";

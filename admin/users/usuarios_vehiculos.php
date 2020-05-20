@@ -34,28 +34,18 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 </head>
 
 <body id="page-top">
-
-  <!-- Page Wrapper -->
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <div class="navbar-nav" style="height: 95%">
-        <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
           <a class="nav-link" href="../dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
         </li>
-
-        <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Nav Item - Charts -->
         <li class="nav-item active">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
             <i class="fas fa-users"></i>
@@ -68,25 +58,25 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </div>
           </div>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="../vehicles/vehiculos.php">
             <i class="fas fa-motorcycle"></i>
             <span>Modelos Vehículos</span>
           </a>
         </li>
-
         <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
+          <a class="nav-link" href="../products/productos.php">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Productos en venta</span>
+          </a>
+        </li>
+        <li class="nav-item">
+					<a class="nav-link" href="../tasks/citas.php">
+						<i class="fas fa-wrench"></i>
+						<span>Citas Taller</span>
 					</a>
 				</li>
-
-        <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
@@ -97,8 +87,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         </div>
       </div>
     </ul>
-    <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -147,11 +135,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table" id="usuarios_vehiculos" cellspacing="0" >
+                <table class="table" id="usuarios_vehiculos" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
-                      <th>email</th>
+                      <th>Email</th>
+                      <th>Fabricante</th>
                       <th>Modelo</th>
                       <th>Matrícula</th>
                       <th>Año</th>
@@ -165,13 +153,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php $consulta2 = "SELECT usuarios.nombre, usuarios.apellidos FROM motos_usuarios 
-                                                  INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id = $fila[id]";
-                            $result2 = mysqli_query($conexion, $consulta2);
-                            while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"] . " " . $fila2["apellidos"];
-                            };
-                            ?></td>
                         <td><?php $consulta3 = "SELECT usuarios.email FROM motos_usuarios 
                                                   INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id = $fila[id]";
                             $result3 = mysqli_query($conexion, $consulta3);
@@ -179,12 +160,22 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                               echo $fila3["email"];
                             }
                             ?></td>
-                        <td><?php $consulta4 = "SELECT moto_models.nombre FROM motos_usuarios 
+                        <td><?php $consulta4 = "SELECT moto_models.fabricante, moto_makers.nombre FROM motos_usuarios 
                                                   INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE motos_usuarios.id = $fila[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                                  WHERE motos_usuarios.id = $fila[id]";
                             $result4 = mysqli_query($conexion, $consulta4);
                             while ($fila4 = mysqli_fetch_array($result4)) {
                               echo $fila4["nombre"];
+                            }
+                            ?></td>
+                        <td><?php $consulta5 = "SELECT moto_models.nombre FROM motos_usuarios 
+                                                  INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE motos_usuarios.id = $fila[id]";
+                            $result5 = mysqli_query($conexion, $consulta5);
+                            while ($fila5 = mysqli_fetch_array($result5)) {
+                              echo $fila5["nombre"];
                             }
                             ?></td>
                         <td><?php echo $fila["matricula"]; ?></td>

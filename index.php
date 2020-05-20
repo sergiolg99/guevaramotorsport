@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario'])) {
               <a class="nav-link" href="./recursos/tienda.php">TIENDA&nbsp;</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.php">MOTOS DE OCASIÓN&nbsp;</a>
+              <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./recursos/contacto.php">CONTACTAR&nbsp;</a>
@@ -71,7 +71,8 @@ if (!isset($_SESSION['usuario'])) {
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php?id=<?php echo $id_usuario; ?>">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="recursos/citas.php">CITAS TALLER</a>
                 <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -337,6 +338,83 @@ if (!isset($_SESSION['usuario'])) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="js/funciones.js"></script>
+  <script>
+    function inicioSesion() {
+      let email = $('#inputEmailLogin').val();
+      let contrasenna = $('#inputPasswordLogin').val();
+      var data = {
+        email: email,
+        contrasenna: contrasenna
+      };
+
+      $.ajax({
+        url: "admin/recursos/verificar.php?action=cliente",
+        type: "POST",
+        dataType: "HTML",
+        data: data,
+        cache: false,
+
+      }).done(function(echo) {
+        if (echo !== "") {
+          $("#response").html(echo);
+        } else {
+          // window.location.replace("");
+          window.location.replace("");
+        }
+      });
+    }
+
+    function registrarse() {
+      let email = $('#inputEmailRegister').val();
+      let password = $('#inputPasswordRegister1').val();
+      let password2 = $('#inputPasswordRegister2').val();
+
+      if (password == password2) {
+        var data = {
+          email: email,
+          password: password
+        };
+
+        $.ajax({
+          url: "admin/users/createUser.php?action=cliente",
+          type: "POST",
+          dataType: "HTML",
+          data: data,
+          cache: false,
+
+        }).done(function(echo) {
+          if (echo == "exito") {
+            alert("Usuario creado con éxito");
+            var data1 = {
+              email: email,
+              contrasenna: password
+            };
+
+            $.ajax({
+              url: "admin/recursos/verificar.php?action=cliente",
+              type: "POST",
+              dataType: "HTML",
+              data: data1,
+              cache: false,
+
+            }).done(function(echo) {
+              if (echo !== "") {
+                $("#response").html(echo);
+              } else {
+                window.location.replace("");
+              }
+            });
+          } else if (echo == "existe") {
+            alert("Este usuario ya existe");
+          } else {
+            alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+          }
+        });
+      } else {
+        $("#response").text("Las contraseñas no son iguales");
+      }
+    }
+  </script>
 
 </body>
 
