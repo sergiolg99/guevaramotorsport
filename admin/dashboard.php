@@ -10,7 +10,7 @@ $cuentaMotos = $consulta->num_rows;
 $consulta = $conexion->query("SELECT 'id_producto' FROM productos");
 $cuentaProductos = $consulta->num_rows;
 
-$consulta = $conexion->query("SELECT 'id' FROM reparaciones");
+$consulta = $conexion->query("SELECT 'id' FROM reparaciones WHERE completada = 0");
 $cuentaCitas = $consulta->num_rows;
 
 //Reanudamos la sesión

@@ -57,7 +57,7 @@ $fila = mysqli_fetch_array($result);
               <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../index.php">MOTOS DE OCASIÓN&nbsp;</a>
+              <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
@@ -74,6 +74,7 @@ $fila = mysqli_fetch_array($result);
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                 <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="verCitas.php">CITAS TALLER</a>
                 <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -171,18 +172,20 @@ $fila = mysqli_fetch_array($result);
               <fieldset class="fieldsetTaller">
                 <legend>Datos de la cita</legend>
                 <label>Día de la cita:</label>
-                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" min="2020-05-19" max="2020-12-31" required>
+                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" 
+                  min="<?php echo date("Y-m-d"); ?>" max="<?php $date = new DateTime('+2 month');echo $date->format('Y-m-d'); ?>" 
+                  value="<?php echo date("Y-m-d"); ?>" required>
                 <br><br>
                 <label>Hora:</label>
-                <input type="time" id="hora" name="hora" class="datosReserva noFocus">
+                <input type="time" id="hora" name="hora" class="datosReserva noFocus" min="08:30" max="20:00" step="900">
               </fieldset>
             </div>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div id="comentariosTaller">
-              <label>Comentarios:</label>
-              <textarea name="comentarios" id="comentarios" class="comentariosReserva noFocus" rows="8" maxlength="249" placeholder="Escriba aquí sus peticiones y comentarios"></textarea>
+              <label>A realizar:</label>
+              <textarea name="comentarios" id="comentarios" class="comentariosReserva noFocus" rows="8" maxlength="249" placeholder="Escriba aquí las tareas a realizar"></textarea>
             </div>
           </div>
         </div>
@@ -447,7 +450,7 @@ $fila = mysqli_fetch_array($result);
 
         }).done(function(echo) {
           if (echo == "exito") {
-            alert("Cita creada con éxito");
+            alert("Cita concertada con éxito");
             window.location.replace("../index.php");
           } else {
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
