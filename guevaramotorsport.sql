@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2020 a las 11:15:23
+-- Tiempo de generación: 20-05-2020 a las 16:33:45
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -21,6 +21,34 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `guevaramotorsport`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `citas`
+--
+
+CREATE TABLE `citas` (
+  `id` int(10) NOT NULL,
+  `id_usuario` int(10) DEFAULT NULL,
+  `id_moto` int(10) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `comentarios` text COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nombre` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `email` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `telefono` int(9) DEFAULT NULL,
+  `completada` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `nombre`, `email`, `telefono`, `completada`) VALUES
+(2, NULL, 44, '2020-05-31 17:30:00', '', 'sergio', 'adios@mail.com', 634473757, 0),
+(9, NULL, 47, '2020-05-21 12:34:00', 'Cambio de aceite y filtro', 'sergio', 'sergiolg_99@hotmail.', 634473757, 0),
+(10, NULL, 18, '2020-05-27 12:34:00', 'Cambio de aceite y filtro', 'sergio', 'sergiolg_99@hotmail.', 634473757, 0),
+(12, NULL, 52, '2020-05-30 13:45:00', 'Cambio de aceite y filtro', 'sergio', 'sergiolg_99@hotmail.', 634473757, 1);
 
 -- --------------------------------------------------------
 
@@ -162,7 +190,9 @@ INSERT INTO `motos_usuarios` (`id`, `id_usuario`, `id_moto`, `matricula`, `year`
 (18, 2, 18, '8765JPY', 2016, 1),
 (19, 77, 20, '6309LMC', 2018, 1),
 (20, 80, 21, '6789JSS', 2015, 1),
-(23, 90, 2, '1111ABC', 2019, 1);
+(23, 90, 2, '1111ABC', 2019, 1),
+(26, 90, 25, '7654QWR', 2006, 1),
+(27, 90, 51, '9876LVC', 2019, 1);
 
 -- --------------------------------------------------------
 
@@ -240,7 +270,7 @@ CREATE TABLE `moto_models` (
 INSERT INTO `moto_models` (`id`, `nombre`, `fabricante`, `is_active`) VALUES
 (1, 'CBF 600 S', 1, 1),
 (2, 'Tracer 900', 2, 1),
-(3, 'Pan European', 1, 0),
+(3, 'Pan European', 1, 1),
 (5, 'K 1600 GT', 15, 1),
 (6, 'RS 125', 14, 1),
 (7, 'Tuono 125', 14, 1),
@@ -449,20 +479,6 @@ INSERT INTO `provincias` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reparaciones`
---
-
-CREATE TABLE `reparaciones` (
-  `id` int(10) NOT NULL,
-  `id_usuario` int(10) NOT NULL,
-  `id_moto` int(10) NOT NULL,
-  `fecha` date NOT NULL,
-  `precio` double(6,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -470,7 +486,7 @@ CREATE TABLE `usuarios` (
   `id_usuario` int(10) NOT NULL,
   `email` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `password` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
-  `nombre` varchar(60) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nombre` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
   `apellidos` varchar(60) COLLATE latin1_spanish_ci DEFAULT NULL,
   `direccion` varchar(100) COLLATE latin1_spanish_ci DEFAULT NULL,
   `localidad` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -525,6 +541,12 @@ CREATE TABLE `venta_productos` (
 --
 
 --
+-- Indices de la tabla `citas`
+--
+ALTER TABLE `citas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `motos`
 --
 ALTER TABLE `motos`
@@ -566,12 +588,6 @@ ALTER TABLE `provincias`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
--- Indices de la tabla `reparaciones`
---
-ALTER TABLE `reparaciones`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -595,16 +611,22 @@ ALTER TABLE `venta_productos`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `citas`
+--
+ALTER TABLE `citas`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT de la tabla `motos`
 --
 ALTER TABLE `motos`
-  MODIFY `id_moto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id_moto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT de la tabla `motos_usuarios`
 --
 ALTER TABLE `motos_usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `moto_makers`
@@ -623,12 +645,6 @@ ALTER TABLE `moto_models`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `reparaciones`
---
-ALTER TABLE `reparaciones`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

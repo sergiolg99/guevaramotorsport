@@ -74,7 +74,7 @@ $fila = mysqli_fetch_array($result);
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                 <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
-                <a class="dropdown-item usuarioDropdown" href="verCitas.php">CITAS TALLER</a>
+                <a class="dropdown-item usuarioDropdown" href="citas.php">CITAS TALLER</a>
                 <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -442,7 +442,7 @@ $fila = mysqli_fetch_array($result);
         };
 
         $.ajax({
-          url: "citaTaller.php",
+          url: "../admin/tasks/crearCita.php",
           type: "POST",
           dataType: "HTML",
           data: data,

@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                                 <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
-                                <a class="dropdown-item usuarioDropdown active" href="verCitas.php">CITAS TALLER</a>
+                                <a class="dropdown-item usuarioDropdown active" href="citas.php">CITAS TALLER</a>
                                 <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -104,24 +104,24 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `reparaciones` WHERE (id_usuario = '$id') AND (completada = 0)";
+                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 0)";
                             $result = mysqli_query($conexion, $consulta);
                             while ($fila = mysqli_fetch_array($result)) { ?>
                                 <tr>
-                                    <td><?php $consulta2 = "SELECT moto_makers.nombre FROM reparaciones 
-                                                  INNER JOIN motos ON reparaciones.id_moto = motos.id_moto
+                                    <td><?php $consulta2 = "SELECT moto_makers.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id
                                                   INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
-                                                  WHERE reparaciones.id_moto = $fila[id_moto]";
+                                                  WHERE citas.id_moto = $fila[id_moto]";
                                         $result2 = mysqli_query($conexion, $consulta2);
                                         while ($fila2 = mysqli_fetch_array($result2)) {
                                             echo $fila2["nombre"];
                                         }
                                         ?></td>
-                                    <td><?php $consulta3 = "SELECT moto_models.nombre FROM reparaciones 
-                                                  INNER JOIN motos ON reparaciones.id_moto = motos.id_moto
+                                    <td><?php $consulta3 = "SELECT moto_models.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id 
-                                                  WHERE reparaciones.id_moto = $fila[id_moto]";
+                                                  WHERE citas.id_moto = $fila[id_moto]";
                                         $result3 = mysqli_query($conexion, $consulta3);
                                         while ($fila3 = mysqli_fetch_array($result3)) {
                                             echo $fila3["nombre"];
@@ -171,24 +171,24 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `reparaciones` WHERE (id_usuario = '$id') AND (completada = 1)";
+                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 1)";
                             $result = mysqli_query($conexion, $consulta);
                             while ($fila = mysqli_fetch_array($result)) { ?>
                                 <tr>
-                                    <td><?php $consulta2 = "SELECT moto_makers.nombre FROM reparaciones 
-                                                  INNER JOIN motos ON reparaciones.id_moto = motos.id_moto
+                                    <td><?php $consulta2 = "SELECT moto_makers.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id
                                                   INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
-                                                  WHERE reparaciones.id_moto = $fila[id_moto]";
+                                                  WHERE citas.id_moto = $fila[id_moto]";
                                         $result2 = mysqli_query($conexion, $consulta2);
                                         while ($fila2 = mysqli_fetch_array($result2)) {
                                             echo $fila2["nombre"];
                                         }
                                         ?></td>
-                                    <td><?php $consulta3 = "SELECT moto_models.nombre FROM reparaciones 
-                                                  INNER JOIN motos ON reparaciones.id_moto = motos.id_moto
+                                    <td><?php $consulta3 = "SELECT moto_models.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id 
-                                                  WHERE reparaciones.id_moto = $fila[id_moto]";
+                                                  WHERE citas.id_moto = $fila[id_moto]";
                                         $result3 = mysqli_query($conexion, $consulta3);
                                         while ($fila3 = mysqli_fetch_array($result3)) {
                                             echo $fila3["nombre"];
@@ -324,7 +324,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 };
 
                 $.ajax({
-                    url: "borrarCitaTaller.php",
+                    url: "../admin/tasks/borrarCitaTaller.php",
                     type: "POST",
                     dataType: "HTML",
                     data: data,
@@ -333,7 +333,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 }).done(function(echo) {
                     if (echo == "exito") {
                         alert("Cita borrada con éxito");
-                        window.location.replace("verCitas.php")
+                        window.location.replace("citas.php")
                     } else if (echo == "error") {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }
@@ -350,7 +350,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 };
 
                 $.ajax({
-                    url: "citaTerminada.php",
+                    url: "../admin/tasks/citaTerminada.php",
                     type: "POST",
                     dataType: "HTML",
                     data: data,
@@ -359,7 +359,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 }).done(function(echo) {
                     if (echo == "exito") {
                         alert("Cita realizada");
-                        window.location.replace("verCitas.php")
+                        window.location.replace("citas.php")
                     } else if (echo == "error") {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }

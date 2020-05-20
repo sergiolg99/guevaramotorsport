@@ -1,10 +1,10 @@
 <?php
-require_once('../admin/recursos/conexionBD.php');
+require_once('../recursos/conexionBD.php');
 /* ini_set( 'display_errors', 1 ); */
 
 if ($_POST['tipoUser'] == "cliente") {
 
-    $query = "INSERT INTO `reparaciones`(`id_usuario`, `id_moto`, `fecha`, `comentarios`, `nombre`, `email`, `telefono`)
+    $query = "INSERT INTO `citas`(`id_usuario`, `id_moto`, `fecha`, `comentarios`, `nombre`, `email`, `telefono`)
             VALUES ('$_POST[id_usuario]', '$_POST[moto]', '$_POST[fecha]', '$_POST[comentarios]', '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]')";
 
     if ($conexion->query($query) === TRUE) {
@@ -14,7 +14,7 @@ if ($_POST['tipoUser'] == "cliente") {
     }
 } else if ($_POST['tipoUser'] == "visitante") {
 
-    $query = "INSERT INTO `reparaciones`(`id_moto`, `fecha`, `comentarios`, `nombre`, `email`, `telefono`) 
+    $query = "INSERT INTO `citas`(`id_moto`, `fecha`, `comentarios`, `nombre`, `email`, `telefono`) 
             VALUES ('$_POST[moto]', '$_POST[fecha]', '$_POST[comentarios]', '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]')";
 
     if ($conexion->query($query) === TRUE) {

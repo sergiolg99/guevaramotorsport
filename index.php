@@ -72,7 +72,7 @@ if (!isset($_SESSION['usuario'])) {
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                 <a class="dropdown-item usuarioDropdown" href="recursos/misDatos.php">MIS DATOS</a>
-                <a class="dropdown-item usuarioDropdown" href="recursos/verCitas.php">CITAS TALLER</a>
+                <a class="dropdown-item usuarioDropdown" href="recursos/citas.php">CITAS TALLER</a>
                 <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>

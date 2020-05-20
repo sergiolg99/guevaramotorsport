@@ -74,11 +74,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </a>
         </li>
         <li class="nav-item active">
-					<a class="nav-link" href="#">
-						<i class="fas fa-wrench"></i>
-						<span>Citas Taller</span>
-					</a>
-				</li>
+          <a class="nav-link" href="#">
+            <i class="fas fa-wrench"></i>
+            <span>Citas Taller</span>
+          </a>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -125,45 +125,100 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <!-- DataTable -->
           <div class="card shadow mb-4">
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table" id="users" cellspacing="0">
+              <div class="custom-switch form-control-lg" style="margin-left: 0.5%; margin-bottom: 0.5%">
+                <input type="checkbox" class="custom-control-input" id="verTerminadas" name="verTerminadas">
+                <label class="custom-control-label" for="verTerminadas">Ver citas terminadas</label>
+              </div>
+              <div class="table-responsive" id="citasPendientes">
+                <table class="table citas" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Email</th>
                       <th>Nombre</th>
-                      <th>Direccion</th>
                       <th>Teléfono</th>
-                      <th>Admin</th>
+                      <th>Modelo Moto</th>
+                      <th>A realizar</th>
+                      <th>Fecha</th>
+                      <th>Completada</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM usuarios";
+                    $consulta = "SELECT * FROM citas WHERE completada = 0";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php echo $fila["email"]; ?></td>
-                        <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
-                        <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
-                            $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                        <td><?php echo $fila["nombre"]; ?></td>
+                        <td><?php echo $fila["telefono"]; ?></td>
+                        <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE citas.id = $fila[id]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"] . ", " . $fila["cp"];
-                            }; ?></td>
-                        <td><?php echo $fila["telefono"]; ?></td>
+                              echo $fila2["nombre"];
+                            }
+                            ?></td>
+                        <td><?php echo $fila["comentarios"]; ?></td>
+                        <td><?php echo $fila["fecha"]; ?></td>
                         <td><?php
-                            if ($fila['is_admin'] == 1) {
-                              echo "<span class='fas fa-check-circle' style='color:green';></span>";
+                            if ($fila['completada'] == 1) {
+                              echo "<span class='fas fa-check-circle' style='color:green'></span>";
                             } else {
-                              echo "<span class='fas fa-minus-circle' style='color:red';></span>";
+                              echo "<span class='fas fa-minus-circle' style='color:red'></span>";
                             }
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editUser.php?id=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                        </td>
+                      </tr>
+                    <?php }; ?>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-responsive" id="citasTerminadas" style="display: none">
+                <table class="table citas" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>Modelo Moto</th>
+                      <th>A realizar</th>
+                      <th>Fecha</th>
+                      <th>Completada</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $consulta = "SELECT * FROM citas WHERE completada = 1";
+                    $result = mysqli_query($conexion, $consulta);
+                    while ($fila = mysqli_fetch_array($result)) { ?>
+                      <tr>
+                        <td><?php echo $fila["nombre"]; ?></td>
+                        <td><?php echo $fila["telefono"]; ?></td>
+                        <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE citas.id = $fila[id]";
+                            $result2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($result2)) {
+                              echo $fila2["nombre"];
+                            }
+                            ?></td>
+                        <td><?php echo $fila["comentarios"]; ?></td>
+                        <td><?php echo $fila["fecha"]; ?></td>
+                        <td><?php
+                            if ($fila['completada'] == 1) {
+                              echo "<span class='fas fa-check-circle' style='color:green'></span>";
+                            } else {
+                              echo "<span class='fas fa-minus-circle' style='color:red'></span>";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -173,40 +228,59 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </div>
           </div>
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
     </div>
-    <!-- End of Content Wrapper -->
   </div>
-  <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--Delete User Modal-->
-  <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <!--Delete Cita Modal-->
+  <div class="modal fade" id="borrarCitaModal" tabindex="-1" role="dialog" aria-labelledby="borrarCitaLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteUserModal">Borrar Usuario</h5>
+          <h5 class="modal-title" id="borrarCitaTitle">Borrar Cita</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          Estas seguro que quieres borrar este usuario?
+        <div class="modal-body" style="font-size: 18px">
+          Estas seguro que quieres borrar esta cita? <br>
+          Esta acción no puede deshacerse.
         </div>
+        <br>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Usuario</button>
+          <button type="submit" class="btn btn-danger" id="submitBorrar" name="submit">Borrar</button>
         </div>
       </div>
     </div>
   </div>
-  <!--Delete User Modal-->
+
+  <!--Cita Realizada Modal-->
+  <div class="modal fade" id="cambiarEstadoCitaModal" tabindex="-1" role="dialog" aria-labelledby="cambiarEstadoCitaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cambiarEstadoCitaTitle">Cambiar el estado de esta cita</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="font-size: 18px">
+          Quieres cambiar el estado de "Completado" de esta cita?
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="submitRealizada" name="submit">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -236,29 +310,66 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#users').DataTable();
+      $('.citas').DataTable();
+
+      $('#verTerminadas').change(
+        function() {
+          if (this.checked) {
+            $("#citasPendientes").css("display", "none");
+            $("#citasTerminadas").css("display", "");
+          } else {
+            $("#citasPendientes").css("display", "");
+            $("#citasTerminadas").css("display", "none");
+          }
+        }
+      );
     });
 
-    function borrarUsuario(id) {
-      $('#deleteUserModal').modal();
-      $('#submit').click(function(e) {
+    function borrarCita(id) {
+      $('#borrarCitaModal').modal();
+      $('#submitBorrar').click(function(e) {
         e.preventDefault();
         data = {
-          "id_usuario": id
+          "id": id
         };
 
         $.ajax({
-          url: "deleteUser.php",
+          url: "borrarCitaTaller.php",
           type: "POST",
           dataType: "HTML",
           data: data,
           cache: false,
 
         }).done(function(echo) {
-
           if (echo == "exito") {
-            alert("Usuario borrado con éxito");
-            window.location.replace("usuarios.php")
+            alert("Cita borrada con éxito");
+            window.location.replace("citas.php")
+          } else if (echo == "error") {
+            alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+          }
+        });
+      });
+    };
+
+    function cambiarEstadoCita(id) {
+      $('#cambiarEstadoCitaModal').modal();
+      $('#submitRealizada').click(function(e) {
+        e.preventDefault();
+        data = {
+          "id": id
+        };
+
+        $.ajax({
+          url: "citaTerminada.php",
+          type: "POST",
+          dataType: "HTML",
+          data: data,
+          cache: false,
+
+        }).done(function(echo) {
+          if (echo == "exito") {
+            alert("Estado cambiado");
+            window.location.replace("citas.php")
           } else if (echo == "error") {
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
           }
