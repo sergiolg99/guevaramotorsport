@@ -71,11 +71,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../tasks/citas.php">
-						<i class="fas fa-wrench"></i>
-						<span>Citas Taller</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../tasks/citas.php">
+                        <i class="fas fa-wrench"></i>
+                        <span>Citas Taller</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -171,7 +171,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?>
                                                 </td>
-                                                <td><?php echo $fila["cilindrada"];?></td>
+                                                <td><?php echo $fila["cilindrada"]; ?></td>
                                                 <td><?php
                                                     if ($fila['is_active'] == 1) {
                                                         echo "<span class='fas fa-check-circle' style='color:green';></span>";
@@ -255,7 +255,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#vehicles').DataTable();
+            $('#vehicles').DataTable({
+                "order": [
+                    [0, 'asc'],
+                    [1, 'asc']
+                ]
+            });
         });
     </script>
     <script>

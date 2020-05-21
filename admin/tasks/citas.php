@@ -310,7 +310,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('.citas').DataTable();
+      $('.citas').DataTable({
+        "order": [
+          [4, 'asc'],
+          [0, 'desc']
+        ]
+      });
 
       $('#verTerminadas').change(
         function() {
