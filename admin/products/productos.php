@@ -137,7 +137,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
               <div class="table-responsive">
                 <a class="btn btn-primary noFocus" href="newProduct.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
                 <br><br>
-                <table class="table" id="products" cellspacing="0" style="display: block; height: 485px; overflow-y: scroll">
+                <table class="table" id="products" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -176,7 +176,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

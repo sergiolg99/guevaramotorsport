@@ -189,7 +189,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

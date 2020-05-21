@@ -170,7 +170,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
-                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" style="cursor: pointer;" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

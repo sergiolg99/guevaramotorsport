@@ -174,16 +174,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     </div>
                     <div class="select">
                         <select id="card-expiration-year" required>
-                            <option value="">Año</option>
-                            <option>2020</option>
-                            <option>2021</option>
-                            <option>2022</option>
-                            <option>2023</option>
-                            <option>2024</option>
-                            <option>2025</option>
-                            <option>2026</option>
-                            <option>2027</option>
-                            <option>2028</option>
+                        <option value="0">Año</option>
                         </select>
                     </div>
                 </fieldset>

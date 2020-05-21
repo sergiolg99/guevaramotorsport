@@ -182,7 +182,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="editVehicle.php?id=<?php echo $fila["id_moto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                                                    <a class="btn btn-danger noFocus" onclick="borrarVehiculo('<?php echo $fila["id_moto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                    <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarVehiculo('<?php echo $fila["id_moto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                                 </td>
                                             </tr>
                                         <?php }; ?>

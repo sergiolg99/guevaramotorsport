@@ -174,7 +174,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="editUser.php?id=<?php echo $fila["id_usuario"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarUsuario('<?php echo $fila["id_usuario"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

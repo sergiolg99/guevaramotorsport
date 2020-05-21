@@ -98,10 +98,10 @@ if (!isset($_SESSION['usuario'])) {
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./recursos/imagenes/imagen1.jpg" class="d-block w-100" alt="Tienda de productos para el motorista">
+        <img src="./recursos/imagenes/imagen4.jpg" class="d-block w-100" alt="Tienda de productos para el motorista">
         <div class="carousel-caption d-none d-md-block">
           <h2>
-            <span style="color: white; font-style: italic;">TU TALLER DE MOTOS EN PALENCIA</span>
+            <span style="color: white; font-style: italic; font-weight: bold;">TU TALLER DE MOTOS EN PALENCIA</span>
           </h2>
           <br>
           <a class="btn btn-lg bonito" href="recursos/tienda.php">COMPRAR PRODUCTOS</a>

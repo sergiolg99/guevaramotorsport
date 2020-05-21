@@ -101,14 +101,14 @@ function registrarse() {
           email: email,
           contrasenna: password
         };
-      
+
         $.ajax({
           url: "../admin/recursos/verificar.php?action=cliente",
           type: "POST",
           dataType: "HTML",
           data: data1,
           cache: false,
-      
+
         }).done(function (echo) {
           if (echo !== "") {
             $("#response").html(echo);
@@ -147,19 +147,6 @@ function enviarFormulario() {
   }
 
 }
-
-// FORMULARIO CITA PREVIA ****************************************************
-comprobarEnviar = function () {
-  alert("Su solicitud se ha realizado correctamente");
-  location.reload();
-}
-
-funcionReset = function () {
-  if (confirm("Se borrarán todos los datos. ¿Está de acuerdo?")) {
-    location.reload();
-  }
-}
-
 
 // FUNCIONES PAGO ////////////////////////////////////////////////////
 $('.input-cart-number').on('keyup change', function () {
@@ -225,6 +212,10 @@ function precio() {
   if (total == 0) {
     boton.disabled = true;
   }
+
+  var n = (new Date()).getFullYear()
+  var select = document.getElementById("card-expiration-year");
+  for (var i = n; i < n+8; i++) select.options.add(new Option(i, i));
 }
 
 function pagar() {
@@ -244,9 +235,9 @@ function pagar() {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
           alert("Compra realizada correctamente");
-          window.location.replace("../index.php")
           localStorage.removeItem('carrito');
           localStorage.removeItem('total');
+          window.location.replace("../index.php");
         }
       }
     }
