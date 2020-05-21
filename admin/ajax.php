@@ -36,11 +36,3 @@ for ($i = 0; $i < count($datos_JSON["ListaEESSPrecio"]); $i++) {
 }
 
 echo json_encode($datos);
-
-// for ($i=0; $i<count($datos); $i++) {
-//     echo $datos[$i]["direccion"]. "<br>";
-//     echo $datos[$i]["precio_gasoleo"]. "<br>";
-//     echo $datos[$i]["precio_gasolina95"]. "<br>";
-//     echo $datos[$i]["precio_gasolina98"]. "<br>";
-//     echo $datos[$i]["rotulo"]. "<br><hr>";
-// }

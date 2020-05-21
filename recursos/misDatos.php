@@ -108,7 +108,7 @@ $fila = mysqli_fetch_array($result);
                     <label for="telefono">Teléfono:</label>
                     <input type="tel" class="form-control" id="telefono" name="telefono" disabled placeholder="No especificado" value="<?php echo $fila["telefono"]; ?>">
                     <br><br>
-                    <a class="btn btn-primary" type="button" href="editData.php"><i class="fas fa-edit"></i> Modificar Datos</a>
+                    <a class="btn btn-primary" href="editData.php"><i class="fas fa-edit"></i> Modificar Datos</a>
                 </div>
 
                 <div class="form-group col-md-0 col-lg-1"></div>

@@ -289,7 +289,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         beforeSend: function() {
           $("#ajax").html("<h5> Cargando Datos...</h5>");
         },
-
         success: function(datos) {
           $("#ajax").html("");
           for (var i = 0; i < 10; i++) {
@@ -305,7 +304,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
               ] + "</li> <br>");
           }
         },
-
         error: function(xhr, excepcion, textoError) {
           alert("Ocurrió un " + excepcion);
           alert("Ha ocurrido el error " + xhr.status + ": " + textoError);
