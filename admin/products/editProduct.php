@@ -97,7 +97,7 @@ $fila = mysqli_fetch_array($result)
             </div>
             <div class="text-center">
                 <div class="container">
-                    <span style="color: white; font-size: 12px">Backend v1.0</span>
+                    <span style="color: white; font-size: 12px">Backend v2.0</span>
                 </div>
             </div>
         </ul>

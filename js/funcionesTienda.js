@@ -77,15 +77,38 @@ function cargarDatos() {
 }
 
 function anyadirCarrito() {
-    // Anyadimos el Nodo a nuestro carrito
-    carrito.push(this.getAttribute('marcador'));
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    // Calculo el total y el iva
-    calcularIva();
-    calcularTotal();
-    // Renderizamos el carrito 
-    renderizarCarrito();
-    alert("Producto añadido al carrito");
+    if (carrito == "") {
+        // Anyadimos el Nodo a nuestro carrito
+        carrito.push(this.getAttribute('marcador'));
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        // Calculo el total y el iva
+        calcularIva();
+        calcularTotal();
+        // Renderizamos el carrito 
+        renderizarCarrito();
+        alert("Producto añadido al carrito");
+    } else {
+        renderizarCarrito();
+        stock = this.getAttribute('stock');
+        if (numeroUnidadesItem == stock) {
+            alert("No disponemos de suficientes unidades");
+            calcularIva();
+            calcularTotal();
+            renderizarCarrito();
+        } else {
+            // Anyadimos el Nodo a nuestro carrito
+            carrito.push(this.getAttribute('marcador'));
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            // Calculo el total y el iva
+            calcularIva();
+            calcularTotal();
+            // Renderizamos el carrito 
+            renderizarCarrito();
+            alert("Producto añadido al carrito");
+        }
+
+    }
+
 }
 
 function renderizarCarrito() {
@@ -94,13 +117,13 @@ function renderizarCarrito() {
     // Quitamos los duplicados
     let carritoSinDuplicados = [...new Set(carrito)];
     // Generamos los Nodos a partir de carrito
-    carritoSinDuplicados.forEach(function (item, indice) {
+    carritoSinDuplicados.forEach(function (item) {
         // Obtenemos el item que necesitamos de la base de datos
         let miItem = datos.filter(function (itemBaseDatos) {
             return itemBaseDatos.id_producto == item;
         });
         // Cuenta el número de veces que se repite el producto
-        let numeroUnidadesItem = carrito.reduce(function (total, itemId) {
+        numeroUnidadesItem = carrito.reduce(function (total, itemId) {
             return itemId === item ? total += 1 : total;
         }, 0);
         // Creamos el nodo del item del carrito

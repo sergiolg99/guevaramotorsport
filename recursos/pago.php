@@ -219,6 +219,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         </div>
     </div>
 
+    <button class="back-to-top" id="back-to-top"></button>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
