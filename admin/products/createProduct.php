@@ -17,7 +17,7 @@ if ($existe == 1) {
     } else {
         // Verificamos si el tipo de archivo es un tipo de imagen permitido.
         // y que el tamaño del archivo no exceda los 16MB
-        $permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+        $permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/heic");
         $limite_kb = 16384;
     
         if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {

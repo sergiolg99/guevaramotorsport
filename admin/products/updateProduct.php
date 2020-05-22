@@ -10,7 +10,7 @@ if (!isset($_POST['is_active'])) {
 if (!isset($_FILES["imagen"])) {
     die('errorImagen');
 } else {
-    $permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+    $permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/heic");
     $limite_kb = 16384;
 
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
