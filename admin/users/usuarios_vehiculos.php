@@ -83,7 +83,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
       </div>
       <div class="text-center">
         <div class="container">
-          <span style="color: white; font-size: 12px">Backend v1.0</span>
+          <span style="color: white; font-size: 12px">Backend v2.0</span>
         </div>
       </div>
     </ul>
@@ -189,7 +189,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-danger noFocus" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

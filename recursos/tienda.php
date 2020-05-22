@@ -12,6 +12,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 	$id_usuario = $_SESSION['id_usuario'];
 	$usuario = $_SESSION['usuario'];
 }
+
+$consulta = "SELECT * FROM productos WHERE is_active = 1";
+$result = mysqli_query($conexion, $consulta);
+$fila = mysqli_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<!-- CSS para modal Inicio Sesión-->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css">
 	<!-- CSS Propio -->
 	<link rel="stylesheet" href="../css/estilos.css" />
 	<link rel="icon" type="image/png" href="imagenes/logo.png" />
@@ -63,7 +67,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 						</li>
 						<!-- Botón Usuario -->
 						<li class="nav-item dropdown" id="usuario" <?php print($showUser) ?>>
-							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+							<a class="nav-link dropdown-toggle noFocus" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
 								<span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
 								<i class="fas fa-user-circle"></i>
 							</a>
@@ -83,7 +87,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 			</div>
 		</nav>
 	</header>
-
 
 	<div class="container">
 		<div class="row">
@@ -106,9 +109,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 		</div>
 	</div>
 
+	<!-- Modal Info Producto -->
 	<div id="infoProducto" class="modal fade" role="dialog" aria-labelledby="infoProducto" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<div id="modal-title"></div>
@@ -116,6 +119,25 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 				</div>
 				<div class="modal-body" id="modal-body"></div>
 				<div class="modal-footer" id="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Selecciona "Cerrar Sesión" si estas listo para terminar tu sesión actual.</div>
+				<div class="modal-footer">
+					<button class="btn" type="button" data-dismiss="modal">Cancelar</button>
+					<a class="btn btn-primary" href="../admin/recursos/salir.php?action=cliente">Cerrar Sesión</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -242,33 +264,14 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 		</div>
 	</div>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Selecciona "Cerrar Sesión" si estas listo para terminar tu sesión actual.</div>
-				<div class="modal-footer">
-					<button class="btn" type="button" data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" href="../admin/recursos/salir.php?action=cliente">Cerrar Sesión</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<button class="back-to-top" id="back-to-top"></button>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
-	<script src="../js/funcionesTienda.js"></script>
 	<script src="../js/funciones.js"></script>
+	<script src="../js/funcionesTienda.js"></script>
 </body>
 
 </html>

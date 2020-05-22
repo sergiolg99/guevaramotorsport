@@ -1,11 +1,6 @@
 <?php
 require_once('../recursos/conexionBD.php');
-// Reanudamos la sesión
 session_start();
-
-// Comprobamos si el usario está logueado
-// Si no lo está, se le redirecciona al index
-// Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: ../administrar.php');
 } else {
@@ -13,12 +8,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     require('../recursos/sesiones.php');
     $usuario = $_SESSION['usuario'];
 }
-
-$id = $_GET['id'];
-
-$consulta = "SELECT * FROM productos WHERE id_producto = '$id'";
-$result = mysqli_query($conexion, $consulta);
-$fila = mysqli_fetch_array($result)
 ?>
 
 <!DOCTYPE html>
@@ -35,16 +24,8 @@ $fila = mysqli_fetch_array($result)
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Custom styles for this template-->
     <link href="../../css/sidebar-admin.css" rel="stylesheet">
-
-    <style type="text/css">
-        .custom-control-input {
-            font-size: 25px;
-        }
-
-        input::placeholder {
-            font-size: 14px;
-        }
-    </style>
+    <!-- Custom styles for datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
 </head>
 
 <body id="page-top">
@@ -85,11 +66,11 @@ $fila = mysqli_fetch_array($result)
                     </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../tasks/citas.php">
-						<i class="fas fa-wrench"></i>
-						<span>Citas Taller</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../tasks/citas.php">
+                        <i class="fas fa-wrench"></i>
+                        <span>Citas Taller</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -101,37 +82,26 @@ $fila = mysqli_fetch_array($result)
                 </div>
             </div>
         </ul>
-        <!-- Content Wrapper -->
+
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
+            <div id="content" style="max-height: 100%">
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="productos.php">Productos</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Editar Producto</li>
+                            <li class="breadcrumb-item active" aria-current="page">Gestionar Stock</li>
                         </ol>
                     </nav>
-
-                    <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                                 <i class="fas fa-user-circle"></i>
                             </a>
-                            <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -141,58 +111,54 @@ $fila = mysqli_fetch_array($result)
                         </li>
                     </ul>
                 </nav>
-                <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Content Row -->
-                    <form action="" method="POST" id="editProduct">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required value="<?php echo $fila["nombre"]; ?>">
-                            </div>
-                            <div class="form-group col-md-2"></div>
-                            <div class="form-group col-md-4">
-                                <label for="inputName">Precio</label>
-                                <input type="number" class="form-control" id="precio" name="precio" step="0.01" required value="<?php echo $fila["precio"]; ?>">
+                    <!-- DataTable -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="stock" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Imagen</th>
+                                            <th>Precio</th>
+                                            <th>Stock Actual</th>
+                                            <th>Gestionar Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $consulta = "SELECT `id_producto`, `nombre`, `precio`, `descripcion`, `stock`, `is_active` FROM productos";
+                                        $result = mysqli_query($conexion, $consulta);
+                                        while ($fila = mysqli_fetch_array($result)) { ?>
+                                            <tr>
+                                                <td><?php echo $fila["nombre"]; ?></td>
+                                                <td><img src="obtenerImagen.php?id=<?php echo $fila["id_producto"]; ?>" width="80" height="80" id="imagenProducto" /></td>
+                                                <td><?php echo $fila["precio"] . " €"; ?></td>
+                                                <td><?php
+                                                    if ($fila['stock'] > 0) {
+                                                        echo $fila['stock'];
+                                                    } else {
+                                                        echo "<span class='fas fa-exclamation-circle' style='color:red';></span>";
+                                                    }
+                                                    ?></td>
+                                                <td>
+                                                    <a class="btn btn-primary noFocus" onclick="stockMenos('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-minus" style="color: white"></i></a>
+                                                    <a class="btn btn-primary noFocus" onclick="stockMas('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-plus" style="color: white"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <br>
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                <label for="descripcion">Descripcion</label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" required value="<?php echo $fila["descripcion"]; ?>"></input>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label for="imagen">Imagen</label>
-                            <img src="obtenerImagen.php?id=<?php echo $fila["id_producto"]; ?>" width="120" height="120" id="imagenProducto" />
-                            <input type="file" class="form-control-file" id="imagen" name="imagen" required>
-                        </div>
-                        <br>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <label for="stock">Stock</label>
-                                <input type="number" class="form-control" id="stock" name="stock" required value="<?php echo $fila["stock"]; ?>">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="custom-switch form-control-lg">
-                                <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="<?php echo $fila["is_active"]; ?>">
-                                <label class="custom-control-label" for="is_active">Activo</label>
-                            </div>
-                        </div>
-                        <br><br>
-                        <button class="btn btn-primary" type="submit" id="submit">Actualizar Producto</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -219,64 +185,64 @@ $fila = mysqli_fetch_array($result)
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap JavaScript-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!-- Custom scripts for all pages-->
+    <!-- Page level plugins -->
     <script src="../../js/sidebar-admin.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
-            let isActive = $('#is_active').val();
-            if (isActive == 1) {
-                $("#is_active").prop("checked", true);
-            } else {
-                $("#is_active").prop("checked", false);
-            }
+            $('#stock').DataTable({
+                scrollY: 420
+            });
         });
 
-        $("#editProduct").on("submit", function(e) {
-            let isActive = $('#is_active').is(":checked");
-            if (isActive == true) {
-                $("#is_active").val(1);
-            } else {
-                $("#is_active").val(0);
-            }
-            e.preventDefault();
+        function stockMas(id) {
+            data = {
+                "id_producto": id,
+                "action": "mas"
+            };
+
             $.ajax({
-                url: "updateProduct.php?id=<?php echo $fila["id_producto"]; ?>",
+                url: "updateStock.php",
                 type: "POST",
-                data: new FormData(this),
-                contentType: false,
+                dataType: "HTML",
+                data: data,
                 cache: false,
-                processData: false,
 
             }).done(function(echo) {
                 if (echo == "exito") {
-                    alert("Producto actualizado con éxito");
-                    window.location.replace("productos.php")
-                } else if (echo == "errorImagen") {
-                    alert("Imagen no disponible");
-                } else if (echo == "formato") {
-                    alert("Formato de archivo no permitido o excede el tamaño límite de Kbytes.");
+                    window.location.replace("editStock.php")
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                 }
             });
-        });
+        };
 
-        /* Validación tipo fichero */
-        $("#imagen").change(function() {
-            var file = this.files[0];
-            var imagefile = file.type;
-            var match = ["image/jpeg", "image/png", "image/jpg"];
-            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
-                alert('Por favor, selecciona un tipo de archivo válido (JPEG/JPG/PNG).');
-                $("#imagen").val('');
-                return false;
-            }
-        });
+        function stockMenos(id) {
+            data = {
+                "id_producto": id,
+                "action": "menos"
+            };
+
+            $.ajax({
+                url: "updateStock.php",
+                type: "POST",
+                dataType: "HTML",
+                data: data,
+                cache: false,
+
+            }).done(function(echo) {
+                if (echo == "exito") {
+                    window.location.replace("editStock.php")
+                } else {
+                    alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                }
+            });
+        };
     </script>
+
 </body>
 
 </html>

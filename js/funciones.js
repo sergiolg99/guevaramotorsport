@@ -70,7 +70,6 @@ function inicioSesion() {
     if (echo !== "") {
       $("#response").html(echo);
     } else {
-      // window.location.replace("");
       window.location.replace("");
     }
   });
@@ -101,14 +100,14 @@ function registrarse() {
           email: email,
           contrasenna: password
         };
-      
+
         $.ajax({
           url: "../admin/recursos/verificar.php?action=cliente",
           type: "POST",
           dataType: "HTML",
           data: data1,
           cache: false,
-      
+
         }).done(function (echo) {
           if (echo !== "") {
             $("#response").html(echo);
@@ -147,19 +146,6 @@ function enviarFormulario() {
   }
 
 }
-
-// FORMULARIO CITA PREVIA ****************************************************
-comprobarEnviar = function () {
-  alert("Su solicitud se ha realizado correctamente");
-  location.reload();
-}
-
-funcionReset = function () {
-  if (confirm("Se borrarán todos los datos. ¿Está de acuerdo?")) {
-    location.reload();
-  }
-}
-
 
 // FUNCIONES PAGO ////////////////////////////////////////////////////
 $('.input-cart-number').on('keyup change', function () {
@@ -225,6 +211,10 @@ function precio() {
   if (total == 0) {
     boton.disabled = true;
   }
+
+  var n = (new Date()).getFullYear()
+  var select = document.getElementById("card-expiration-year");
+  for (var i = n; i < n + 8; i++) select.options.add(new Option(i, i));
 }
 
 function pagar() {
@@ -236,22 +226,42 @@ function pagar() {
   let mes = new String(document.getElementById("card-expiration-month").value);
   let anno = new String(document.getElementById("card-expiration-year").value);
   let ccv = new String(document.getElementById("card-ccv").value);
-
-
+  var unidades = JSON.parse(localStorage.getItem("carrito"));
 
   if (numTarjeta1.length == 4 && numTarjeta2.length == 4 && numTarjeta3.length == 4 && numTarjeta4.length == 4) {
     if (titular.length != 0) {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
-          alert("Compra realizada correctamente");
-          window.location.replace("../index.php")
-          localStorage.removeItem('carrito');
-          localStorage.removeItem('total');
+          quitarStock(unidades);
+          //window.open('../index.php');
+          //window.close();
         }
       }
     }
-
   } else {
     alert("Faltan datos, compruebe los campos");
   }
+}
+
+function quitarStock(unidades) {
+  var jsonString = JSON.stringify(unidades);
+
+  $.ajax({
+    url: "../admin/products/ventaRealizada.php",
+    type: "POST",
+    dataType: "HTML",
+    data: {
+      data: jsonString
+    },
+    cache: false,
+  }).done(function (echo) {
+    if (echo == "exito") {
+      alert("Su compra se ha realizado correctamente");
+      localStorage.removeItem('carrito');
+      localStorage.removeItem('total');
+      window.location.replace("../index.php");
+    } else {
+      alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+    }
+  });
 }

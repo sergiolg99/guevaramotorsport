@@ -61,7 +61,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                         </li>
                         <!-- Botón Usuario -->
                         <li class="nav-item dropdown" id="usuario" <?php print($showUser) ?>>
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                            <a class="nav-link dropdown-toggle noFocus" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                                 <i class="fas fa-user-circle"></i>
                             </a>
@@ -174,16 +174,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     </div>
                     <div class="select">
                         <select id="card-expiration-year" required>
-                            <option value="">Año</option>
-                            <option>2020</option>
-                            <option>2021</option>
-                            <option>2022</option>
-                            <option>2023</option>
-                            <option>2024</option>
-                            <option>2025</option>
-                            <option>2026</option>
-                            <option>2027</option>
-                            <option>2028</option>
+                        <option value="0">Año</option>
                         </select>
                     </div>
                 </fieldset>
@@ -227,6 +218,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
         </div>
     </div>
+
+    <button class="back-to-top" id="back-to-top"></button>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

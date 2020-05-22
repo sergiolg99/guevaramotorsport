@@ -63,7 +63,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             </li>
             <!-- Botón Usuario -->
             <li class="nav-item dropdown" id="usuario" <?php print($showUser) ?>>
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+              <a class="nav-link dropdown-toggle noFocus" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                 <i class="fas fa-user-circle"></i>
               </a>
@@ -289,7 +289,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
         beforeSend: function() {
           $("#ajax").html("<h5> Cargando Datos...</h5>");
         },
-
         success: function(datos) {
           $("#ajax").html("");
           for (var i = 0; i < 10; i++) {
@@ -305,7 +304,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
               ] + "</li> <br>");
           }
         },
-
         error: function(xhr, excepcion, textoError) {
           alert("Ocurrió un " + excepcion);
           alert("Ha ocurrido el error " + xhr.status + ": " + textoError);

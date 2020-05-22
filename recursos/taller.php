@@ -68,7 +68,7 @@ $fila = mysqli_fetch_array($result);
             </li>
             <!-- Botón Usuario -->
             <li class="nav-item dropdown" id="usuario" <?php print($showUser) ?>>
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+              <a class="nav-link dropdown-toggle noFocus" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                 <i class="fas fa-user-circle"></i>
               </a>
@@ -172,9 +172,8 @@ $fila = mysqli_fetch_array($result);
               <fieldset class="fieldsetTaller">
                 <legend>Datos de la cita</legend>
                 <label>Día de la cita:</label>
-                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" 
-                  min="<?php echo date("Y-m-d"); ?>" max="<?php $date = new DateTime('+2 month');echo $date->format('Y-m-d'); ?>" 
-                  value="<?php echo date("Y-m-d"); ?>" required>
+                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" min="<?php echo date("Y-m-d"); ?>" max="<?php $date = new DateTime('+2 month');
+                                                                                                                                                                        echo $date->format('Y-m-d'); ?>" value="<?php echo date("Y-m-d"); ?>" required>
                 <br><br>
                 <label>Hora:</label>
                 <input type="time" id="hora" name="hora" class="datosReserva noFocus" min="08:30" max="20:00" step="900">
@@ -456,6 +455,13 @@ $fila = mysqli_fetch_array($result);
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
           }
         });
+      }
+    });
+
+    $('#cita').on("reset", function(e) {
+      e.preventDefault();
+      if (confirm("Se borrarán todos los datos. ¿Está de acuerdo?")) {
+        location.reload();
       }
     });
   </script>

@@ -1,11 +1,6 @@
 <?php
 require_once('../recursos/conexionBD.php');
-//Reanudamos la sesión
 session_start();
-
-//Comprobamos si el usario está logueado
-//Si no lo está, se le redirecciona al index
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   header('Location: ../administrar.php');
 } else {
@@ -83,41 +78,30 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
       </div>
       <div class="text-center">
         <div class="container">
-          <span style="color: white; font-size: 12px">Backend v1.0</span>
+          <span style="color: white; font-size: 12px">Backend v2.0</span>
         </div>
       </div>
     </ul>
 
-    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
       <div id="content" style="max-height: 100%">
-
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Productos</a></li>
               <li class="breadcrumb-item active" aria-current="page">Lista de Productos en venta</li>
             </ol>
           </nav>
-
-          <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-            <!-- Nav Item - User Information -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                 <i class="fas fa-user-circle"></i>
               </a>
-              <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -127,8 +111,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </li>
           </ul>
         </nav>
-        <!-- End of Topbar -->
-
+        
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- DataTable -->
@@ -136,8 +119,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             <div class="card-body">
               <div class="table-responsive">
                 <a class="btn btn-primary noFocus" href="newProduct.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
+                <a class="btn btn-warning" href="editStock.php" role="button" style="color: black;"><i class="fas fa-edit"></i> Gestionar Stock</a>
                 <br><br>
-                <table class="table" id="products" cellspacing="0" style="display: block; height: 485px; overflow-y: scroll">
+                <table class="table" id="products" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -176,7 +160,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -197,13 +181,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </div>
           </div>
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
     </div>
-    <!-- End of Content Wrapper -->
   </div>
-  <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -230,7 +210,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
       </div>
     </div>
   </div>
-  <!--Delete Product Modal-->
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -252,7 +231,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </div>
 
 
-  <!-- Bootstrap core JavaScript-->
+  <!-- Bootstrap JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <!-- Page level plugins -->
@@ -279,7 +258,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           cache: false,
 
         }).done(function(echo) {
-
           if (echo == "exito") {
             alert("Producto borrado con éxito");
             window.location.replace("productos.php")

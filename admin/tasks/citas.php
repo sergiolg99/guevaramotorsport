@@ -86,7 +86,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
       </div>
       <div class="text-center">
         <div class="container">
-          <span style="color: white; font-size: 12px">Backend v1.0</span>
+          <span style="color: white; font-size: 12px">Backend v2.0</span>
         </div>
       </div>
     </ul>
@@ -170,7 +170,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
-                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" style="cursor: pointer;" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -310,7 +310,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('.citas').DataTable();
+      $('.citas').DataTable({
+        "order": [
+          [4, 'asc'],
+          [0, 'desc']
+        ]
+      });
 
       $('#verTerminadas').change(
         function() {
