@@ -29,6 +29,26 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   <link rel="stylesheet" href="../css/estilos.css" />
   <link rel="icon" type="image/png" href="./imagenes/logo.png" />
   <title>Guevara MotorSport: Taller & Biker Shop</title>
+  <style type="text/css">
+    .spinner {
+      background-color: transparent;
+      transform: translateZ(0);
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-duration: .9s;
+      animation-name: spinner-loading
+    }
+
+    @keyframes spinner-loading {
+      0% {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(1turn)
+      }
+    }
+  </style>
 </head>
 
 <body class="fondoLiso">
@@ -51,10 +71,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <li class="nav-item">
               <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
             </li>
             <li class="nav-item" id="iniciarSesion" <?php print($showLogin) ?>>
@@ -88,42 +108,20 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
   <div id="main">
     <div class="container">
+      <br><br>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-          <form name="contacto" class="contacto" method="post" enctype="text/plain">
-            <h3 class="h3">Envíanos un correo electrónico &#128394;</h3>
-            <br>
-            <div class="form-row">
-              <div class="campoDatos">
-                <input type="text" class="form-control datosContacto noFocus" id="inputName" placeholder="¿Como te llamas?" required>
-              </div>
-              <div class="campoDatos">
-                <input type="email" class="form-control datosContacto noFocus" id="inputMail" placeholder="Correo electrónico" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="campoDatos">
-                <input type="tel" class="form-control datosContacto noFocus" id="inputPhone" placeholder="Nº de teléfono" maxlength="15">
-              </div>
-              <div class="campoDatos">
-                <input type="text" class="form-control datosContacto noFocus" id="inputAsunto" placeholder="Asunto" required>
-              </div>
-            </div>
-            <br>
-            <div class="form-row" style="padding: 0 12px 8px 6px">
-              <textarea name="descripcion" id="mensaje" cols="53" rows="8" class="form-control datosContacto comentariosContacto noFocus" placeholder="Cuéntanos en detalle..." required></textarea>
-            </div>
-            <button onclick="enviarFormulario()" class="botonBonitoContacto">ENVIAR</button>
-          </form>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-          <div id="mapa">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2965.2201380756032!2d-4.5118914331608595!3d41.995550881629015!2m3!1f0!2f0!3f0
-        !3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd47b1ca3937f617%3A0x7fa6f11d305233ff!2sCobarsa%20Volkswagen!5e0!3m2!1ses!2ses!4v1574166414522!5m2!1ses!2ses" width="100%" height="510px" frameborder="0" style="border-radius:15px;"></iframe>
-          </div>
-        </div>
+        <h1 class="titulo">Página en progreso, disculpen las molestias. <span class="fas fa-spinner spinner"></span></h1>
       </div>
+    </div>
+    <br><br>
+    <div class="container">
+      <h3 class="texto">
+        En <span style="color: red; font-style: italic;">Guevara MotorSport</span> nos orgullecemos del trabajo que estamos realizando.
+        Aun así, somos conscientes de que nos queda un largo camino por recorrer, y esta página es reflejo de ello.<br><br>
+        Nuestra sección dedicada a las motos de ocasión es nuestro siguiente gran paso para convertirnos en un referente entre los talleres y tiendas
+        dedicadas al mundo de la moto.<br><br>
+        En cuanto esté disponible la nueva sección, serán los primeros en enterarse. Muchas gracias.
+      </h3>
     </div>
 
     <!--Modal: Inicio sesion / registrarse -->

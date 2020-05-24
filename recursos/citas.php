@@ -51,7 +51,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+                            <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                 <th>Matrícula</th>
                                 <th>Fecha</th>
                                 <th>A Realizar</th>
-                                <th style="width: 16%;">Acciónes</th>
+                                <th style="width: 16%;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

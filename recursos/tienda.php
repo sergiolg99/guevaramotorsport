@@ -56,7 +56,7 @@ $fila = mysqli_fetch_array($result);
 							<a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+							<a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>

@@ -128,23 +128,18 @@ function registrarse() {
 
 // FORMULARIO CONTACTO ********************************************************
 function enviarFormulario() {
-  let nombre = new String(document.getElementById("nombre").value);
-  let email = new String(document.getElementById("email").value);
+  let nombre = new String(document.getElementById("inputName").value);
+  let email = new String(document.getElementById("inputMail").value);
   let mensaje = new String(document.getElementById("mensaje").value);
 
   if (nombre.length != 0 && email.length != 0 && mensaje.length != 0) {
-    if (!(/^\w+([-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email))) {
-      if (confirm('¿Estas seguro de enviar este mensaje?')) {
-        alert("Su mensaje se ha enviado con éxito");
-        location.reload();
-        return true;
-      }
+    if (confirm('¿Estas seguro de enviar este mensaje?')) {
+      alert("Su mensaje se ha enviado con éxito");
+      location.reload("");
     }
   } else {
     alert("Faltan datos, compruebe el formulario");
-    return false;
   }
-
 }
 
 // FUNCIONES PAGO ////////////////////////////////////////////////////

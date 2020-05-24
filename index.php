@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario'])) {
               <a class="nav-link" href="./recursos/tienda.php">TIENDA&nbsp;</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+              <a class="nav-link" href="./recursos/motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./recursos/contacto.php">CONTACTAR&nbsp;</a>

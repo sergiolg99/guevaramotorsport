@@ -53,7 +53,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../index.php">MOTOS DE OCASIÓN&nbsp;</a>
+                            <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
