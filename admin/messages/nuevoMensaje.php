@@ -1,5 +1,5 @@
 <?php
-require_once('./recursos/conexionBD.php');
+require_once('../recursos/conexionBD.php');
 
 $fecha = date("Y-m-d H:i:s");
 
