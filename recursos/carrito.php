@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 <p class="text-right">Total (IVA Incluido): <span id="total"></span> &euro;</p>
                 <br><br>
 
-                <a class="btn btn-lg finalizarPago finalizarPagoPeq noFocus" onclick="finalizarPedido();">FINALIZAR PEDIDO
+                <a class="btn btn-lg finalizarPago finalizarPagoPeq noFocus" id="finalizarPedido" onclick="finalizarPedido();">FINALIZAR PEDIDO
                     &nbsp;<strong class="fab fa-apple-pay"></strong></a>
             </main>
         </div>
@@ -269,12 +269,11 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     <button class="back-to-top" id="back-to-top"></button>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
-    <script src="../js/funcionesTienda.js"></script>
     <script src="../js/funciones.js"></script>
+    <script src="../js/funcionesTienda.js"></script>
     <script>
         function finalizarPedido() {
 			id_user = "<?php echo $id_usuario; ?>";
