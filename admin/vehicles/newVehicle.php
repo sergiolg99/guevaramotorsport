@@ -1,11 +1,7 @@
 <?php
 require_once('../recursos/conexionBD.php');
-//Reanudamos la sesión
 session_start();
 
-//Comprobamos si el usario está logueado
-//Si no lo está, se le redirecciona al index
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: ../administrar.php');
 } else {
@@ -73,23 +69,29 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../products/productos.php">
-						<i class="fas fa-shopping-cart"></i>
-						<span>Productos en venta</span>
-					</a>
+                    <a class="nav-link" href="../products/productos.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Productos en venta</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../tasks/citas.php">
-						<i class="fas fa-wrench"></i>
-						<span>Citas Taller</span>
-					</a>
+                    <a class="nav-link" href="../tasks/citas.php">
+                        <i class="fas fa-wrench"></i>
+                        <span>Citas Taller</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../sales/pedidos.php">
-						<i class="fas fa-coins"></i>
-						<span>Pedidos</span>
-					</a>
-				</li>
+                    <a class="nav-link" href="../sales/pedidos.php">
+                        <i class="fas fa-coins"></i>
+                        <span>Pedidos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../messages/mensajes.php">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Mensajes</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -101,37 +103,26 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </div>
             </div>
         </ul>
-        <!-- Content Wrapper -->
+
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Nuevo Vehículo</li>
                         </ol>
                     </nav>
-
-                    <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                                 <i class="fas fa-user-circle"></i>
                             </a>
-                            <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
@@ -141,12 +132,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </li>
                     </ul>
                 </nav>
-                <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Content Row -->
                     <form action="" method="POST" id="createVehicle">
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -177,9 +165,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </div>
             </div>
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -296,24 +282,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 "cilindrada": cilindrada
             };
             $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
                 url: "createVehicle.php",
-                //Definimos el tipo de método de envío
                 type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
                 dataType: "HTML",
-                //Definimos la información que vamos a enviar
                 data: data,
                 //Deshabilitamos el caché
                 cache: false,
             }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
                 if (echo == "exito") {
-                    //Si hay respuesta mostramos el mensaje
                     alert("Vehículo creado con éxito");
                     window.location.replace("vehiculos.php");
-                }else if (echo == "existe") {
+                } else if (echo == "existe") {
                     alert("Este vehículo ya existe");
                 } else {
                     alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
@@ -344,7 +323,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     }
                 });
             }
-
         };
 
         function newModel() {
@@ -371,7 +349,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     }
                 });
             }
-
         };
     </script>
 </body>

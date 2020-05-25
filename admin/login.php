@@ -53,38 +53,33 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 
     <script>
-        //Cuando el formulario con ID acceso se envíe...
+        // Cuando el formulario con ID acceso se envíe...
         $("#acceso").on("submit", function(e) {
-            //Evitamos que se envíe por defecto
+            // Evitamos que se envíe por defecto
             e.preventDefault();
-            //Creamos un FormData con los datos del mismo formulario
+            // Creamos un FormData con los datos del mismo formulario
             var formData = new FormData(document.getElementById("acceso"));
 
-            //Llamamos a la función AJAX de jQuery
             $.ajax({
-                //Definimos la URL del archivo al cual vamos a enviar los datos
                 url: "recursos/verificar.php?action=admin",
-                //Definimos el tipo de método de envío
                 type: "POST",
-                //Definimos el tipo de datos que vamos a enviar y recibir
                 dataType: "HTML",
-                //Definimos la información que vamos a enviar
                 data: formData,
-                //Deshabilitamos el caché
+                // Deshabilitamos el caché
                 cache: false,
-                //No especificamos el contentType
+                // No especificamos el contentType
                 contentType: false,
-                //No permitimos que los datos pasen como un objeto
+                // No permitimos que los datos pasen como un objeto
                 processData: false
             }).done(function(echo) {
-                //Una vez que recibimos respuesta
-                //comprobamos si la respuesta no es vacía
+                // Una vez que recibimos respuesta
+                // comprobamos si la respuesta no es vacía
                 if (echo !== "") {
-                    //Si hay respuesta (error), mostramos el mensaje
+                    // Si hay respuesta (error), mostramos el mensaje
                     $("#response").text(echo);
                 } else {
-                    //Si no hay respuesta, redirecionamos a donde sea necesario
-                    //Si está vacío, recarga la página
+                    // Si no hay respuesta, redirecionamos a donde sea necesario
+                    // Si está vacío, recarga la página 
                     window.location.replace("");
                 }
             });

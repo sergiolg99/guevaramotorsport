@@ -1,11 +1,7 @@
 <?php
 require_once('../recursos/conexionBD.php');
-//Reanudamos la sesión
 session_start();
 
-//Comprobamos si el usario está logueado
-//Si no lo está, se le redirecciona al index
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   header('Location: ../administrar.php');
 } else {
@@ -38,10 +34,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <div class="navbar-nav" style="height: 95%">
-        <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
           <a class="nav-link" href="../dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -80,11 +73,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </a>
         </li>
         <li class="nav-item">
-					<a class="nav-link" href="../sales/pedidos.php">
-						<i class="fas fa-coins"></i>
-						<span>Pedidos</span>
-					</a>
-				</li>
+          <a class="nav-link" href="../sales/pedidos.php">
+            <i class="fas fa-coins"></i>
+            <span>Pedidos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../messages/mensajes.php">
+            <i class="fas fa-comment-alt"></i>
+            <span>Mensajes</span>
+          </a>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -311,7 +310,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <!-- Bootstrap core JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- Page level plugins -->
+  <!-- Plugins para la página -->
   <script src="../../js/sidebar-admin.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
