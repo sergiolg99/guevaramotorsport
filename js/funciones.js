@@ -136,7 +136,7 @@ function enviarFormulario() {
 
   if (confirm('¿Quieres enviar este mensaje?')) {
     $.ajax({
-      url: "../admin/contacto.php",
+      url: "../admin/messages/nuevoMensaje.php",
       type: "POST",
       dataType: "HTML",
       data: {
