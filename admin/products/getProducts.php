@@ -4,7 +4,7 @@ require_once('../recursos/conexionBD.php');
 $consulta = "SELECT `id_producto`, `nombre`, `precio`, `descripcion`, `stock`, `is_active` FROM `productos` WHERE is_active = 1";
 $result = mysqli_query($conexion, $consulta);
 
-$datos = []; //creamos un array
+$datos = [];
 
 // Guardamos en un array bidimensional todos los datos de la consulta
 $i = 0;

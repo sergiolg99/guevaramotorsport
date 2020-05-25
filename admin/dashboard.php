@@ -1,5 +1,6 @@
 <?php
 require_once('recursos/conexionBD.php');
+session_start();
 
 $consulta = $conexion->query("SELECT 'id_usuario' FROM usuarios");
 $cuentaUsuarios = $consulta->num_rows;
@@ -13,8 +14,11 @@ $cuentaProductos = $consulta->num_rows;
 $consulta = $conexion->query("SELECT 'id' FROM citas WHERE completada = 0");
 $cuentaCitas = $consulta->num_rows;
 
-//Reanudamos la sesión
-session_start();
+$consulta = $conexion->query("SELECT 'id_venta' FROM ventas WHERE completada = 0");
+$cuentaVentas = $consulta->num_rows;
+
+$consulta = $conexion->query("SELECT 'id_mensaje' FROM mensajes WHERE leido = 0");
+$cuentaMensajes = $consulta->num_rows;
 
 //Comprobamos si el usario está logueado
 //Si no lo está, se le redirecciona al index
@@ -88,8 +92,19 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 						<span>Citas Taller</span>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="sales/pedidos.php">
+						<i class="fas fa-coins"></i>
+						<span>Pedidos</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="messages/mensajes.php">
+						<i class="fas fa-comment-alt"></i>
+						<span>Mensajes</span>
+					</a>
+				</li>
 				<hr class="sidebar-divider d-none d-md-block">
-				<!-- Sidebar Toggler (Sidebar) -->
 				<div class="text-center d-none d-md-inline">
 					<button class="rounded-circle border-0" id="sidebarToggle"></button>
 				</div>
@@ -103,7 +118,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
-
 				<!-- Topbar -->
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -174,7 +188,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Nº de Productos en Venta</div>
+											<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nº de Productos en Venta</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800"><?php print($cuentaProductos) ?></div>
 										</div>
 										<div class="col-auto">
@@ -196,6 +210,42 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-wrench fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<!-- Pending sales count -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-warning shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pedidos Pendientes</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800"><?php print($cuentaVentas) ?></div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-coins fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Pending messages count -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Mensajes sin leer</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800"><?php print($cuentaMensajes) ?></div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-comment-alt fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>

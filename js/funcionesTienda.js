@@ -114,6 +114,7 @@ function anyadirCarrito() {
 function renderizarCarrito() {
     // Vaciamos todo el html
     $carrito.textContent = '';
+    calcularTotal();
     // Quitamos los duplicados
     let carritoSinDuplicados = [...new Set(carrito)];
     // Generamos los Nodos a partir de carrito
@@ -195,6 +196,8 @@ function calcularTotal() {
     var boton = document.getElementById("finalizarPedido");
     if (total == 0 || total == null) {
         boton.disabled = true;
+    } else {
+        boton.disabled = false;
     }
 }
 
@@ -258,6 +261,7 @@ function cargarModal() {
             botonComprar.classList.add('btn', 'btn-primary');
         }
         botonComprar.setAttribute('marcador', miItem[0]['id_producto']);
+        botonComprar.setAttribute('stock', miItem[0]['stock']);
         botonComprar.setAttribute('data-dismiss', 'modal');
         botonComprar.addEventListener('click', anyadirCarrito);
     })

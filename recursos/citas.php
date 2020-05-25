@@ -51,7 +51,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+                            <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                                 <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
                                 <a class="dropdown-item usuarioDropdown active" href="citas.php">CITAS TALLER</a>
-                                <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
+                                <a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                                     CERRAR SESIÓN
@@ -99,7 +99,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                 <th>Matrícula</th>
                                 <th>Fecha</th>
                                 <th>A Realizar</th>
-                                <th style="width: 16%;">Acciónes</th>
+                                <th style="width: 16%;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -311,7 +311,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     <button class="back-to-top" id="back-to-top"></button>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../js/funciones.js"></script>
     <script>

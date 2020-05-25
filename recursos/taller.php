@@ -57,7 +57,7 @@ $fila = mysqli_fetch_array($result);
               <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+              <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
@@ -73,9 +73,9 @@ $fila = mysqli_fetch_array($result);
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
                 <a class="dropdown-item usuarioDropdown" href="citas.php">CITAS TALLER</a>
-                <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
+                <a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                   CERRAR SESIÓN
@@ -157,7 +157,7 @@ $fila = mysqli_fetch_array($result);
                 <input type="text" name="nombre" id="nombre" class="datosReserva noFocus" placeholder="Nombre" value="<?php echo $fila["nombre"]; ?>" required>
                 <br><br>
                 <label>Teléfono de contacto:</label>
-                <input type="tel" name="telefono" id="telefono" class="datosReserva noFocus" maxlength="9" placeholder="Número de movil" required value="<?php echo $fila["telefono"]; ?>">
+                <input type="tel" name="telefono" id="telefono" class="datosReserva noFocus" maxlength="15" placeholder="Ej: 987654321 (sin espacios)" required value="<?php echo $fila["telefono"]; ?>">
                 <br><br>
                 <label>Email:</label>
                 <input type="email" name="email" id="email" class="datosReserva noFocus" placeholder="Correo electrónico" value="<?php echo $fila["email"]; ?>">
@@ -172,11 +172,13 @@ $fila = mysqli_fetch_array($result);
               <fieldset class="fieldsetTaller">
                 <legend>Datos de la cita</legend>
                 <label>Día de la cita:</label>
-                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" min="<?php echo date("Y-m-d"); ?>" max="<?php $date = new DateTime('+2 month');
-                                                                                                                                                                        echo $date->format('Y-m-d'); ?>" value="<?php echo date("Y-m-d"); ?>" required>
+                <input type="date" id="fecha" name="fecha" placeholder="Elige un día para la cita" class="datosReserva noFocus" min="<?php $date = new DateTime('+1 day');
+                                                                                                                                      echo $date->format("Y-m-d"); ?>" max="<?php $date = new DateTime('+2 month');
+                                                                                                                                                                                                                  echo $date->format('Y-m-d'); ?>" value="<?php $date = new DateTime('+1 day');
+                                                                                                                                                                                                                echo $date->format("Y-m-d"); ?>" required>
                 <br><br>
-                <label>Hora:</label>
-                <input type="time" id="hora" name="hora" class="datosReserva noFocus" min="08:30" max="20:00" step="900">
+                <label>Hora: (Entre las 09:00 y las 17:00)</label>
+                <input type="time" id="hora" name="hora" class="datosReserva noFocus" min="09:00" max="17:00" step="900">
               </fieldset>
             </div>
           </div>
@@ -345,7 +347,6 @@ $fila = mysqli_fetch_array($result);
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
@@ -410,7 +411,7 @@ $fila = mysqli_fetch_array($result);
       e.preventDefault();
       id_usuario = "<?php echo $_SESSION['id_usuario']; ?>";
       comentarios = $('#comentarios').val();
-      fecha = $('#fecha').val() + " " + $('#hora').val() + ":00";
+      fecha = $('#fecha').val() + " " + $('#hora').val();
       nombre = $('#nombre').val();
       telefono = $('#telefono').val();
       email = $('#email').val();

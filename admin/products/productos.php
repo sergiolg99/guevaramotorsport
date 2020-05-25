@@ -66,11 +66,23 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </a>
         </li>
         <li class="nav-item">
-					<a class="nav-link" href="../tasks/citas.php">
-						<i class="fas fa-wrench"></i>
-						<span>Citas Taller</span>
-					</a>
-				</li>
+          <a class="nav-link" href="../tasks/citas.php">
+            <i class="fas fa-wrench"></i>
+            <span>Citas Taller</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../sales/pedidos.php">
+            <i class="fas fa-coins"></i>
+            <span>Pedidos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../messages/mensajes.php">
+            <i class="fas fa-comment-alt"></i>
+            <span>Mensajes</span>
+          </a>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -111,7 +123,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </li>
           </ul>
         </nav>
-        
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- DataTable -->
@@ -159,8 +171,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" title="Editar Producto" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" title="Borrar producto" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -234,7 +246,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <!-- Bootstrap JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- Page level plugins -->
+  <!-- Plugins para la página -->
   <script src="../../js/sidebar-admin.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>

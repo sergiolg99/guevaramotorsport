@@ -29,7 +29,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>
 
-<body onload="precio()" class="fondo">
+<body onload="precio();" class="fondo">
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light h5" style="background-color: white;">
             <div class="container">
@@ -50,14 +50,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+                            <a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
-                        </li>
-                        <li class="nav-item" id="iniciarSesion" <?php print($showLogin) ?>>
-                            <a class="nav-link" data-toggle="modal" data-target="#inicioSesion">
-                                <strong class="fas fa-sign-in-alt"></strong>&nbsp;INICIAR SESIÓN</a>
                         </li>
                         <!-- Botón Usuario -->
                         <li class="nav-item dropdown" id="usuario" <?php print($showUser) ?>>
@@ -66,9 +62,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                 <i class="fas fa-user-circle"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                                <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
+                                <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="citas.php">CITAS TALLER</a>
-                                <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
+                                <a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                                     CERRAR SESIÓN
@@ -139,7 +135,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 </div>
             </div>
 
-            <form class="form">
+            <form class="form" id="pago">
                 <fieldset>
                     <label for="card-number">NÚMERO TARJETA</label>
                     <div class="row justify-content-center">
@@ -174,7 +170,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     </div>
                     <div class="select">
                         <select id="card-expiration-year" required>
-                        <option value="0">Año</option>
+                        <option value="">Año</option>
                         </select>
                     </div>
                 </fieldset>
@@ -182,10 +178,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     <label for="card-ccv">CCV</label>
                     <input type="text" id="card-ccv" maxlength="3" required />
                 </fieldset>
-                <button class="pagar" id="boton" onclick="pagar()">
+                <button class="pagar" id="boton" type="submit">
                     <span><i class="fab fa-apple-pay"></i>&nbsp;&nbsp;PAGAR <span id="precio"></span></span>
                 </button>
-
             </form>
         </div>
     </div>
@@ -241,7 +236,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../js/funciones.js"></script>
 </body>

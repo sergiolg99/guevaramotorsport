@@ -128,23 +128,34 @@ function registrarse() {
 
 // FORMULARIO CONTACTO ********************************************************
 function enviarFormulario() {
-  let nombre = new String(document.getElementById("nombre").value);
-  let email = new String(document.getElementById("email").value);
-  let mensaje = new String(document.getElementById("mensaje").value);
+  $nombre = $('#inputName').val();
+  $email = $('#inputMail').val();
+  $telefono = $('#inputPhone').val();
+  $asunto = $('#inputAsunto').val();
+  $mensaje = $('#mensaje').val();
 
-  if (nombre.length != 0 && email.length != 0 && mensaje.length != 0) {
-    if (!(/^\w+([-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email))) {
-      if (confirm('¿Estas seguro de enviar este mensaje?')) {
-        alert("Su mensaje se ha enviado con éxito");
-        location.reload();
-        return true;
+  if (confirm('¿Quieres enviar este mensaje?')) {
+    $.ajax({
+      url: "../admin/messages/nuevoMensaje.php",
+      type: "POST",
+      dataType: "HTML",
+      data: {
+        nombre: $nombre,
+        email: $email,
+        telefono: $telefono,
+        asunto: $asunto,
+        mensaje: $mensaje
+      },
+      cache: false,
+    }).done(function (echo) {
+      if (echo == "exito") {
+        alert("Mensaje enviado correctamente");
+        window.location.replace("");
+      } else {
+        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
       }
-    }
-  } else {
-    alert("Faltan datos, compruebe el formulario");
-    return false;
+    });
   }
-
 }
 
 // FUNCIONES PAGO ////////////////////////////////////////////////////
@@ -201,7 +212,7 @@ $('#card-number').change(function () {
 
 function precio() {
   var sitioPrecio = document.getElementById("precio");
-  total = JSON.parse(localStorage.getItem("total"));
+  var total = JSON.parse(localStorage.getItem("total"));
   if (total == null) {
     total = 0;
   }
@@ -217,7 +228,7 @@ function precio() {
   for (var i = n; i < n + 8; i++) select.options.add(new Option(i, i));
 }
 
-function pagar() {
+$("#pago").on("submit", function (e) {
   let numTarjeta1 = new String(document.getElementById("card-number").value);
   let numTarjeta2 = new String(document.getElementById("card-number-1").value);
   let numTarjeta3 = new String(document.getElementById("card-number-2").value);
@@ -227,41 +238,37 @@ function pagar() {
   let anno = new String(document.getElementById("card-expiration-year").value);
   let ccv = new String(document.getElementById("card-ccv").value);
   var unidades = JSON.parse(localStorage.getItem("carrito"));
+  var jsonString = JSON.stringify(unidades);
+  var precioTotal = localStorage.getItem("total");
 
   if (numTarjeta1.length == 4 && numTarjeta2.length == 4 && numTarjeta3.length == 4 && numTarjeta4.length == 4) {
     if (titular.length != 0) {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
-          quitarStock(unidades);
-          //window.open('../index.php');
-          //window.close();
+          e.preventDefault();
+          $.ajax({
+            url: "../admin/sales/createSale.php",
+            type: "POST",
+            dataType: "HTML",
+            data: {
+              data: jsonString,
+              total: precioTotal
+            },
+            cache: false,
+          }).done(function (echo) {
+            if (echo == 'exito') {
+              alert("Su compra se ha realizado correctamente");
+              localStorage.removeItem('carrito');
+              localStorage.removeItem('total');
+              window.location.replace("../index.php");
+            } else {
+              alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+            }
+          });
         }
       }
     }
   } else {
     alert("Faltan datos, compruebe los campos");
   }
-}
-
-function quitarStock(unidades) {
-  var jsonString = JSON.stringify(unidades);
-
-  $.ajax({
-    url: "../admin/products/ventaRealizada.php",
-    type: "POST",
-    dataType: "HTML",
-    data: {
-      data: jsonString
-    },
-    cache: false,
-  }).done(function (echo) {
-    if (echo == "exito") {
-      alert("Su compra se ha realizado correctamente");
-      localStorage.removeItem('carrito');
-      localStorage.removeItem('total');
-      window.location.replace("../index.php");
-    } else {
-      alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
-    }
-  });
-}
+})

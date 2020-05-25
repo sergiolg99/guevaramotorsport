@@ -1,11 +1,7 @@
 <?php
 require_once('../recursos/conexionBD.php');
-//Reanudamos la sesión
 session_start();
 
-//Comprobamos si el usario está logueado
-//Si no lo está, se le redirecciona al index
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: ../administrar.php');
 } else {
@@ -39,6 +35,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="navbar-nav" style="height: 95%">
                 <hr class="sidebar-divider my-0">
+                <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" href="../dashboard.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -58,9 +55,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         </div>
                     </div>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-motorcycle fa-2x text-gray-300"></i>
+                <li class="nav-item">
+                    <a class="nav-link" href="../vehicles/vehiculos.php">
+                        <i class="fas fa-motorcycle"></i>
                         <span>Modelos Vehículos</span>
                     </a>
                 </li>
@@ -77,13 +74,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </a>
                 </li>
                 <li class="nav-item">
-					<a class="nav-link" href="../sales/pedidos.php">
-						<i class="fas fa-coins"></i>
-						<span>Pedidos</span>
-					</a>
+                    <a class="nav-link" href="../sales/pedidos.php">
+                        <i class="fas fa-coins"></i>
+                        <span>Pedidos</span>
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../messages/mensajes.php">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-comment-alt"></i>
                         <span>Mensajes</span>
                     </a>
@@ -109,8 +106,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     </button>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="vehiculos.php">Vehículos</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Lista de Vehículos</li>
+                            <li class="breadcrumb-item"><a href="#"> Mensajes</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Historial de Mensajes</li>
                         </ol>
                     </nav>
                     <ul class="navbar-nav ml-auto">
@@ -134,55 +131,86 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <a class="btn btn-primary noFocus" href="newVehicle.php" role="button"><i class="fas fa-plus"></i> Añadir Vehículo</a>
-                                <br><br>
-                                <table class="table" id="vehicles" cellspacing="0">
+                            <div class="custom-switch form-control-lg" style="margin-left: 0.5%; margin-bottom: 0.5%">
+                                <input type="checkbox" class="custom-control-input" id="verLeidos" name="verLeidos">
+                                <label class="custom-control-label" for="verLeidos">Ver mensajes leidos</label>
+                            </div>
+                            <div class="table-responsive" id="mensajesPendientes">
+                                <table class="table mensajes" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Fabricante</th>
-                                            <th>Modelo</th>
-                                            <th>Cilindrada en cc</th>
-                                            <th>Activo</th>
-                                            <th style="width: 12%">Acción</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Asunto</th>
+                                            <th>Mensaje</th>
+                                            <th>Fecha</th>
+                                            <th>Leido</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $consulta = "SELECT `id_moto`, `modelo`, `cilindrada`, `is_active` FROM motos";
+                                        $consulta = "SELECT * FROM mensajes WHERE leido = 0";
                                         $result = mysqli_query($conexion, $consulta);
                                         while ($fila = mysqli_fetch_array($result)) { ?>
                                             <tr>
-                                                <td>
-                                                    <?php $consulta2 = "SELECT moto_makers.nombre FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
-                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id WHERE motos.id_moto = $fila[id_moto]";
-                                                    $result2 = mysqli_query($conexion, $consulta2);
-                                                    while ($fila2 = mysqli_fetch_array($result2)) {
-                                                        echo $fila2["nombre"];
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td><?php $consulta3 = "SELECT motos.id_moto ,moto_models.nombre FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id WHERE motos.id_moto = $fila[id_moto]";
-                                                    $result3 = mysqli_query($conexion, $consulta3);
-                                                    while ($fila3 = mysqli_fetch_array($result3)) {
-                                                        echo $fila3["nombre"];
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td><?php echo $fila["cilindrada"]; ?></td>
+                                                <td><?php echo $fila['nombre']; ?></td>
+                                                <td><?php echo $fila['email']; ?></td>
+                                                <td><?php echo $fila['asunto']; ?></td>
+                                                <td><?php echo $fila['mensaje']; ?></td>
+                                                <td><?php echo $fila['fecha']; ?></td>
                                                 <td><?php
-                                                    if ($fila['is_active'] == 1) {
-                                                        echo "<span class='fas fa-check-circle' style='color:green';></span>";
+                                                    if ($fila['leido'] == 1) {
+                                                        echo "<span class='fas fa-envelope-open-text' style='color:green'></span>";
                                                     } else {
-                                                        echo "<span class='fas fa-minus-circle' style='color:red';></span>";
+                                                        echo "<span class='fas fa-envelope' style='color:red'></span>";
                                                     }
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-outline-warning noFocus" title="Editar vehículo" href="editVehicle.php?id=<?php echo $fila["id_moto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                                                    <a class="btn btn-danger noFocus" title="Borrar vehículo" style="cursor: pointer;" onclick="borrarVehiculo('<?php echo $fila["id_moto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                    <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de mensaje" onclick="cambiarEstadoMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class='fas fa-edit'></i></a>
+                                                    <a class="btn btn-danger noFocus" title="Borrar mensaje" style="cursor: pointer;" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive" id="mensajesTerminados" style="display: none">
+                                <table class="table mensajes" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Asunto</th>
+                                            <th>Mensaje</th>
+                                            <th>Fecha</th>
+                                            <th>Leido</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $consulta = "SELECT * FROM mensajes WHERE leido = 1";
+                                        $result = mysqli_query($conexion, $consulta);
+                                        while ($fila = mysqli_fetch_array($result)) { ?>
+                                            <tr>
+                                                <td><?php echo $fila['nombre']; ?></td>
+                                                <td><?php echo $fila['email']; ?></td>
+                                                <td><?php echo $fila['asunto']; ?></td>
+                                                <td><?php echo $fila['mensaje']; ?></td>
+                                                <td><?php echo $fila['fecha']; ?></td>
+                                                <td><?php
+                                                    if ($fila['leido'] == 1) {
+                                                        echo "<span class='fas fa-envelope-open-text' title='Leido' style='color:green'></span>";
+                                                    } else {
+                                                        echo "<span class='fas fa-envelope' title='Sin abrir' style='color:red'></span>";
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de mensaje" onclick="cambiarEstadoMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class='fas fa-edit'></i></a>
+                                                    <a class="btn btn-danger noFocus" title="Borrar mensaje" style="cursor: pointer;" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                                 </td>
                                             </tr>
                                         <?php }; ?>
@@ -201,22 +229,46 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!--Delete User Modal-->
-    <div class="modal fade" id="deleteVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteVehicleModalLabel" aria-hidden="true">
+    <!-- Borrar mensaje Modal-->
+    <div class="modal fade" id="borrarMensajeModal" tabindex="-1" role="dialog" aria-labelledby="borrarMensajeLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteVehicleModal">Borrar Vehículo</h5>
+                    <h5 class="modal-title" id="borrarMensajeTitle">Borrar Mensaje</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    Estas seguro que quieres borrar este vehículo?
+                <div class="modal-body" style="font-size: 18px">
+                    Estas seguro de que quieres borrar este mensaje? <br>
+                    Esta acción no puede deshacerse.
                 </div>
+                <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar Vehículo</button>
+                    <button type="submit" class="btn btn-danger" id="submitBorrar" name="submit">Borrar Mensaje</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje leido Modal-->
+    <div class="modal fade" id="cambiarEstadoMensajeModal" tabindex="-1" role="dialog" aria-labelledby="cambiarEstadoMensajeLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cambiarEstadoMensajeTitle">Cambiar el estado de este mensaje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 18px">
+                    Quieres cambiar el estado de "Leido" de este mensaje?
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="submitRealizado" name="submit">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -242,7 +294,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap JavaScript-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- Plugins para la página -->
@@ -250,36 +302,72 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#vehicles').DataTable({
+            $('.mensajes').DataTable({
                 "order": [
-                    [0, 'asc'],
-                    [1, 'asc']
+                    [4, 'asc'],
+                    [1, 'asc'],
                 ]
             });
+
+            $('#verLeidos').change(
+                function() {
+                    if (this.checked) {
+                        $("#mensajesPendientes").css("display", "none");
+                        $("#mensajesTerminados").css("display", "");
+                    } else {
+                        $("#mensajesPendientes").css("display", "");
+                        $("#mensajesTerminados").css("display", "none");
+                    }
+                }
+            );
         });
 
-        function borrarVehiculo(id) {
-            $('#deleteVehicleModal').modal();
-            $('#submit').click(function(e) {
+        function borrarMensaje(id) {
+            $('#borrarMensajeModal').modal();
+            $('#submitBorrar').click(function(e) {
                 e.preventDefault();
                 data = {
-                    "id_moto": id
+                    "id": id
                 };
 
                 $.ajax({
-                    url: "deleteVehicle.php",
+                    url: "borrarMensaje.php",
                     type: "POST",
                     dataType: "HTML",
                     data: data,
                     cache: false,
 
                 }).done(function(echo) {
-
                     if (echo == "exito") {
-                        $('#deleteVehicleModal').modal('hide');
-                        alert("Vehículo borrado con éxito");
-                        window.location.replace("vehiculos.php")
-                    } else {
+                        alert("Mensaje borrado");
+                        window.location.replace("mensajes.php")
+                    } else if (echo == "error") {
+                        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+                    }
+                });
+            });
+        };
+
+        function cambiarEstadoMensaje(id) {
+            $('#cambiarEstadoMensajeModal').modal();
+            $('#submitRealizado').click(function(e) {
+                e.preventDefault();
+                data = {
+                    "id": id
+                };
+
+                $.ajax({
+                    url: "mensajeLeido.php",
+                    type: "POST",
+                    dataType: "HTML",
+                    data: data,
+                    cache: false,
+
+                }).done(function(echo) {
+                    if (echo == "exito") {
+                        alert("Estado cambiado");
+                        window.location.replace("mensajes.php")
+                    } else if (echo == "error") {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }
                 });

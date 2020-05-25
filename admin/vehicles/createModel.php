@@ -1,7 +1,6 @@
 <?php
 require_once('../recursos/conexionBD.php');
 
-
 $buscarModelo = "SELECT nombre FROM moto_models WHERE nombre = '$_POST[nombre]' ";
 $resultado = $conexion->query($buscarModelo);
 $existe = mysqli_num_rows($resultado);

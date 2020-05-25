@@ -581,7 +581,7 @@ h2.fuerte {
 
 .finalizarPago:hover {
     background: white;
-    color: black;
+    color: black !important;
     border: 1px solid black;
 }
 

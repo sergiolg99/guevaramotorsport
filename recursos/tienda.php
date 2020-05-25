@@ -56,7 +56,7 @@ $fila = mysqli_fetch_array($result);
 							<a class="nav-link" href="tienda.php">TIENDA&nbsp;</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">MOTOS DE OCASIÓN&nbsp;</a>
+							<a class="nav-link" href="motosOcasion.php">MOTOS DE OCASIÓN&nbsp;</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="contacto.php">CONTACTAR&nbsp;</a>
@@ -72,9 +72,9 @@ $fila = mysqli_fetch_array($result);
 								<i class="fas fa-user-circle"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-								<a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
+								<a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
 								<a class="dropdown-item usuarioDropdown" href="citas.php">CITAS TALLER</a>
-								<a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
+								<a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
 								<a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
 									CERRAR SESIÓN
@@ -99,12 +99,12 @@ $fila = mysqli_fetch_array($result);
 				<ul id="carrito" class="list-group"></ul>
 				<hr>
 				<!-- Precio total -->
-				<p class="text-right">IVA: <span id="iva"></span>&euro;</p>
-				<p class="text-right">Total (IVA Incluido): <span id="total"></span>&euro;</p>
+				<p class="text-right">IVA: <span id="iva"></span> &euro;</p>
+				<p class="text-right">Total (IVA Incluido): <span id="total"></span> &euro;</p>
 				<br><br>
 
-				<a class="btn btn-lg finalizarPago noFocus" id="finalizarPedido" href="pago.php">FINALIZAR PEDIDO &nbsp;
-					<strong class="fab fa-apple-pay"></strong></a>
+				<button class="btn btn-lg finalizarPago noFocus" id="finalizarPedido" onclick="finalizarPedido();">FINALIZAR PEDIDO &nbsp;
+					<strong class="fab fa-apple-pay"></strong></button>
 			</aside>
 		</div>
 	</div>
@@ -267,11 +267,36 @@ $fila = mysqli_fetch_array($result);
 	<button class="back-to-top" id="back-to-top"></button>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
 	<script src="../js/funciones.js"></script>
 	<script src="../js/funcionesTienda.js"></script>
+	<script>
+		function finalizarPedido() {
+			id_user = "<?php echo $id_usuario; ?>";
+			if (id_user != "") {
+				<?php 
+				if ($id_usuario != "") {
+					$consulta2 = "SELECT `direccion`, `localidad`, `provincia`, `cp` FROM usuarios WHERE id_usuario = $id_usuario";
+					$result2 = mysqli_query($conexion, $consulta2);
+					$fila2 = mysqli_fetch_array($result2);
+				} ?>
+			
+				direccion = "<?php echo $fila2['direccion']; ?>";
+				localidad = "<?php echo $fila2['localidad']; ?>";
+				provincia = "<?php echo $fila2['provincia']; ?>";
+				cp = "<?php echo $fila2['cp']; ?>";
+			}
+
+			if (id_user == "") {
+				alert("Necesitas estar registrado y tener una dirección válida para realizar un pedido");
+			} else if (direccion == "" || localidad == "" || provincia == "" || cp == "") {
+				alert("Necesitas tener una dirección válida para realizar un pedido");
+			} else {
+				window.location.replace("pago.php");
+			}
+		};
+	</script>
 </body>
 
 </html>
