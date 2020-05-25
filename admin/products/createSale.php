@@ -9,6 +9,11 @@ $fecha = date("Y-m-d H:i:s");
 $query = "INSERT INTO `ventas`(`id_usuario`, `fecha`, `precio_total`) VALUES ('$id_usuario', '$fecha', '$total')";
 
 if ($conexion->query($query) === TRUE) {
+
+    $consulta = "SELECT `id_venta` FROM `ventas` WHERE (id_usuario = '$id_usuario') AND (fecha = '$fecha')";
+    $resultado = mysqli_query($conexion, $consulta);
+    $fila = mysqli_fetch_array($resultado);
+
     foreach ($data as $producto) {
         $buscaStock = "SELECT `stock` FROM `productos` WHERE id_producto = $producto";
         $result = mysqli_query($conexion, $buscaStock);
@@ -17,6 +22,9 @@ if ($conexion->query($query) === TRUE) {
         $stockMenos = $datos['stock'] - 1;
         $updateStock = "UPDATE `productos` SET stock='$stockMenos' WHERE id_producto='$producto'";
         $resultado = mysqli_query($conexion, $updateStock);
+
+        $query2 = "INSERT INTO `venta_productos`(`id_venta`, `id_producto`) VALUES ('$fila[id_venta]', '$producto')";
+        $conexion->query($query2);
     }
 
     die('exito');

@@ -249,10 +249,9 @@ function pedidoRealizado(id_usuario, unidades) {
       id_usuario: id_usuario,
       total: precioTotal
     },
-    cache: false,
-
+    cache: false
   }).done(function (echo) {
-    if (echo == "exito") {
+    if (echo == 'exito') {
       alert("Su compra se ha realizado correctamente");
       localStorage.removeItem('carrito');
       localStorage.removeItem('total');
