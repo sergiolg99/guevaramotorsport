@@ -21,12 +21,11 @@ if ($conexion->query($query) === TRUE) {
 
         $stockMenos = $datos['stock'] - 1;
         $updateStock = "UPDATE `productos` SET stock='$stockMenos' WHERE id_producto='$producto'";
-        $resultado = mysqli_query($conexion, $updateStock);
+        $conexion->query($updateStock);
 
         $query2 = "INSERT INTO `venta_productos`(`id_venta`, `id_producto`) VALUES ('$fila[id_venta]', '$producto')";
         $conexion->query($query2);
     }
-
     die('exito');
 } else {
     die();

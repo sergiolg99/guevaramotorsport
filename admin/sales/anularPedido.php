@@ -6,7 +6,12 @@ $anularPedido = "DELETE FROM `ventas` WHERE `id_venta`=$id";
 
 
 if ($conexion->query($anularPedido) === TRUE) {
-    die('exito');
+
+    $borrarRelacion = "DELETE FROM `venta_productos` WHERE `id_venta`=$id";
+
+    if ($conexion->query($borrarRelacion) === TRUE) {
+        die('exito');
+    }
 } else {
     die('error');
 }

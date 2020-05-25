@@ -251,7 +251,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!--Delete Pedido Modal-->
+    <!-- Anular Pedido Modal-->
     <div class="modal fade" id="borrarPedidoModal" tabindex="-1" role="dialog" aria-labelledby="borrarPedidoLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -268,7 +268,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" id="submitBorrar" name="submit">Anular</button>
+                    <button type="submit" class="btn btn-danger" id="submitBorrar" name="submit">Anular Pedido</button>
                 </div>
             </div>
         </div>

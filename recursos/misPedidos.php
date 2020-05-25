@@ -129,7 +129,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                                 ?>
                                             </td>
                                             <td>
-                                                <a class="btn btn-danger noFocus" title="Anular pedido" onclick="borrarUsuarioVehiculo('<?php echo $fila2["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                <a class="btn btn-danger noFocus" title="Anular pedido" onclick="borrarPedido('<?php echo $fila["id_venta"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                             </td>
                                         </tr>
                                     <?php }; ?>
@@ -137,7 +137,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             </table>
                             <div class="form-group col" style="text-align: -webkit-left">
                                 <br><br>
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#addVehicle" style="color: white"><i class="fas fa-plus"></i> Añadir Vehículo</a>
+                                <a class="btn btn-primary" href="tienda.php" style="color: white"><i class="fas fa-plus"></i> Hacer nuevo pedido</a>
                             </div>
                         </div>
                     </div>
@@ -171,79 +171,24 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             </div>
         </div>
 
-        <!--Delete Usuario_Vehiculo Modal-->
-        <div class="modal fade" id="deleteUserVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserVehicleModalLabel" aria-hidden="true">
+        <!-- Anular Pedido-->
+        <div class="modal fade" id="anularPedidoModal" tabindex="-1" role="dialog" aria-labelledby="anularPedidoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteUserVehicleModal">Borrar Vehículo</h5>
+                        <h5 class="modal-title" id="anularPedidoModalTitle">Anular Pedido</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" style="font-size: 18px">
-                        Estas seguro que quieres borrar este vehículo?
+                        Estas seguro que quieres anular este pedido? <br>
+                        Esta acción no puede deshacerse.
                     </div>
                     <br>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger" id="submit" name="submit">Borrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Asociar Vehiculo a Usuario -->
-        <div class="modal fade" id="addVehicle" tabindex="-1" role="dialog" aria-labelledby="addVehicleLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addVehicleLabel">Añadir Vehículo</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="fabricante">Fabricante</label>
-                                    <select id="fabricante" class="form-control" name="fabricante" required>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="modelo">Modelo</label>
-                                    <select id="modelo" class="form-control" name="modelo" required>
-                                        <option value="0">Esperando...</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="cilindrada">Cilindrada</label>
-                                    <select id="cilindrada" class="form-control" name="cilindrada" required>
-                                        <option value="0">Esperando...</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="year">Año</label>
-                                    <input type="text" class="form-control" name="year" id="year" placeholder="Año" maxlength="4">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <label for="matricula">Matrícula</label>
-                                    <input type="text" class="form-control" name="matricula" id="matricula" maxlength="8" placeholder="Matrícula">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="modal-footer">
-                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-primary" onclick="addVehicle()">Guardar</button>
+                        <button type="submit" class="btn btn-danger" id="submit" name="submit">Anular Pedido</button>
                     </div>
                 </div>
             </div>
@@ -285,8 +230,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 });
             });
 
-            function borrarUsuarioVehiculo(id) {
-                $('#deleteUserVehicleModal').modal();
+            function borrarPedido(id) {
+                $('#anularPedidoModal').modal();
                 $('#submit').click(function(e) {
                     e.preventDefault();
                     data = {
@@ -294,7 +239,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     };
 
                     $.ajax({
-                        url: "../admin/users/deleteUserVehicle.php",
+                        url: "../admin/sales/anularPedido.php",
                         type: "POST",
                         dataType: "HTML",
                         data: data,
@@ -302,8 +247,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
 
                     }).done(function(echo) {
                         if (echo == "exito") {
-                            alert("Vehículo borrado con éxito");
-                            window.location.replace("misDatos.php")
+                            alert("Pedido anulado con éxito");
+                            window.location.replace("misPedidos.php")
                         } else if (echo == "error") {
                             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                         }
