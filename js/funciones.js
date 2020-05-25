@@ -241,7 +241,7 @@ function pedidoRealizado(id_usuario, unidades) {
   var precioTotal = localStorage.getItem("total");
 
   $.ajax({
-    url: "../admin/products/createSale.php",
+    url: "../admin/sales/createSale.php",
     type: "POST",
     dataType: "HTML",
     data: {

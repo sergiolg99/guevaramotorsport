@@ -70,6 +70,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 						<i class="fas fa-wrench"></i>
 						<span>Citas Taller</span>
 					</a>
+        </li>
+        <li class="nav-item">
+					<a class="nav-link" href="../sales/pedidos.php">
+						<i class="fas fa-coins"></i>
+						<span>Pedidos</span>
+					</a>
 				</li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
@@ -159,8 +165,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" title="Editar Producto" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" title="Borrar producto" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

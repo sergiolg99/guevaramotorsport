@@ -89,6 +89,12 @@ $fila = mysqli_fetch_array($result)
 						<i class="fas fa-wrench"></i>
 						<span>Citas Taller</span>
 					</a>
+                </li>
+                <li class="nav-item">
+					<a class="nav-link" href="../sales/pedidos.php">
+						<i class="fas fa-coins"></i>
+						<span>Pedidos</span>
+					</a>
 				</li>
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">

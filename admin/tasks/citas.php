@@ -79,6 +79,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             <span>Citas Taller</span>
           </a>
         </li>
+        <li class="nav-item">
+					<a class="nav-link" href="../sales/pedidos.php">
+						<i class="fas fa-coins"></i>
+						<span>Pedidos</span>
+					</a>
+				</li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
