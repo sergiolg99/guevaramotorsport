@@ -228,7 +228,7 @@ function precio() {
   for (var i = n; i < n + 8; i++) select.options.add(new Option(i, i));
 }
 
-function pagar(id_usuario) {
+$("#pago").on("submit", function (e) {
   let numTarjeta1 = new String(document.getElementById("card-number").value);
   let numTarjeta2 = new String(document.getElementById("card-number-1").value);
   let numTarjeta3 = new String(document.getElementById("card-number-2").value);
@@ -238,42 +238,37 @@ function pagar(id_usuario) {
   let anno = new String(document.getElementById("card-expiration-year").value);
   let ccv = new String(document.getElementById("card-ccv").value);
   var unidades = JSON.parse(localStorage.getItem("carrito"));
+  var jsonString = JSON.stringify(unidades);
+  var precioTotal = localStorage.getItem("total");
 
   if (numTarjeta1.length == 4 && numTarjeta2.length == 4 && numTarjeta3.length == 4 && numTarjeta4.length == 4) {
     if (titular.length != 0) {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
-          pedidoRealizado(id_usuario, unidades);
+          e.preventDefault();
+          $.ajax({
+            url: "../admin/sales/createSale.php",
+            type: "POST",
+            dataType: "HTML",
+            data: {
+              data: jsonString,
+              total: precioTotal
+            },
+            cache: false,
+          }).done(function (echo) {
+            if (echo == 'exito') {
+              alert("Su compra se ha realizado correctamente");
+              localStorage.removeItem('carrito');
+              localStorage.removeItem('total');
+              window.location.replace("../index.php");
+            } else {
+              alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+            }
+          });
         }
       }
     }
   } else {
     alert("Faltan datos, compruebe los campos");
   }
-}
-
-function pedidoRealizado(id_usuario, unidades) {
-  var jsonString = JSON.stringify(unidades);
-  var precioTotal = localStorage.getItem("total");
-
-  $.ajax({
-    url: "../admin/sales/createSale.php",
-    type: "POST",
-    dataType: "HTML",
-    data: {
-      data: jsonString,
-      id_usuario: id_usuario,
-      total: precioTotal
-    },
-    cache: false,
-  }).done(function (echo) {
-    if (echo == 'exito') {
-      alert("Su compra se ha realizado correctamente");
-      localStorage.removeItem('carrito');
-      localStorage.removeItem('total');
-      window.location.replace("../index.php");
-    } else {
-      alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
-    }
-  });
-}
+})

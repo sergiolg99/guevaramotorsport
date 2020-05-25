@@ -29,7 +29,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>
 
-<body onload="precio()" class="fondo">
+<body onload="precio();" class="fondo">
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light h5" style="background-color: white;">
             <div class="container">
@@ -135,7 +135,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 </div>
             </div>
 
-            <form class="form">
+            <form class="form" id="pago">
                 <fieldset>
                     <label for="card-number">NÚMERO TARJETA</label>
                     <div class="row justify-content-center">
@@ -178,7 +178,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                     <label for="card-ccv">CCV</label>
                     <input type="text" id="card-ccv" maxlength="3" required />
                 </fieldset>
-                <button class="pagar" id="boton" onclick="pagar('<?php echo $id_usuario; ?>');">
+                <button class="pagar" id="boton" type="submit">
                     <span><i class="fab fa-apple-pay"></i>&nbsp;&nbsp;PAGAR <span id="precio"></span></span>
                 </button>
             </form>

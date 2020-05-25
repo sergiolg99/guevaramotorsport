@@ -1,8 +1,9 @@
 <?php
 require_once('../recursos/conexionBD.php');
+session_start();
 
 $data = json_decode(stripslashes($_POST['data']));
-$id_usuario = $_POST['id_usuario'];
+$id_usuario = $_SESSION['id_usuario'];
 $total = $_POST['total'];
 $fecha = date("Y-m-d H:i:s");
 
