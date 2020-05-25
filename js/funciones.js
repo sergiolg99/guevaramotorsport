@@ -196,7 +196,7 @@ $('#card-number').change(function () {
 
 function precio() {
   var sitioPrecio = document.getElementById("precio");
-  total = JSON.parse(localStorage.getItem("total"));
+  var total = JSON.parse(localStorage.getItem("total"));
   if (total == null) {
     total = 0;
   }
@@ -212,7 +212,7 @@ function precio() {
   for (var i = n; i < n + 8; i++) select.options.add(new Option(i, i));
 }
 
-function pagar() {
+function pagar(id_usuario) {
   let numTarjeta1 = new String(document.getElementById("card-number").value);
   let numTarjeta2 = new String(document.getElementById("card-number-1").value);
   let numTarjeta3 = new String(document.getElementById("card-number-2").value);
@@ -227,9 +227,7 @@ function pagar() {
     if (titular.length != 0) {
       if (mes.length != 0 && anno.length != 0 && ccv.length == 3) {
         if (confirm('¿Confirmas esta compra?')) {
-          quitarStock(unidades);
-          //window.open('../index.php');
-          //window.close();
+          pedidoRealizado(id_usuario, unidades);
         }
       }
     }
@@ -238,17 +236,21 @@ function pagar() {
   }
 }
 
-function quitarStock(unidades) {
+function pedidoRealizado(id_usuario, unidades) {
   var jsonString = JSON.stringify(unidades);
+  var precioTotal = localStorage.getItem("total");
 
   $.ajax({
-    url: "../admin/products/ventaRealizada.php",
+    url: "../admin/products/createSale.php",
     type: "POST",
     dataType: "HTML",
     data: {
-      data: jsonString
+      data: jsonString,
+      id_usuario: id_usuario,
+      total: precioTotal
     },
     cache: false,
+
   }).done(function (echo) {
     if (echo == "exito") {
       alert("Su compra se ha realizado correctamente");
