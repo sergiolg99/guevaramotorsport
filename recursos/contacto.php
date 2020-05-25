@@ -113,7 +113,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <div class="form-row" style="padding: 0 12px 8px 6px">
               <textarea name="descripcion" id="mensaje" cols="53" rows="8" class="form-control datosContacto comentariosContacto noFocus" placeholder="Cuéntanos en detalle..." required></textarea>
             </div>
-            <button onclick="enviarFormulario()" class="botonBonitoContacto">ENVIAR</button>
+            <button onclick="enviarFormulario();" class="botonBonitoContacto">ENVIAR</button>
           </form>
         </div>
 

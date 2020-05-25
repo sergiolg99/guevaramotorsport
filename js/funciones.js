@@ -128,17 +128,33 @@ function registrarse() {
 
 // FORMULARIO CONTACTO ********************************************************
 function enviarFormulario() {
-  let nombre = new String(document.getElementById("inputName").value);
-  let email = new String(document.getElementById("inputMail").value);
-  let mensaje = new String(document.getElementById("mensaje").value);
+  $nombre = $('#inputName').val();
+  $email = $('#inputMail').val();
+  $telefono = $('#inputPhone').val();
+  $asunto = $('#inputAsunto').val();
+  $mensaje = $('#mensaje').val();
 
-  if (nombre.length != 0 && email.length != 0 && mensaje.length != 0) {
-    if (confirm('¿Estas seguro de enviar este mensaje?')) {
-      alert("Su mensaje se ha enviado con éxito");
-      location.reload("");
-    }
-  } else {
-    alert("Faltan datos, compruebe el formulario");
+  if (confirm('¿Quieres enviar este mensaje?')) {
+    $.ajax({
+      url: "../admin/contacto.php",
+      type: "POST",
+      dataType: "HTML",
+      data: {
+        nombre: $nombre,
+        email: $email,
+        telefono: $telefono,
+        asunto: $asunto,
+        mensaje: $mensaje
+      },
+      cache: false,
+    }).done(function (echo) {
+      if (echo == "exito") {
+        alert("Mensaje enviado correctamente");
+        window.location.replace("");
+      } else {
+        alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
+      }
+    });
   }
 }
 

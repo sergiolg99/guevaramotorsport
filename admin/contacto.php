@@ -1,21 +1,11 @@
 <?php
-if (isset($_POST['email'])) {
+require_once('./recursos/conexionBD.php');
 
-    $email_to = "info@guevaramotorsport.com";
-    $email_subject = "Contacto desde el sitio web";
+$consulta = "INSERT INTO `mensajes`(`nombre`, `email`, `telefono`, `asunto`, `mensaje`) 
+VALUES ('$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[asunto]' , '$_POST[mensaje]')";
 
-    // Aquí se deberían validar los datos ingresados por el usuario
-    if (!isset($_POST['nombre']) || !isset($_POST['email']) || !isset($_POST['mensaje'])) {
-        die();
-    }
-
-    $email_message = "Detalles del formulario de contacto:\n\n";
-    $email_message .= "Nombre: " . $_POST['nombre'] . "\n";
-    $email_message .= "E-mail: " . $_POST['email'] . "\n";
-    $email_message .= "Mensaje: " . $_POST['mensaje'] . "\n\n";
-
-
-    // Ahora se envía el e-mail usando la función mail() de PHP
-    $headers = 'De: '.$email_from."\r\n" . 'Reply-To: '.$email_from."\r\n" . 'X-Mailer: admin/' . phpversion();
-    @mail($email_to, $email_subject, $email_message, $headers);
+if ($conexion->query($consulta) === TRUE) {
+    die('exito');
+} else {
+    die();
 }
