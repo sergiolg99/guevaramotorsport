@@ -73,9 +73,9 @@ $fila = mysqli_fetch_array($result);
                 <i class="fas fa-user-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
-                <a class="dropdown-item usuarioDropdown" href="misDatos.php" style="color: black">MIS DATOS</a>
+                <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
                 <a class="dropdown-item usuarioDropdown" href="citas.php">CITAS TALLER</a>
-                <a class="dropdown-item usuarioDropdown" style="color: black">PEDIDOS</a>
+                <a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                   CERRAR SESIÓN

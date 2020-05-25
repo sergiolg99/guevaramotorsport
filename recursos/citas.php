@@ -69,7 +69,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: white; border: none;">
                                 <a class="dropdown-item usuarioDropdown" href="misDatos.php">MIS DATOS</a>
                                 <a class="dropdown-item usuarioDropdown active" href="citas.php">CITAS TALLER</a>
-                                <a class="dropdown-item usuarioDropdown">PEDIDOS</a>
+                                <a class="dropdown-item usuarioDropdown" href="misPedidos.php">PEDIDOS</a>
                                 <a class="dropdown-item usuarioDropdown" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                                     CERRAR SESIÓN
