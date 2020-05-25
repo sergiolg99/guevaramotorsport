@@ -26,7 +26,7 @@ if (!isset($_SESSION['usuario'])) {
   <!-- CSS para modal Inicio Sesión-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
   <!-- CSS Propio -->
-  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="stylesheet" href="css/estilos.min.css" />
   <!-- CSS para carrusel infinito -->
   <link rel="stylesheet" href="css/infinite-slider.css" />
   <link rel="icon" type="image/png" href="./recursos/imagenes/logo.png" />

@@ -13,7 +13,7 @@ error_reporting(E_ALL ^ E_NOTICE);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- CSS Propio -->
-    <link rel="stylesheet" href="../css/estilos.css" />
+    <link rel="stylesheet" href="../css/estilos.min.css" />
     <link rel="icon" type="image/png" href="../recursos/imagenes/logo.png" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

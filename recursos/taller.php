@@ -31,7 +31,7 @@ $fila = mysqli_fetch_array($result);
   <!-- CSS para modal Inicio Sesión-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
   <!-- CSS Propio -->
-  <link rel="stylesheet" href="../css/estilos.css" />
+  <link rel="stylesheet" href="../css/estilos.min.css" />
   <link rel="icon" type="image/png" href="imagenes/logo.png" />
   <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>

@@ -30,7 +30,7 @@ $fila = mysqli_fetch_array($result);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- CSS Propio -->
-    <link rel="stylesheet" href="../css/estilos.css" />
+    <link rel="stylesheet" href="../css/estilos.min.css" />
     <link rel="icon" type="image/png" href="./imagenes/logo.png" />
     <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>

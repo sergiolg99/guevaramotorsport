@@ -25,7 +25,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- CSS Propio -->
-    <link rel="stylesheet" href="../css/estilos.css" />
+    <link rel="stylesheet" href="../css/estilos.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
     <link rel="icon" type="image/png" href="./imagenes/logo.png" />
     <title>Guevara MotorSport: Taller & Biker Shop</title>
