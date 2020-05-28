@@ -170,14 +170,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["precio_total"] . " €"; ?></td>
-                                                <td><?php
-                                                    if ($fila['completada'] == 1) {
-                                                        echo "<span class='fas fa-check-circle' style='color:green'></span>";
-                                                    } else {
-                                                        echo "<span class='fas fa-minus-circle' style='color:red'></span>";
-                                                    }
-                                                    ?>
-                                                </td>
+                                                <td><?php echo "<span class='fas fa-minus-circle' title='No realizado' style='color:red'></span>"; ?></td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de pedido" onclick="cambiarEstadoPedido('<?php echo $fila["id_venta"]; ?>');"><i class='fas fa-edit'></i></a>
                                                     <a class="btn btn-danger noFocus" title="Anular Pedido" style="cursor: pointer;" onclick="borrarPedido('<?php echo $fila["id_venta"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
@@ -223,14 +216,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["precio_total"] . " €"; ?></td>
-                                                <td><?php
-                                                    if ($fila['completada'] == 1) {
-                                                        echo "<span class='fas fa-check-circle' style='color:green'></span>";
-                                                    } else {
-                                                        echo "<span class='fas fa-minus-circle' style='color:red'></span>";
-                                                    }
-                                                    ?>
-                                                </td>
+                                                <td><?php echo "<span class='fas fa-check-circle' title='Completado' style='color:green'></span>"; ?></td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de pedido" onclick="cambiarEstadoPedido('<?php echo $fila["id_venta"]; ?>');"><i class='fas fa-edit'></i></a>
                                                     <a class="btn btn-danger noFocus" title="Anular Pedido" style="cursor: pointer;" onclick="borrarPedido('<?php echo $fila["id_venta"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>

@@ -159,17 +159,10 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                 <td><?php echo $fila['asunto']; ?></td>
                                                 <td><?php echo $fila['mensaje']; ?></td>
                                                 <td><?php echo $fila['fecha']; ?></td>
-                                                <td><?php
-                                                    if ($fila['leido'] == 1) {
-                                                        echo "<span class='fas fa-envelope-open-text' style='color:green'></span>";
-                                                    } else {
-                                                        echo "<span class='fas fa-envelope' style='color:red'></span>";
-                                                    }
-                                                    ?>
-                                                </td>
+                                                <td><?php echo "<span class='fas fa-envelope' title='Sin abrir' style='color:red'></span>";?></td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de mensaje" onclick="cambiarEstadoMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class='fas fa-edit'></i></a>
-                                                    <a class="btn btn-danger noFocus" title="Borrar mensaje" style="cursor: pointer;" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                                    <a class="btn btn-danger noFocus" href="#" title="Borrar mensaje" style="cursor: pointer" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                                 </td>
                                             </tr>
                                         <?php }; ?>
@@ -200,14 +193,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                 <td><?php echo $fila['asunto']; ?></td>
                                                 <td><?php echo $fila['mensaje']; ?></td>
                                                 <td><?php echo $fila['fecha']; ?></td>
-                                                <td><?php
-                                                    if ($fila['leido'] == 1) {
-                                                        echo "<span class='fas fa-envelope-open-text' title='Leido' style='color:green'></span>";
-                                                    } else {
-                                                        echo "<span class='fas fa-envelope' title='Sin abrir' style='color:red'></span>";
-                                                    }
-                                                    ?>
-                                                </td>
+                                                <td><?php echo "<span class='fas fa-envelope-open-text' title='Leido' style='color:green'></span>"; ?></td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de mensaje" onclick="cambiarEstadoMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class='fas fa-edit'></i></a>
                                                     <a class="btn btn-danger noFocus" title="Borrar mensaje" style="cursor: pointer;" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>

@@ -165,14 +165,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?></td>
                         <td><?php echo $fila["comentarios"]; ?></td>
                         <td><?php echo $fila["fecha"]; ?></td>
-                        <td><?php
-                            if ($fila['completada'] == 1) {
-                              echo "<span class='fas fa-check-circle' style='color:green'></span>";
-                            } else {
-                              echo "<span class='fas fa-minus-circle' style='color:red'></span>";
-                            }
-                            ?>
-                        </td>
+                        <td><?php echo "<span class='fas fa-minus-circle' title='No realizada' style='color:red'></span>"; ?></td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id_cita"]; ?>');"><i class='fas fa-edit'></i></a>
                           <a class="btn btn-danger noFocus" title="Borrar Cita" style="cursor: pointer;" onclick="borrarCita('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
@@ -213,14 +206,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?></td>
                         <td><?php echo $fila["comentarios"]; ?></td>
                         <td><?php echo $fila["fecha"]; ?></td>
-                        <td><?php
-                            if ($fila['completada'] == 1) {
-                              echo "<span class='fas fa-check-circle' style='color:green'></span>";
-                            } else {
-                              echo "<span class='fas fa-minus-circle' style='color:red'></span>";
-                            }
-                            ?>
-                        </td>
+                        <td><?php echo "<span class='fas fa-check-circle' title='Realizada' style='color:green'></span>"; ?></td>
                         <td>
                           <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id_cita"]; ?>');"><i class='fas fa-edit'></i></a>
                           <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>

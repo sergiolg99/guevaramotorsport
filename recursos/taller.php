@@ -160,7 +160,7 @@ $fila = mysqli_fetch_array($result);
                 <input type="tel" name="telefono" id="telefono" class="datosReserva noFocus" maxlength="15" placeholder="Ej: 987654321 (sin espacios)" required value="<?php echo $fila["telefono"]; ?>">
                 <br><br>
                 <label>Email:</label>
-                <input type="email" name="email" id="email" class="datosReserva noFocus" placeholder="Correo electrónico" value="<?php echo $fila["email"]; ?>">
+                <input type="email" name="email" id="email" class="datosReserva noFocus" placeholder="Correo electrónico" required value="<?php echo $fila["email"]; ?>">
               </fieldset>
             </div>
           </div>
