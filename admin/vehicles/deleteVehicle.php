@@ -7,7 +7,7 @@ $borrarVehiculo = "DELETE FROM `motos` WHERE `id_moto` = $id";
 if ($conexion->query($borrarVehiculo) === TRUE) {
     $borrarRelacion = "DELETE FROM `motos_usuarios` WHERE `id_moto` = $id";
 
-    if ($conexion->query($borrarUsuario) === TRUE) {
+    if ($conexion->query($borrarRelacion) === TRUE) {
         die('exito');
     }
 } else {
