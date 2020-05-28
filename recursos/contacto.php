@@ -12,6 +12,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   $id_usuario = $_SESSION['id_usuario'];
   $usuario = $_SESSION['usuario'];
 }
+
+$consulta = "SELECT `email`, `nombre`, `telefono` FROM `usuarios` WHERE id_usuario = '$id_usuario'";
+$result = mysqli_query($conexion, $consulta);
+$fila = mysqli_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -95,15 +99,15 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <br>
             <div class="form-row">
               <div class="campoDatos">
-                <input type="text" class="form-control datosContacto noFocus" id="inputName" placeholder="¿Como te llamas?" required>
+                <input type="text" class="form-control datosContacto noFocus" id="inputName" placeholder="¿Como te llamas?" required value="<?php echo $fila["nombre"]; ?>">
               </div>
               <div class="campoDatos">
-                <input type="email" class="form-control datosContacto noFocus" id="inputMail" placeholder="Correo electrónico" required>
+                <input type="email" class="form-control datosContacto noFocus" id="inputMail" placeholder="Correo electrónico" required value="<?php echo $fila["email"]; ?>">
               </div>
             </div>
             <div class="form-row">
               <div class="campoDatos">
-                <input type="tel" class="form-control datosContacto noFocus" id="inputPhone" placeholder="Nº de teléfono" maxlength="15">
+                <input type="tel" class="form-control datosContacto noFocus" id="inputPhone" placeholder="Nº de teléfono" maxlength="15" required value="<?php echo $fila["telefono"]; ?>">
               </div>
               <div class="campoDatos">
                 <input type="text" class="form-control datosContacto noFocus" id="inputAsunto" placeholder="Asunto" required>
@@ -113,7 +117,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
             <div class="form-row" style="padding: 0 12px 8px 6px">
               <textarea name="descripcion" id="mensaje" cols="53" rows="8" maxlength="249" class="form-control datosContacto comentariosContacto noFocus" placeholder="Cuéntanos en detalle..." required></textarea>
             </div>
-            <button onclick="enviarFormulario();" class="botonBonitoContacto">ENVIAR</button>
+            <button onclick="enviarFormulario('<?php echo $id_usuario; ?>');" class="botonBonitoContacto">ENVIAR</button>
           </form>
         </div>
 
@@ -165,7 +169,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                   <div class="text-center mt-2">
                     <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
                   </div>
-                  <div id="response"></div>
+                  <div class="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -203,7 +207,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                   <div class="text-center form-sm mt-2">
                     <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
                   </div>
-                  <div id="response"></div>
+                  <div class="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -214,11 +218,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                   <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                 </div>
               </div>
-              <!--/.Panel Registro-->
             </div>
           </div>
         </div>
-        <!--/.Content-->
       </div>
     </div>
 
@@ -275,6 +277,19 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
+  <script>
+    $(document).ready(function() {
+      if ($('#inputName').val() != "") {
+        $("#inputName").prop('disabled', true);
+      }
+      if ($('#inputPhone').val() != "") {
+        $("#inputPhone").prop('disabled', true);
+      }
+      if ($('#inputMail').val() != "") {
+        $("#inputMail").prop('disabled', true);
+      }
+    });
+  </script>
 </body>
 
 </html>

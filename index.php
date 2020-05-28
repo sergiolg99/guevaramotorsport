@@ -221,7 +221,7 @@ if (!isset($_SESSION['usuario'])) {
                 <div class="text-center mt-2">
                   <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
                 </div>
-                <div id="response"></div>
+                <div class="response"></div>
               </div>
               <!--Footer-->
               <div class="modal-footer">
@@ -259,7 +259,7 @@ if (!isset($_SESSION['usuario'])) {
                 <div class="text-center form-sm mt-2">
                   <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
                 </div>
-                <div id="response"></div>
+                <div class="response"></div>
               </div>
               <!--Footer-->
               <div class="modal-footer">
@@ -355,9 +355,8 @@ if (!isset($_SESSION['usuario'])) {
 
       }).done(function(echo) {
         if (echo !== "") {
-          $("#response").html(echo);
+          $(".response").html(echo);
         } else {
-          // window.location.replace("");
           window.location.replace("");
         }
       });
@@ -368,7 +367,7 @@ if (!isset($_SESSION['usuario'])) {
       let password = $('#inputPasswordRegister1').val();
       let password2 = $('#inputPasswordRegister2').val();
 
-      if (password == password2) {
+      if (password === password2) {
         var data = {
           email: email,
           password: password
@@ -398,7 +397,7 @@ if (!isset($_SESSION['usuario'])) {
 
             }).done(function(echo) {
               if (echo !== "") {
-                $("#response").html(echo);
+                $(".response").html(echo);
               } else {
                 window.location.replace("");
               }
@@ -410,7 +409,7 @@ if (!isset($_SESSION['usuario'])) {
           }
         });
       } else {
-        $("#response").text("Las contraseñas no son iguales");
+        $(".response").html("Las contraseñas no son iguales");
       }
     }
   </script>

@@ -138,7 +138,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <table class="table citas" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
+                      <th>Email</th>
                       <th>Teléfono</th>
                       <th>Modelo Moto</th>
                       <th>A realizar</th>
@@ -149,12 +149,24 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM citas WHERE completada = 0";
+                    $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM citas WHERE completada = 0";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php echo $fila["nombre"]; ?></td>
-                        <td><?php echo $fila["telefono"]; ?></td>
+                        <td><?php $consulta2 = "SELECT usuarios.email FROM citas 
+                                                  INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
+                                                  WHERE citas.id_cita = $fila[id_cita]";
+                            $result2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($result2)) {
+                              echo $fila2["email"];
+                            } ?></td>
+                        <td><?php $consulta3 = "SELECT usuarios.telefono FROM citas 
+                                                  INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
+                                                  WHERE citas.id_cita = $fila[id_cita]";
+                            $result3 = mysqli_query($conexion, $consulta3);
+                            while ($fila3 = mysqli_fetch_array($result3)) {
+                              echo $fila3["telefono"];
+                            } ?></td>
                         <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
@@ -179,7 +191,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 <table class="table citas" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
+                      <th>Email</th>
                       <th>Teléfono</th>
                       <th>Modelo Moto</th>
                       <th>A realizar</th>
@@ -190,18 +202,30 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM citas WHERE completada = 1";
+                    $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM citas WHERE completada = 1";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
-                        <td><?php echo $fila["nombre"]; ?></td>
-                        <td><?php echo $fila["telefono"]; ?></td>
-                        <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
-                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
+                        <td><?php $consulta2 = "SELECT usuarios.email FROM citas 
+                                                  INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
+                                                  WHERE citas.id_cita = $fila[id_cita]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"];
+                              echo $fila2["email"];
+                            } ?></td>
+                        <td><?php $consulta3 = "SELECT usuarios.telefono FROM citas 
+                                                  INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
+                                                  WHERE citas.id_cita = $fila[id_cita]";
+                            $result3 = mysqli_query($conexion, $consulta3);
+                            while ($fila3 = mysqli_fetch_array($result3)) {
+                              echo $fila3["telefono"];
+                            } ?></td>
+                        <td><?php $consulta4 = "SELECT moto_models.nombre FROM citas 
+                                                  INNER JOIN motos ON citas.id_moto = motos.id_moto
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
+                            $result4 = mysqli_query($conexion, $consulta4);
+                            while ($fila4 = mysqli_fetch_array($result4)) {
+                              echo $fila4["nombre"];
                             }
                             ?></td>
                         <td><?php echo $fila["comentarios"]; ?></td>

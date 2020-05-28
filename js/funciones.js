@@ -68,7 +68,7 @@ function inicioSesion() {
 
   }).done(function (echo) {
     if (echo !== "") {
-      $("#response").html(echo);
+      $(".response").html(echo);
     } else {
       window.location.replace("");
     }
@@ -80,7 +80,7 @@ function registrarse() {
   let password = $('#inputPasswordRegister1').val();
   let password2 = $('#inputPasswordRegister2').val();
 
-  if (password == password2) {
+  if (password === password2) {
     var data = {
       email: email,
       password: password
@@ -110,7 +110,7 @@ function registrarse() {
 
         }).done(function (echo) {
           if (echo !== "") {
-            $("#response").html(echo);
+            $(".response").html(echo);
           } else {
             window.location.replace("");
           }
@@ -122,17 +122,23 @@ function registrarse() {
       }
     });
   } else {
-    $("#response").text("Las contraseñas no son iguales");
+    $(".response").text("Las contraseñas no son iguales");
   }
 }
 
 // FORMULARIO CONTACTO ********************************************************
-function enviarFormulario() {
+function enviarFormulario(id_usuario) {
   $nombre = $('#inputName').val();
   $email = $('#inputMail').val();
   $telefono = $('#inputPhone').val();
   $asunto = $('#inputAsunto').val();
   $mensaje = $('#mensaje').val();
+
+  if (id_usuario != "") {
+    tipoUser = "cliente";
+  } else {
+    tipoUser = "visitante";
+  }
 
   if (confirm('¿Quieres enviar este mensaje?')) {
     $.ajax({
@@ -140,6 +146,8 @@ function enviarFormulario() {
       type: "POST",
       dataType: "HTML",
       data: {
+        id_usuario: id_usuario,
+        tipoUser: tipoUser,
         nombre: $nombre,
         email: $email,
         telefono: $telefono,
@@ -151,6 +159,8 @@ function enviarFormulario() {
       if (echo == "exito") {
         alert("Mensaje enviado correctamente");
         window.location.replace("");
+      } else if (echo == "existe") {
+        alert("Este correo pertenece a un usuario registrado; por favor, inicie sesión e intentelo de nuevo");
       } else {
         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
       }

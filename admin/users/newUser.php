@@ -257,10 +257,10 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 
                 }).done(function(echo) {
                     if (echo == "exito") {
-                        alert("Usuario creado con éxito");
+                        alert("Usuario registrado con éxito");
                         window.location.replace("usuarios.php")
                     } else if (echo == "existe") {
-                        alert("Este usuario ya existe");
+                        alert("Este usuario ya está registrado");
                     } else {
                         alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
                     }

@@ -181,7 +181,7 @@ $fila = mysqli_fetch_array($result);
 								<div class="text-center mt-2">
 									<button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
 								</div>
-								<div id="response"></div>
+								<div class="response"></div>
 							</div>
 							<!--Footer-->
 							<div class="modal-footer">
@@ -219,7 +219,7 @@ $fila = mysqli_fetch_array($result);
 								<div class="text-center form-sm mt-2">
 									<button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
 								</div>
-								<div id="response"></div>
+								<div class="response"></div>
 							</div>
 							<!--Footer-->
 							<div class="modal-footer">

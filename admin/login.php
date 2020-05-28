@@ -43,7 +43,7 @@ error_reporting(E_ALL ^ E_NOTICE);
         </div>
     </div>
 
-    <div id="response"></div>
+    <div class="response"></div>
 
     <footer class="footer">
         <div class="container">
@@ -76,7 +76,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                 // comprobamos si la respuesta no es vacía
                 if (echo !== "") {
                     // Si hay respuesta (error), mostramos el mensaje
-                    $("#response").text(echo);
+                    $(".response").text(echo);
                 } else {
                     // Si no hay respuesta, redirecionamos a donde sea necesario
                     // Si está vacío, recarga la página 

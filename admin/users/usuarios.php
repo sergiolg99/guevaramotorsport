@@ -141,6 +141,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                       <th>Direccion</th>
                       <th>Teléfono</th>
                       <th>Admin</th>
+                      <th>Registrado</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -162,9 +163,17 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <td><?php echo $fila["telefono"]; ?></td>
                         <td><?php
                             if ($fila['is_admin'] == 1) {
-                              echo "<span class='fas fa-check-circle' style='color:green';>1</span>";
+                              echo "<span class='fas fa-check-circle' title='Usuario Administrador' style='color:green';>1</span>";
                             } else {
-                              echo "<span class='fas fa-minus-circle' style='color:red';>0</span>";
+                              echo "<span class='fas fa-minus-circle' title='Usuario base' style='color:red';>0</span>";
+                            }
+                            ?>
+                        </td>
+                        <td><?php
+                            if ($fila['registrado'] == 1) {
+                              echo "<span class='fas fa-user-check' title='Usuario registrado' style='color:green';>1</span>";
+                            } else {
+                              echo "<span class='fas fa-user-slash' title='No registrado' style='color:red';>0</span>";
                             }
                             ?>
                         </td>
@@ -240,6 +249,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     $(document).ready(function() {
       $('#users').DataTable({
         "order": [
+          [5, 'desc'],
           [4, 'desc'],
           [0, 'asc']
         ]

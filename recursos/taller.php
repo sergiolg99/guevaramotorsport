@@ -266,7 +266,7 @@ $fila = mysqli_fetch_array($result);
                   <div class="text-center mt-2">
                     <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
                   </div>
-                  <div id="response"></div>
+                  <div class="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -304,7 +304,7 @@ $fila = mysqli_fetch_array($result);
                   <div class="text-center form-sm mt-2">
                     <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
                   </div>
-                  <div id="response"></div>
+                  <div class="response"></div>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -419,7 +419,7 @@ $fila = mysqli_fetch_array($result);
       if (id_usuario != "") {
         tipoUser = "cliente";
       } else {
-        tipoUser = "visitante"
+        tipoUser = "visitante";
       }
       if ($('#cilindrada').val() == "0") {
         moto = $('#moto').val();
@@ -452,6 +452,8 @@ $fila = mysqli_fetch_array($result);
           if (echo == "exito") {
             alert("Cita concertada con éxito");
             window.location.replace("../index.php");
+          } else if (echo == "existe") {
+            alert("Este correo pertenece a un usuario registrado; por favor, inicie sesión e intentelo de nuevo");
           } else {
             alert("Ha habido algún error, compruebe los datos y vuelva a intentarlo");
           }

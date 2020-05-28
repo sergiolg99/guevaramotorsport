@@ -139,8 +139,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                 <table class="table mensajes" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
                                             <th>Email</th>
+                                            <th>Teléfono</th>
                                             <th>Asunto</th>
                                             <th>Mensaje</th>
                                             <th>Fecha</th>
@@ -154,12 +154,24 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                         $result = mysqli_query($conexion, $consulta);
                                         while ($fila = mysqli_fetch_array($result)) { ?>
                                             <tr>
-                                                <td><?php echo $fila['nombre']; ?></td>
-                                                <td><?php echo $fila['email']; ?></td>
+                                                <td><?php $consulta2 = "SELECT usuarios.email FROM mensajes 
+                                                  INNER JOIN usuarios ON mensajes.id_usuario = usuarios.id_usuario
+                                                  WHERE mensajes.id_mensaje = $fila[id_mensaje]";
+                                                    $result2 = mysqli_query($conexion, $consulta2);
+                                                    while ($fila2 = mysqli_fetch_array($result2)) {
+                                                        echo $fila2["email"];
+                                                    } ?></td>
+                                                <td><?php $consulta3 = "SELECT usuarios.telefono FROM mensajes 
+                                                  INNER JOIN usuarios ON mensajes.id_usuario = usuarios.id_usuario
+                                                  WHERE mensajes.id_mensaje = $fila[id_mensaje]";
+                                                    $result3 = mysqli_query($conexion, $consulta3);
+                                                    while ($fila3 = mysqli_fetch_array($result3)) {
+                                                        echo $fila3["telefono"];
+                                                    } ?></td>
                                                 <td><?php echo $fila['asunto']; ?></td>
                                                 <td><?php echo $fila['mensaje']; ?></td>
                                                 <td><?php echo $fila['fecha']; ?></td>
-                                                <td><?php echo "<span class='fas fa-envelope' title='Sin abrir' style='color:red'></span>";?></td>
+                                                <td><?php echo "<span class='fas fa-envelope' title='Sin abrir' style='color:red'></span>"; ?></td>
                                                 <td>
                                                     <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de mensaje" onclick="cambiarEstadoMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class='fas fa-edit'></i></a>
                                                     <a class="btn btn-danger noFocus" href="#" title="Borrar mensaje" style="cursor: pointer" onclick="borrarMensaje('<?php echo $fila["id_mensaje"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
@@ -173,8 +185,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                 <table class="table mensajes" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
                                             <th>Email</th>
+                                            <th>Teléfono</th>
                                             <th>Asunto</th>
                                             <th>Mensaje</th>
                                             <th>Fecha</th>
@@ -188,8 +200,20 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                         $result = mysqli_query($conexion, $consulta);
                                         while ($fila = mysqli_fetch_array($result)) { ?>
                                             <tr>
-                                                <td><?php echo $fila['nombre']; ?></td>
-                                                <td><?php echo $fila['email']; ?></td>
+                                                <td><?php $consulta2 = "SELECT usuarios.email FROM mensajes 
+                                                  INNER JOIN usuarios ON mensajes.id_usuario = usuarios.id_usuario
+                                                  WHERE mensajes.id_mensaje = $fila[id_mensaje]";
+                                                    $result2 = mysqli_query($conexion, $consulta2);
+                                                    while ($fila2 = mysqli_fetch_array($result2)) {
+                                                        echo $fila2["email"];
+                                                    } ?></td>
+                                                <td><?php $consulta3 = "SELECT usuarios.telefono FROM mensajes 
+                                                  INNER JOIN usuarios ON mensajes.id_usuario = usuarios.id_usuario
+                                                  WHERE mensajes.id_mensaje = $fila[id_mensaje]";
+                                                    $result3 = mysqli_query($conexion, $consulta3);
+                                                    while ($fila3 = mysqli_fetch_array($result3)) {
+                                                        echo $fila3["telefono"];
+                                                    } ?></td>
                                                 <td><?php echo $fila['asunto']; ?></td>
                                                 <td><?php echo $fila['mensaje']; ?></td>
                                                 <td><?php echo $fila['fecha']; ?></td>
