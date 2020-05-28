@@ -134,7 +134,7 @@ $fila = mysqli_fetch_array($result)
                         <label for="inputProvince">Provincia</label>
                         <select id="inputProvince" class="form-control" name="provincia" required>
                             <option selected value="<?php echo $fila["provincia"]; ?>"><?php $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id 
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id_provincia
                                                         WHERE usuarios.id_usuario = $fila[id_usuario]";
                                                                                         $result2 = mysqli_query($conexion, $consulta2);
                                                                                         while ($fila2 = mysqli_fetch_array($result2)) {
@@ -144,7 +144,7 @@ $fila = mysqli_fetch_array($result)
                             <?php
                             $query = $conexion->query("SELECT * FROM provincias");
                             while ($provincia = mysqli_fetch_array($query)) {
-                                echo '<option value="' . $provincia['id'] . '">' . $provincia['nombre'] . '</option>';
+                                echo '<option value="' . $provincia['id_provincia'] . '">' . $provincia['nombre'] . '</option>';
                             }
                             ?>
                         </select>

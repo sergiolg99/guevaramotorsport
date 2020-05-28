@@ -174,9 +174,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                 <select id="inputProvince" class="form-control" name="provincia" required>
                                     <option value="0">Selecciona...</option>
                                     <?php
-                                    $query = $conexion->query("SELECT `id`, `nombre` FROM provincias");
+                                    $query = $conexion->query("SELECT `id_provincia`, `nombre` FROM provincias");
                                     while ($provincia = mysqli_fetch_array($query)) {
-                                        echo '<option value="' . $provincia['id'] . '">' . $provincia['nombre'] . '</option>';
+                                        echo '<option value="' . $provincia['id_provincia'] . '">' . $provincia['nombre'] . '</option>';
                                     }
                                     ?>
                                 </select>

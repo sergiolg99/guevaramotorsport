@@ -162,11 +162,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["fecha"]; ?></td>
-                                                <td><?php $consulta3 = "SELECT productos.nombre FROM venta_productos 
+                                                <td><?php $consulta3 = "SELECT productos.nombre, venta_productos.cantidad FROM venta_productos 
                                                   INNER JOIN productos ON venta_productos.id_producto = productos.id_producto WHERE venta_productos.id_venta = $fila[id_venta]";
                                                     $result3 = mysqli_query($conexion, $consulta3);
                                                     while ($fila3 = mysqli_fetch_array($result3)) {
-                                                        echo $fila3["nombre"]. ", ";
+                                                        echo $fila3["cantidad"]. "x " . $fila3["nombre"]. "; ";
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["precio_total"] . " €"; ?></td>
@@ -215,11 +215,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["fecha"]; ?></td>
-                                                <td><?php $consulta3 = "SELECT productos.nombre FROM venta_productos 
+                                                <td><?php $consulta3 = "SELECT productos.nombre, venta_productos.cantidad FROM venta_productos 
                                                   INNER JOIN productos ON venta_productos.id_producto = productos.id_producto WHERE venta_productos.id_venta = $fila[id_venta]";
                                                     $result3 = mysqli_query($conexion, $consulta3);
                                                     while ($fila3 = mysqli_fetch_array($result3)) {
-                                                        echo $fila3["nombre"] . ", ";
+                                                        echo $fila3["cantidad"]. "x " . $fila3["nombre"]. "; ";
                                                     }
                                                     ?></td>
                                                 <td><?php echo $fila["precio_total"] . " €"; ?></td>

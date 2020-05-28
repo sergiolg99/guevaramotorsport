@@ -127,15 +127,15 @@ $fila = mysqli_fetch_array($result);
                         </thead>
                         <tbody>
                             <?php
-                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios WHERE id_usuario = '$id'";
+                            $consulta = "SELECT `id_motosUsuarios`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios WHERE id_usuario = '$id'";
                             $result = mysqli_query($conexion, $consulta);
                             while ($fila2 = mysqli_fetch_array($result)) { ?>
                                 <tr>
                                     <td><?php $consulta3 = "SELECT moto_makers.nombre FROM motos_usuarios 
                                                   INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
-                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
-                                                  WHERE motos_usuarios.id = $fila2[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker
+                                                  WHERE motos_usuarios.id_motosUsuarios = $fila2[id_motosUsuarios]";
                                         $result3 = mysqli_query($conexion, $consulta3);
                                         while ($fila3 = mysqli_fetch_array($result3)) {
                                             echo $fila3["nombre"];
@@ -143,8 +143,8 @@ $fila = mysqli_fetch_array($result);
                                         ?></td>
                                     <td><?php $consulta4 = "SELECT moto_models.nombre FROM motos_usuarios 
                                                   INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id 
-                                                  WHERE motos_usuarios.id = $fila2[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model 
+                                                  WHERE motos_usuarios.id_motosUsuarios = $fila2[id_motosUsuarios]";
                                         $result4 = mysqli_query($conexion, $consulta4);
                                         while ($fila4 = mysqli_fetch_array($result4)) {
                                             echo $fila4["nombre"];
@@ -153,7 +153,7 @@ $fila = mysqli_fetch_array($result);
                                     <td><?php echo $fila2["matricula"]; ?></td>
                                     <td><?php echo $fila2["year"]; ?></td>
                                     <td>
-                                        <a class="btn btn-danger noFocus" title="Borrar vehículo" onclick="borrarUsuarioVehiculo('<?php echo $fila2["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                                        <a class="btn btn-danger noFocus" title="Borrar vehículo" onclick="borrarUsuarioVehiculo('<?php echo $fila2["id_motosUsuarios"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                                     </td>
                                 </tr>
                             <?php }; ?>

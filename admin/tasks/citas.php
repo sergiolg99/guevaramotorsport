@@ -157,7 +157,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <td><?php echo $fila["telefono"]; ?></td>
                         <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE citas.id = $fila[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
                               echo $fila2["nombre"];
@@ -174,8 +174,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
-                          <a class="btn btn-danger noFocus" title="Borrar Cita" style="cursor: pointer;" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id_cita"]; ?>');"><i class='fas fa-edit'></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" style="cursor: pointer;" onclick="borrarCita('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>
@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <td><?php echo $fila["telefono"]; ?></td>
                         <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE citas.id = $fila[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
                               echo $fila2["nombre"];
@@ -222,8 +222,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id"]; ?>');"><i class='fas fa-edit'></i></a>
-                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                          <a class="btn btn-outline-warning noFocus" href="#" title="Cambiar estado de cita" onclick="cambiarEstadoCita('<?php echo $fila["id_cita"]; ?>');"><i class='fas fa-edit'></i></a>
+                          <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

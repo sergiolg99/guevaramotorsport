@@ -112,11 +112,11 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                         <tr>
                                             <td><?php echo "#" . $fila["id_venta"]; ?></td>
                                             <td><?php echo $fila["fecha"]; ?></td>
-                                            <td><?php $consulta2 = "SELECT productos.nombre FROM venta_productos 
+                                            <td><?php $consulta2 = "SELECT productos.nombre, venta_productos.cantidad FROM venta_productos 
                                                   INNER JOIN productos ON venta_productos.id_producto = productos.id_producto WHERE venta_productos.id_venta = $fila[id_venta]";
                                                 $resultado2 = mysqli_query($conexion, $consulta2);
                                                 while ($fila2 = mysqli_fetch_array($resultado2)) {
-                                                    echo $fila2["nombre"] . ", ";
+                                                    echo $fila2["cantidad"]. "x " . $fila2["nombre"]. "; ";
                                                 }
                                                 ?></td>
                                             <td><?php echo $fila["precio_total"] . " €"; ?></td>

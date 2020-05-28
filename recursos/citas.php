@@ -104,14 +104,14 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 0)";
+                            $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 0)";
                             $result = mysqli_query($conexion, $consulta);
                             while ($fila = mysqli_fetch_array($result)) { ?>
                                 <tr>
                                     <td><?php $consulta2 = "SELECT moto_makers.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
-                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker
                                                   WHERE citas.id_moto = $fila[id_moto]";
                                         $result2 = mysqli_query($conexion, $consulta2);
                                         while ($fila2 = mysqli_fetch_array($result2)) {
@@ -120,7 +120,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                         ?></td>
                                     <td><?php $consulta3 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id 
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model 
                                                   WHERE citas.id_moto = $fila[id_moto]";
                                         $result3 = mysqli_query($conexion, $consulta3);
                                         while ($fila3 = mysqli_fetch_array($result3)) {
@@ -143,8 +143,8 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                         }
                                         ?></td>
                                     <td>
-                                        <a class="btn btn-success noFocus" title="Marcar como realizada" onclick="citaRealizada('<?php echo $fila["id"]; ?>');"><i class="fas fa-check" style="color: white"></i></a>
-                                        <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
+                                        <a class="btn btn-success noFocus" title="Marcar como realizada" onclick="citaRealizada('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-check" style="color: white"></i></a>
+                                        <a class="btn btn-danger noFocus" title="Borrar Cita" onclick="borrarCita('<?php echo $fila["id_cita"]; ?>');"><i class="fas fa-calendar-times" style="color: white"></i></a>
                                     </td>
                                 </tr>
                             <?php }; ?>
@@ -171,14 +171,14 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 1)";
+                            $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM `citas` WHERE (id_usuario = '$id') AND (completada = 1)";
                             $result = mysqli_query($conexion, $consulta);
                             while ($fila = mysqli_fetch_array($result)) { ?>
                                 <tr>
                                     <td><?php $consulta2 = "SELECT moto_makers.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
-                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker
                                                   WHERE citas.id_moto = $fila[id_moto]";
                                         $result2 = mysqli_query($conexion, $consulta2);
                                         while ($fila2 = mysqli_fetch_array($result2)) {
@@ -187,7 +187,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                                         ?></td>
                                     <td><?php $consulta3 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id 
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model 
                                                   WHERE citas.id_moto = $fila[id_moto]";
                                         $result3 = mysqli_query($conexion, $consulta3);
                                         while ($fila3 = mysqli_fetch_array($result3)) {

@@ -154,7 +154,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <td><?php echo $fila["nombre"] . " " . $fila["apellidos"]; ?></td>
                         <td><?php echo $fila["direccion"] . ", " . $fila["localidad"] . ", ";
                             $consulta2 = "SELECT usuarios.id_usuario, provincias.nombre FROM usuarios 
-                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id WHERE usuarios.id_usuario = $fila[id_usuario]";
+                                                        INNER JOIN provincias ON usuarios.provincia = provincias.id_provincia WHERE usuarios.id_usuario = $fila[id_usuario]";
                             $result2 = mysqli_query($conexion, $consulta2);
                             while ($fila2 = mysqli_fetch_array($result2)) {
                               echo $fila2["nombre"] . ", " . $fila["cp"];

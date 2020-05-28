@@ -155,8 +155,8 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                             <tr>
                                                 <td>
                                                     <?php $consulta2 = "SELECT moto_makers.nombre FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
-                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id WHERE motos.id_moto = $fila[id_moto]";
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id_model 
+                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker WHERE motos.id_moto = $fila[id_moto]";
                                                     $result2 = mysqli_query($conexion, $consulta2);
                                                     while ($fila2 = mysqli_fetch_array($result2)) {
                                                         echo $fila2["nombre"];
@@ -164,7 +164,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                                                     ?>
                                                 </td>
                                                 <td><?php $consulta3 = "SELECT motos.id_moto ,moto_models.nombre FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id WHERE motos.id_moto = $fila[id_moto]";
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id_model WHERE motos.id_moto = $fila[id_moto]";
                                                     $result3 = mysqli_query($conexion, $consulta3);
                                                     while ($fila3 = mysqli_fetch_array($result3)) {
                                                         echo $fila3["nombre"];

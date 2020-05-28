@@ -136,7 +136,7 @@ $fila = mysqli_fetch_array($result);
                     <?php
                     $query = "SELECT moto_models.nombre, motos_usuarios.matricula, motos.id_moto FROM motos_usuarios 
                     INNER JOIN motos on motos_usuarios.id_moto = motos.id_moto
-                    INNER JOIN moto_models on motos.modelo = moto_models.id 
+                    INNER JOIN moto_models on motos.modelo = moto_models.id_model 
                     WHERE motos_usuarios.id_usuario = $id_usuario";
                     $resultado = mysqli_query($conexion, $query);
                     while ($datos = mysqli_fetch_array($resultado)) {

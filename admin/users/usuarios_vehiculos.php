@@ -145,12 +145,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   </thead>
                   <tbody>
                     <?php
-                    $consulta = "SELECT `id`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios";
+                    $consulta = "SELECT `id_motosUsuarios`, `id_usuario`, `id_moto`, `matricula`, `year`, `is_active` FROM motos_usuarios";
                     $result = mysqli_query($conexion, $consulta);
                     while ($fila = mysqli_fetch_array($result)) { ?>
                       <tr>
                         <td><?php $consulta3 = "SELECT usuarios.email FROM motos_usuarios 
-                                                  INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id = $fila[id]";
+                                                  INNER JOIN usuarios ON motos_usuarios.id_usuario = usuarios.id_usuario WHERE motos_usuarios.id_motosUsuarios = $fila[id_motosUsuarios]";
                             $result3 = mysqli_query($conexion, $consulta3);
                             while ($fila3 = mysqli_fetch_array($result3)) {
                               echo $fila3["email"];
@@ -158,9 +158,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?></td>
                         <td><?php $consulta4 = "SELECT moto_models.fabricante, moto_makers.nombre FROM motos_usuarios 
                                                   INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id
-                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
-                                                  WHERE motos_usuarios.id = $fila[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model
+                                                  INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker
+                                                  WHERE motos_usuarios.id_motosUsuarios = $fila[id_motosUsuarios]";
                             $result4 = mysqli_query($conexion, $consulta4);
                             while ($fila4 = mysqli_fetch_array($result4)) {
                               echo $fila4["nombre"];
@@ -168,7 +168,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?></td>
                         <td><?php $consulta5 = "SELECT moto_models.nombre FROM motos_usuarios 
                                                   INNER JOIN motos ON motos_usuarios.id_moto = motos.id_moto
-                                                  INNER JOIN moto_models on motos.modelo = moto_models.id WHERE motos_usuarios.id = $fila[id]";
+                                                  INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE motos_usuarios.id_motosUsuarios = $fila[id_motosUsuarios]";
                             $result5 = mysqli_query($conexion, $consulta5);
                             while ($fila5 = mysqli_fetch_array($result5)) {
                               echo $fila5["nombre"];
@@ -185,7 +185,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarUsuarioVehiculo('<?php echo $fila["id"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
+                          <a class="btn btn-danger noFocus" style="cursor: pointer;" onclick="borrarUsuarioVehiculo('<?php echo $fila["id_motosUsuarios"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
                     <?php }; ?>

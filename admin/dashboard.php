@@ -11,7 +11,7 @@ $cuentaMotos = $consulta->num_rows;
 $consulta = $conexion->query("SELECT 'id_producto' FROM productos");
 $cuentaProductos = $consulta->num_rows;
 
-$consulta = $conexion->query("SELECT 'id' FROM citas WHERE completada = 0");
+$consulta = $conexion->query("SELECT 'id_cita' FROM citas WHERE completada = 0");
 $cuentaCitas = $consulta->num_rows;
 
 $consulta = $conexion->query("SELECT 'id_venta' FROM ventas WHERE completada = 0");

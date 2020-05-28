@@ -146,19 +146,19 @@ $fila = mysqli_fetch_array($result)
                             <div class="form-group col-md-3">
                                 <label for="fabricante">Fabricante</label>
                                 <select id="fabricante" class="form-control fabricante" name="fabricante" required>
-                                    <?php $consulta2 = "SELECT moto_makers.nombre, moto_makers.id FROM motos
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id
-                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id
+                                    <?php $consulta2 = "SELECT moto_makers.nombre, moto_makers.id_maker FROM motos
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id_model
+                                                        INNER JOIN moto_makers on moto_models.fabricante = moto_makers.id_maker
                                                         WHERE motos.id_moto = $fila[id_moto]";
                                     $result2 = mysqli_query($conexion, $consulta2);
                                     while ($fila2 = mysqli_fetch_array($result2)) {
-                                        echo '<option selected value="' . $fila2["id"] . '">' . $fila2["nombre"] . '</option>';
+                                        echo '<option selected value="' . $fila2["id_maker"] . '">' . $fila2["nombre"] . '</option>';
                                     };
-                                    $query = "SELECT id, nombre FROM moto_makers ORDER BY nombre";
+                                    $query = "SELECT id_maker, nombre FROM moto_makers ORDER BY nombre";
                                     $result = mysqli_query($conexion, $query);
 
                                     while ($fila3 = mysqli_fetch_array($result)) {
-                                        echo '<option value="' . $fila3["id"] . '">' . $fila3["nombre"] . '</option>';
+                                        echo '<option value="' . $fila3["id_maker"] . '">' . $fila3["nombre"] . '</option>';
                                     } ?>
                                 </select>
                                 <a class="btn btn-primary noFocus" data-toggle="modal" data-target="#newMaker" style="margin-top: 2%; color: white" role="button"><i class="fas fa-plus"></i> Añadir Fabricante</a>
@@ -167,12 +167,12 @@ $fila = mysqli_fetch_array($result)
                             <div class="form-group col-md-3">
                                 <label for="modelo">Modelo</label>
                                 <select id="modelo" class="form-control" name="modelo" required>
-                                    <?php $consulta4 = "SELECT moto_models.nombre, moto_models.id FROM motos 
-                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id 
+                                    <?php $consulta4 = "SELECT moto_models.nombre, moto_models.id_model FROM motos 
+                                                        INNER JOIN moto_models ON motos.modelo = moto_models.id_model 
                                                         WHERE motos.id_moto = $fila[id_moto]";
                                     $result4 = mysqli_query($conexion, $consulta4);
                                     while ($fila4 = mysqli_fetch_array($result4)) {
-                                        echo '<option selected value="' . $fila4["id"] . '">' . $fila4["nombre"] . '</option>';
+                                        echo '<option selected value="' . $fila4["id_model"] . '">' . $fila4["nombre"] . '</option>';
                                     };
                                     ?>
                                 </select>

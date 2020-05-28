@@ -24,9 +24,24 @@ if ($conexion->query($query) === TRUE) {
         $updateStock = "UPDATE `productos` SET stock='$stockMenos' WHERE id_producto='$producto'";
         $conexion->query($updateStock);
 
-        $query2 = "INSERT INTO `venta_productos`(`id_venta`, `id_producto`) VALUES ('$fila[id_venta]', '$producto')";
-        $conexion->query($query2);
+        $buscaProducto = "SELECT `id_producto` FROM `venta_productos` WHERE (id_producto = $producto) AND (id_venta = $fila[id_venta])";
+        $resultado2 = $conexion->query($buscaProducto);
+        $existe = mysqli_num_rows($resultado2);
+        if ($existe == 1) {
+
+            $buscaCantidad = "SELECT `cantidad` FROM `venta_productos` WHERE (id_producto = $producto) AND (id_venta = $fila[id_venta])";
+            $resultado3 = mysqli_query($conexion, $buscaCantidad);
+            $fila2 = mysqli_fetch_array($resultado3);
+
+            $sumaCantidad = $fila2['cantidad'] + 1;
+            $masCantidad = "UPDATE `venta_productos` SET `cantidad`= '$sumaCantidad' WHERE (id_producto = $producto) AND (id_venta = $fila[id_venta])";
+            $conexion->query($masCantidad);
+        } else {
+            $query2 = "INSERT INTO `venta_productos`(`id_venta`, `id_producto`, `cantidad`) VALUES ('$fila[id_venta]', '$producto', '1')";
+            $conexion->query($query2);
+        }
     }
+
     die('exito');
 } else {
     die();
