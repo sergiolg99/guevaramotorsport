@@ -139,7 +139,7 @@ function enviarFormulario(id_usuario) {
   } else {
     tipoUser = "visitante";
   }
-
+  
   if (confirm('¿Quieres enviar este mensaje?')) {
     $.ajax({
       url: "../admin/messages/nuevoMensaje.php",

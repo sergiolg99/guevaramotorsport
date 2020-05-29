@@ -125,7 +125,7 @@ if (!isset($_SESSION['usuario'])) {
             <span style="color: white; font-style: italic;">CONSULTA NUESTRO CATÁLOGO DE MOTOS DE OCASIÓN</span>
           </h3>
           <br>
-          <a class="btn btn-lg bonito" href="#">MOTOS DE OCASIÓN</a>
+          <a class="btn btn-lg bonito" href="./recursos/motosOcasion.php">MOTOS DE OCASIÓN</a>
         </div>
       </div>
     </div>
@@ -225,10 +225,9 @@ if (!isset($_SESSION['usuario'])) {
               </div>
               <!--Footer-->
               <div class="modal-footer">
-                <div class="options text-center text-md-right mt-1">
-                  <p>No estás registrado? <a href="#tabRegister" class="blue-text" data-toggle="tab">Regístrate</a>
-                  </p>
-                  <p>He olvidado la <a href="#" class="blue-text">Contraseña</a></p>
+                <div class="options text-center text-md-left mt-1">
+                  <p>No estás registrado? <a href="#tabRegister" class="blue-text" data-toggle="tab">Regístrate</a></p>
+                  <p>He olvidado la <a href="#" class="blue-text">Contraseña</a> (en desarrollo).</p>
                 </div>
                 <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
               </div>

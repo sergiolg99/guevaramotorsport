@@ -31,6 +31,8 @@ $fila = mysqli_fetch_array($result);
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
   <!-- CSS Propio -->
   <link rel="stylesheet" href="../css/estilos.min.css" />
+  <!-- CSS para carrusel infinito -->
+  <link rel="stylesheet" href="../css/infinite-slider.css" />
   <link rel="icon" type="image/png" href="./imagenes/logo.png" />
   <title>Guevara MotorSport: Taller & Biker Shop</title>
 </head>
@@ -129,97 +131,24 @@ $fila = mysqli_fetch_array($result);
         </div>
       </div>
     </div>
-
-    <!--Modal: Inicio sesion / registrarse -->
-    <div class="modal fade" id="inicioSesion" tabindex="0" role="dialog" aria-hidden="true">
-      <div class="modal-dialog cascading-modal" role="document">
-        <!--Content-->
-        <div class="modal-content form-elegant">
-          <!--Modal cascading tabs-->
-          <div class="modal-c-tabs">
-            <!-- Pestañas -->
-            <ul class="nav nav-tabs md-tabs tabs-2 red darken-1" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tabLogin" role="tab"><strong class="fas fa-user mr-1"></strong>
-                  INICIAR SESIÓN</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tabRegister" role="tab"><strong class="fas fa-user-plus mr-1"></strong>
-                  REGISTRARSE</a>
-              </li>
-            </ul>
-
-            <!-- Tab panels -->
-            <div class="tab-content">
-              <!--Panel Login-->
-              <div class="tab-pane fade in show active" id="tabLogin" role="tabpanel">
-                <!--Body-->
-                <div class="modal-body mb-1">
-                  <div class="md-form form-sm mb-5">
-                    <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="inputEmailLogin" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailLogin">CORREO
-                      ELECTRÓNICO</label>
-                  </div>
-                  <div class="md-form form-sm mb-4">
-                    <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="inputPasswordLogin" class="form-control form-control-sm">
-                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordLogin">CONTRASEÑA</label>
-                  </div>
-                  <div class="text-center mt-2">
-                    <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
-                  </div>
-                  <div class="response"></div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer">
-                  <div class="options text-center text-md-right mt-1">
-                    <p>No estás registrado? <a href="#tabRegister" class="blue-text" data-toggle="tab">Regístrate</a>
-                    </p>
-                    <p>He olvidado la <a href="#" class="blue-text">Contraseña</a></p>
-                  </div>
-                  <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
-                </div>
-              </div>
-              <!--/.Panel Login-->
-
-              <!--Panel Registro-->
-              <div class="tab-pane fade" id="tabRegister" role="tabpanel">
-                <!--Body-->
-                <div class="modal-body">
-                  <div class="md-form form-sm mb-5">
-                    <a class="fas fa-envelope prefix"></a>
-                    <input type="email" id="inputEmailRegister" class="form-control form-control-sm validate">
-                    <label data-error="Incorrecto" data-success="Correcto" for="inputEmailRegister">CORREO
-                      ELECTRÓNICO</label>
-                  </div>
-                  <div class="md-form form-sm mb-5">
-                    <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="inputPasswordRegister1" class="form-control form-control-sm">
-                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister1">CONTRASEÑA</label>
-                  </div>
-                  <div class="md-form form-sm mb-4">
-                    <a class="fas fa-lock prefix"></a>
-                    <input type="password" id="inputPasswordRegister2" class="form-control form-control-sm">
-                    <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister2">REPITA LA
-                      CONTRASEÑA</label>
-                  </div>
-                  <div class="text-center form-sm mt-2">
-                    <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
-                  </div>
-                  <div class="response"></div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer">
-                  <div class="options text-right">
-                    <p class="pt-1">Ya tienes una cuenta? <a data-toggle="tab" href="#tabLogin" class="blue-text">Inicia
-                        Sesión</a></p>
-                  </div>
-                  <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <br>
+    <!-- Carrusel infinito de marcas -->
+    <div class="container">
+      <div class="slider customer-logos">
+        <div class="slide noFocus">
+          <img src="imagenes/logos/Honda.png" alt="Logo Honda" />
+        </div>
+        <div class="slide noFocus">
+          <img src="imagenes/logos/Kawasaki.png" alt="Logo Kawasaki" />
+        </div>
+        <div class="slide noFocus">
+          <img src="imagenes/logos/Suzuki.png" alt="Logo Suzuki" />
+        </div>
+        <div class="slide noFocus">
+          <img src="imagenes/logos/Yamaha.png" alt="Logo Yamaha" />
+        </div>
+        <div class="slide noFocus">
+          <img src="imagenes/logos/Kymco.png" alt="Logo Kymco" />
         </div>
       </div>
     </div>
@@ -252,6 +181,100 @@ $fila = mysqli_fetch_array($result);
     </div>
   </div>
 
+  <!--Modal: Inicio sesion / registrarse -->
+  <div class="modal fade" id="inicioSesion" tabindex="0" role="dialog" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+      <!--Content-->
+      <div class="modal-content form-elegant">
+        <!--Modal cascading tabs-->
+        <div class="modal-c-tabs">
+          <!-- Pestañas -->
+          <ul class="nav nav-tabs md-tabs tabs-2 red darken-1" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#tabLogin" role="tab"><strong class="fas fa-user mr-1"></strong>
+                INICIAR SESIÓN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tabRegister" role="tab"><strong class="fas fa-user-plus mr-1"></strong>
+                REGISTRARSE</a>
+            </li>
+          </ul>
+
+          <!-- Tab panels -->
+          <div class="tab-content">
+            <!--Panel Login-->
+            <div class="tab-pane fade in show active" id="tabLogin" role="tabpanel">
+              <!--Body-->
+              <div class="modal-body mb-1">
+                <div class="md-form form-sm mb-5">
+                  <a class="fas fa-envelope prefix"></a>
+                  <input type="email" id="inputEmailLogin" class="form-control form-control-sm validate">
+                  <label data-error="Incorrecto" data-success="Correcto" for="inputEmailLogin">CORREO
+                    ELECTRÓNICO</label>
+                </div>
+                <div class="md-form form-sm mb-4">
+                  <a class="fas fa-lock prefix"></a>
+                  <input type="password" id="inputPasswordLogin" class="form-control form-control-sm">
+                  <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordLogin">CONTRASEÑA</label>
+                </div>
+                <div class="text-center mt-2">
+                  <button class="btn btn-info" onclick="inicioSesion()">INICIAR SESIÓN </button>
+                </div>
+                <div class="response"></div>
+              </div>
+              <!--Footer-->
+              <div class="modal-footer">
+                <div class="options text-center text-md-left mt-1">
+                  <p>No estás registrado? <a href="#tabRegister" class="blue-text" data-toggle="tab">Regístrate</a>
+                  </p>
+                  <p>He olvidado la <a href="#" class="blue-text">Contraseña</a> (en desarrollo).</p>
+                </div>
+                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+            <!--/.Panel Login-->
+
+            <!--Panel Registro-->
+            <div class="tab-pane fade" id="tabRegister" role="tabpanel">
+              <!--Body-->
+              <div class="modal-body">
+                <div class="md-form form-sm mb-5">
+                  <a class="fas fa-envelope prefix"></a>
+                  <input type="email" id="inputEmailRegister" class="form-control form-control-sm validate">
+                  <label data-error="Incorrecto" data-success="Correcto" for="inputEmailRegister">CORREO
+                    ELECTRÓNICO</label>
+                </div>
+                <div class="md-form form-sm mb-5">
+                  <a class="fas fa-lock prefix"></a>
+                  <input type="password" id="inputPasswordRegister1" class="form-control form-control-sm">
+                  <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister1">CONTRASEÑA</label>
+                </div>
+                <div class="md-form form-sm mb-4">
+                  <a class="fas fa-lock prefix"></a>
+                  <input type="password" id="inputPasswordRegister2" class="form-control form-control-sm">
+                  <label data-error="Incorrecto" data-success="Correcto" for="inputPasswordRegister2">REPITA LA
+                    CONTRASEÑA</label>
+                </div>
+                <div class="text-center form-sm mt-2">
+                  <button class="btn btn-info" onclick="registrarse()">REGISTRARSE </button>
+                </div>
+                <div class="response"></div>
+              </div>
+              <!--Footer-->
+              <div class="modal-footer">
+                <div class="options text-right">
+                  <p class="pt-1">Ya tienes una cuenta? <a data-toggle="tab" href="#tabLogin" class="blue-text">Inicia
+                      Sesión</a></p>
+                </div>
+                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -275,6 +298,7 @@ $fila = mysqli_fetch_array($result);
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.12.0/js/mdb.min.js"></script>
   <script src="../js/funciones.js"></script>
   <script>

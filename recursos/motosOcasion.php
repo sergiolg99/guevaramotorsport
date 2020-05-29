@@ -167,10 +167,10 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
-                  <div class="options text-center text-md-right mt-1">
+                  <div class="options text-center text-md-left mt-1">
                     <p>No estás registrado? <a href="#tabRegister" class="blue-text" data-toggle="tab">Regístrate</a>
                     </p>
-                    <p>He olvidado la <a href="#" class="blue-text">Contraseña</a></p>
+                    <p>He olvidado la <a href="#" class="blue-text">Contraseña</a> (en desarrollo).</p>
                   </div>
                   <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                 </div>
