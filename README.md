@@ -8,8 +8,4 @@ Proyecto de Fin de Grado de Sergio Ladrón de Guevara Cordero
 4. En el navegador, escribir: localhost/TFG
 
 
-<<<<<<< HEAD
-Muchas Gracias.
-=======
-Muchas Gracias.
->>>>>>> 7084465ab84ab8993b683559073da176cb931838
+Gracias.
