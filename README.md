@@ -7,5 +7,9 @@ Proyecto de Fin de Grado de Sergio Ladrón de Guevara Cordero
 3. Incluir la carpeta TFG, con todo su contenido, en la carpeta htdocs o equivalente de tu servidor localhost
 4. En el navegador, escribir: localhost/TFG
 
+# Acceso al area de admnistración
+1. Desde Inicio, bajar hasta el final y pulsar el botón 'Administrar'
+2. Acceder con las credenciales admin/admin
+
 
 Gracias.
