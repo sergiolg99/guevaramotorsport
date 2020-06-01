@@ -4,8 +4,9 @@ require_once('../recursos/conexionBD.php');
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password = sha1($password);
-if (!isset($_POST['is_admin']))
+if (!isset($_POST['is_admin'])) {
     $_POST['is_admin'] = 0;
+}
 
 $buscarUsuario = "SELECT 'id_usuario' FROM usuarios WHERE (email = '$email') AND (registrado = '1')";
 $resultado = $conexion->query($buscarUsuario);

@@ -27,9 +27,9 @@ $fila = mysqli_fetch_array($result)
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="../../recursos/imagenes/logo.png" />
     <title>Guevara MotorSport - Admin</title>
-    <!-- Custom fonts for this template-->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Custom styles for this template-->
+    <!-- CSS para la parte administrador-->
     <link href="../../css/sidebar-admin.css" rel="stylesheet">
 
     <style type="text/css">
@@ -336,11 +336,10 @@ $fila = mysqli_fetch_array($result)
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap and jQuery core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!-- Custom scripts for all pages-->
+    <!-- JS para la parte administrador -->
     <script src="../../js/sidebar-admin.min.js"></script>
     <script>
         $(document).ready(function() {

@@ -21,9 +21,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <meta name="description" content="">
   <link rel="icon" type="image/png" href="../../recursos/imagenes/logo.png" />
   <title>Guevara MotorSport - Admin</title>
-  <!-- Custom fonts for this template-->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Custom styles for this template-->
+  <!-- CSS para la parte administrador -->
   <link href="../../css/sidebar-admin.css" rel="stylesheet">
   <!-- Custom styles for datatable -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
@@ -317,10 +317,10 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </div>
 
 
-  <!-- Bootstrap core JavaScript-->
+  <!-- Bootstrap and jQuery core JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- Plugins para la página -->
+  <!-- JS para la parte administrador -->
   <script src="../../js/sidebar-admin.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>

@@ -14,9 +14,8 @@ $contrasenna = htmlspecialchars(mysqli_real_escape_string($conexion, $contrasenn
 // Codificamos la contraseña con sha1
 $contrasenna = sha1($contrasenna);
 
-
 // Escribimos la consulta necesaria
-$consulta = "SELECT * FROM `usuarios` WHERE email='$usuario'";
+$consulta = "SELECT `id_usuario`, `email`, `password`, `nombre`, `is_admin` FROM `usuarios` WHERE email='$usuario'";
 
 // Obtenemos los resultados
 $resultado = mysqli_query($conexion, $consulta);

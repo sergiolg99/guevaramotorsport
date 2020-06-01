@@ -15,6 +15,7 @@ error_reporting(E_ALL ^ E_NOTICE);
     <!-- CSS Propio -->
     <link rel="stylesheet" href="../css/estilos.min.css" />
     <link rel="icon" type="image/png" href="../recursos/imagenes/logo.png" />
+    <!-- Bootstrap and jQuery core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Guevara MotorSport - Admin</title>

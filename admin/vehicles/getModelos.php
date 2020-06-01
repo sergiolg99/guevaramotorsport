@@ -3,6 +3,7 @@ require_once('../recursos/conexionBD.php');
 
 $fabricante = $_POST['fabricante'];
 
+/* Selecciona todos los modelos introducidas en la tabla moto_models */
 $query = "SELECT id_model,nombre FROM moto_models WHERE (fabricante = '$fabricante') AND (is_active = 1)
 ORDER BY nombre";
 

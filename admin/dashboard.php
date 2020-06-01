@@ -2,6 +2,7 @@
 require_once('recursos/conexionBD.php');
 session_start();
 
+/* Grupo de consultas para mostrar la información requerida en las pestañas de informacion rapida */
 $consulta = $conexion->query("SELECT 'id_usuario' FROM usuarios");
 $cuentaUsuarios = $consulta->num_rows;
 
@@ -20,9 +21,9 @@ $cuentaVentas = $consulta->num_rows;
 $consulta = $conexion->query("SELECT 'id_mensaje' FROM mensajes WHERE leido = 0");
 $cuentaMensajes = $consulta->num_rows;
 
-//Comprobamos si el usario está logueado
-//Si no lo está, se le redirecciona al index
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
+// Comprobamos si el usario está logueado
+// Si no lo está, se le redirecciona al login
+// Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
 if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 	header('Location: administrar.php');
 } else {
@@ -42,9 +43,9 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 	<meta name="description" content="">
 	<link rel="icon" type="image/png" href="../recursos/imagenes/logo.png" />
 	<title>Guevara MotorSport - Admin</title>
-	<!-- Custom fonts for this template-->
+	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-	<!-- Custom styles for this template-->
+	<!-- CSS para la parte administrador -->
 	<link href="../css/sidebar-admin.css" rel="stylesheet">
 </head>
 
@@ -54,7 +55,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 			<div class="navbar-nav" style="height: 95%">
 				<hr class="sidebar-divider my-0">
-				<!-- Nav Item - Dashboard -->
 				<li class="nav-item active">
 					<a class="nav-link" href="dashboard.php">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
@@ -218,6 +218,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					</div>
 					<br>
 					<div class="row">
+
 						<!-- Pending sales count -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-warning shadow h-100 py-2">
@@ -281,10 +282,10 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 		</div>
 	</div>
 
-	<!-- Bootstrap core JavaScript-->
+	<!-- Bootstrap and jQuery core JavaScript-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	<!-- Custom scripts for all pages-->
+	<!-- JS para la parte administrador-->
 	<script src="../js/sidebar-admin.min.js"></script>
 
 </body>
