@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2020 a las 14:42:50
+-- Tiempo de generación: 02-06-2020 a las 15:13:29
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `guevaramotorsport`
 --
+CREATE DATABASE IF NOT EXISTS `guevaramotorsport` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `guevaramotorsport`;
 
 -- --------------------------------------------------------
 
