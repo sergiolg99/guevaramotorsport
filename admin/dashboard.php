@@ -40,7 +40,6 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
 	<link rel="icon" type="image/png" href="../recursos/imagenes/logo.png" />
 	<title>Guevara MotorSport - Admin</title>
 	<!-- Font Awesome -->
@@ -130,11 +129,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					</nav>
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
 								<i class="fas fa-user-circle"></i>
 							</a>
-							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="usuarioDropdown">
 								<a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
 									Cerrar Sesíon
@@ -144,11 +143,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					</ul>
 				</nav>
 
-				<!-- Begin Page Content -->
+				<!-- Inicio Contenido Página -->
 				<div class="container-fluid">
 					<div class="row">
 
-						<!-- Vehicles Count -->
+						<!-- Contador Vehículos -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
@@ -165,7 +164,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 							</div>
 						</div>
 
-						<!-- User Counts -->
+						<!-- Contador Usuarios -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-success shadow h-100 py-2">
 								<div class="card-body">
@@ -182,7 +181,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 							</div>
 						</div>
 
-						<!-- Products count -->
+						<!-- Contador Productos -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-info shadow h-100 py-2">
 								<div class="card-body">
@@ -199,7 +198,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 							</div>
 						</div>
 
-						<!-- Tasks count -->
+						<!-- Contador Citas Pendientes -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-warning shadow h-100 py-2">
 								<div class="card-body">
@@ -219,7 +218,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 					<br>
 					<div class="row">
 
-						<!-- Pending sales count -->
+						<!-- Contador Pedidos Pendientes -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-warning shadow h-100 py-2">
 								<div class="card-body">
@@ -236,7 +235,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 							</div>
 						</div>
 
-						<!-- Pending messages count -->
+						<!-- Contador Mensajes Pendientes -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card border-left-info shadow h-100 py-2">
 								<div class="card-body">
@@ -264,11 +263,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 	</a>
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+					<h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -282,10 +281,10 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
 		</div>
 	</div>
 
-	<!-- Bootstrap and jQuery core JavaScript-->
+	<!-- Bootstrap y jQuery JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	<!-- JS para la parte administrador-->
+	<!-- JS para la parte administrado r-->
 	<script src="../js/sidebar-admin.min.js"></script>
 
 </body>

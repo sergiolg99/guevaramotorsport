@@ -18,14 +18,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
   <link rel="icon" type="image/png" href="../../recursos/imagenes/logo.png" />
   <title>Guevara MotorSport - Admin</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- CSS para la parte administrador -->
   <link href="../../css/sidebar-admin.css" rel="stylesheet">
-  <!-- Custom styles for datatable -->
+  <!-- Estilos para la tabla -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
 </head>
 
@@ -111,11 +110,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </nav>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                 <i class="fas fa-user-circle"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="usuarioDropdown">
                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                   Cerrar Sesíon
@@ -125,7 +124,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </ul>
         </nav>
 
-        <!-- Begin Page Content -->
+        <!-- Inicio Contenido Página -->
         <div class="container-fluid">
           <!-- DataTable -->
           <div class="card shadow mb-4">
@@ -150,29 +149,29 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   <tbody>
                     <?php
                     $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM citas WHERE completada = 0";
-                    $result = mysqli_query($conexion, $consulta);
-                    while ($fila = mysqli_fetch_array($result)) { ?>
+                    $resultado = mysqli_query($conexion, $consulta);
+                    while ($fila = mysqli_fetch_array($resultado)) { ?>
                       <tr>
                         <td><?php $consulta2 = "SELECT usuarios.email FROM citas 
                                                   INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
                                                   WHERE citas.id_cita = $fila[id_cita]";
-                            $result2 = mysqli_query($conexion, $consulta2);
-                            while ($fila2 = mysqli_fetch_array($result2)) {
+                            $resultado2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($resultado2)) {
                               echo $fila2["email"];
                             } ?></td>
                         <td><?php $consulta3 = "SELECT usuarios.telefono FROM citas 
                                                   INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
                                                   WHERE citas.id_cita = $fila[id_cita]";
-                            $result3 = mysqli_query($conexion, $consulta3);
-                            while ($fila3 = mysqli_fetch_array($result3)) {
+                            $resultado3 = mysqli_query($conexion, $consulta3);
+                            while ($fila3 = mysqli_fetch_array($resultado3)) {
                               echo $fila3["telefono"];
                             } ?></td>
-                        <td><?php $consulta2 = "SELECT moto_models.nombre FROM citas 
+                        <td><?php $consulta4 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
-                            $result2 = mysqli_query($conexion, $consulta2);
-                            while ($fila2 = mysqli_fetch_array($result2)) {
-                              echo $fila2["nombre"];
+                            $resultado4 = mysqli_query($conexion, $consulta4);
+                            while ($fila4 = mysqli_fetch_array($resultado4)) {
+                              echo $fila4["nombre"];
                             }
                             ?></td>
                         <td><?php echo $fila["comentarios"]; ?></td>
@@ -203,28 +202,28 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   <tbody>
                     <?php
                     $consulta = "SELECT `id_cita`, `id_usuario`, `id_moto`, `fecha`, `comentarios`, `completada` FROM citas WHERE completada = 1";
-                    $result = mysqli_query($conexion, $consulta);
-                    while ($fila = mysqli_fetch_array($result)) { ?>
+                    $resultado = mysqli_query($conexion, $consulta);
+                    while ($fila = mysqli_fetch_array($resultado)) { ?>
                       <tr>
                         <td><?php $consulta2 = "SELECT usuarios.email FROM citas 
                                                   INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
                                                   WHERE citas.id_cita = $fila[id_cita]";
-                            $result2 = mysqli_query($conexion, $consulta2);
-                            while ($fila2 = mysqli_fetch_array($result2)) {
+                            $resultado2 = mysqli_query($conexion, $consulta2);
+                            while ($fila2 = mysqli_fetch_array($resultado2)) {
                               echo $fila2["email"];
                             } ?></td>
                         <td><?php $consulta3 = "SELECT usuarios.telefono FROM citas 
                                                   INNER JOIN usuarios ON citas.id_usuario = usuarios.id_usuario
                                                   WHERE citas.id_cita = $fila[id_cita]";
-                            $result3 = mysqli_query($conexion, $consulta3);
-                            while ($fila3 = mysqli_fetch_array($result3)) {
+                            $resultado3 = mysqli_query($conexion, $consulta3);
+                            while ($fila3 = mysqli_fetch_array($resultado3)) {
                               echo $fila3["telefono"];
                             } ?></td>
                         <td><?php $consulta4 = "SELECT moto_models.nombre FROM citas 
                                                   INNER JOIN motos ON citas.id_moto = motos.id_moto
                                                   INNER JOIN moto_models on motos.modelo = moto_models.id_model WHERE citas.id_cita = $fila[id_cita]";
-                            $result4 = mysqli_query($conexion, $consulta4);
-                            while ($fila4 = mysqli_fetch_array($result4)) {
+                            $resultado4 = mysqli_query($conexion, $consulta4);
+                            while ($fila4 = mysqli_fetch_array($resultado4)) {
                               echo $fila4["nombre"];
                             }
                             ?></td>
@@ -252,7 +251,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--Delete Cita Modal-->
+  <!-- Borrar Cita Modal-->
   <div class="modal fade" id="borrarCitaModal" tabindex="-1" role="dialog" aria-labelledby="borrarCitaLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -298,11 +297,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </div>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+          <h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -316,8 +315,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     </div>
   </div>
 
-
-  <!-- Bootstrap and jQuery core JavaScript-->
+  <!-- Bootstrap y jQuery core JavaScript-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <!-- JS para la parte administrador -->

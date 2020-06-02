@@ -108,7 +108,7 @@ $fila = mysqli_fetch_array($result);
                     <label for="telefono">Teléfono:</label>
                     <input type="tel" class="form-control" id="telefono" name="telefono" disabled placeholder="No especificado" value="<?php echo $fila["telefono"]; ?>">
                     <br><br>
-                    <a class="btn btn-primary" href="editData.php"><i class="fas fa-edit"></i> Modificar Datos</a>
+                    <a class="btn btn-primary" href="editarDatos.php"><i class="fas fa-edit"></i> Modificar Datos</a>
                 </div>
 
                 <div class="form-group col-md-0 col-lg-1"></div>
@@ -195,11 +195,11 @@ $fila = mysqli_fetch_array($result);
     </div>
 
     <!--Delete Usuario_Vehiculo Modal-->
-    <div class="modal fade" id="deleteUserVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserVehicleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="borrarUsuarioVehiculoModal" tabindex="-1" role="dialog" aria-labelledby="borrarUsuarioVehiculoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteUserVehicleModal">Borrar Vehículo</h5>
+                    <h5 class="modal-title" id="borrarUsuarioVehiculoModal">Borrar Vehículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -273,11 +273,11 @@ $fila = mysqli_fetch_array($result);
     </div>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+                    <h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -301,7 +301,7 @@ $fila = mysqli_fetch_array($result);
         $(document).ready(function() {
             $.ajax({
                 type: "POST",
-                url: "../admin/vehicles/getMarcasMotos.php",
+                url: "../admin/vehicles/getMarcas.php?action=exist",
                 success: function(response) {
                     $('#fabricante').html(response).fadeIn();
                 }
@@ -312,7 +312,7 @@ $fila = mysqli_fetch_array($result);
                 $.ajax({
                     type: "POST",
                     data: "fabricante=" + fabricante,
-                    url: "../admin/vehicles/getModelosMotos.php",
+                    url: "../admin/vehicles/getModelos.php?action=exist",
                     success: function(response) {
                         $('#modelo').html(response).fadeIn();
                     }
@@ -324,7 +324,7 @@ $fila = mysqli_fetch_array($result);
                 $.ajax({
                     type: "POST",
                     data: "modelo=" + modelo,
-                    url: "../admin/vehicles/getCilindradaMotos.php",
+                    url: "../admin/vehicles/getCilindrada.php",
                     success: function(response) {
                         $('#cilindrada').html(response).fadeIn();
                     }
@@ -367,7 +367,7 @@ $fila = mysqli_fetch_array($result);
         }
 
         function borrarUsuarioVehiculo(id) {
-            $('#deleteUserVehicleModal').modal();
+            $('#borrarUsuarioVehiculoModal').modal();
             $('#submit').click(function(e) {
                 e.preventDefault();
                 data = {
@@ -375,7 +375,7 @@ $fila = mysqli_fetch_array($result);
                 };
 
                 $.ajax({
-                    url: "../admin/users/deleteUserVehicle.php",
+                    url: "../admin/users/borrarUsuarioVehiculo.php",
                     type: "POST",
                     dataType: "HTML",
                     data: data,

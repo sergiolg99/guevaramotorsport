@@ -325,11 +325,11 @@ $fila = mysqli_fetch_array($result);
   </div>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+          <h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -376,7 +376,7 @@ $fila = mysqli_fetch_array($result);
 
       $.ajax({
         type: "POST",
-        url: "../admin/vehicles/getMarcasMotos.php",
+        url: "../admin/vehicles/getMarcas.php?action=exist",
         success: function(response) {
           $('#fabricante').html(response).fadeIn();
         }
@@ -387,7 +387,7 @@ $fila = mysqli_fetch_array($result);
         $.ajax({
           type: "POST",
           data: "fabricante=" + fabricante,
-          url: "../admin/vehicles/getModelosMotos.php",
+          url: "../admin/vehicles/getModelos.php?action=exist",
           success: function(response) {
             $('#modelo').html(response).fadeIn();
           }
@@ -399,7 +399,7 @@ $fila = mysqli_fetch_array($result);
         $.ajax({
           type: "POST",
           data: "modelo=" + modelo,
-          url: "../admin/vehicles/getCilindradaMotos.php",
+          url: "../admin/vehicles/getCilindrada.php",
           success: function(response) {
             $('#cilindrada').html(response).fadeIn();
           }

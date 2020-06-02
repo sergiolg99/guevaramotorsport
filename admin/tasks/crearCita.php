@@ -18,8 +18,8 @@ if ($_POST['tipoUser'] == "cliente") {
     /* Si la cita la crea un usuario NO registrado */ 
     /* Buscamos si el correo introducido pertenece a un usuario registrado */
     $buscarUsuario = "SELECT 'id_usuario' FROM usuarios WHERE (email = '$_POST[email]') AND (registrado = '1')";
-    $result = $conexion->query($buscarUsuario);
-    $existe = mysqli_num_rows($result);
+    $resultado = $conexion->query($buscarUsuario);
+    $existe = mysqli_num_rows($resultado);
 
     /* Si pertenece a un usuario registrado se le pide que inicie sesión primero */
     if ($existe == 1) {
@@ -27,8 +27,8 @@ if ($_POST['tipoUser'] == "cliente") {
     } else {
         /* Buscamos si el correo introducido pertenece a un usuario NO registrado */
         $buscarUsuario2 = "SELECT 'id_usuario' FROM usuarios WHERE (email = '$_POST[email]') AND (registrado = '0')";
-        $resultado = $conexion->query($buscarUsuario2);
-        $existe2 = mysqli_num_rows($resultado);
+        $resultado1 = $conexion->query($buscarUsuario2);
+        $existe2 = mysqli_num_rows($resultado1);
 
         /* Si existe, seleccionamos el id de dicho usuario */
         if ($existe2 == 1) {

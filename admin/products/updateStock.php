@@ -5,8 +5,8 @@ $id = $_POST['id_producto'];
 $action = $_POST['action'];
 
 $buscaStock = "SELECT `stock` FROM `productos` WHERE id_producto = $id";
-$result = mysqli_query($conexion, $buscaStock);
-$datos = mysqli_fetch_array($result);
+$resultado = mysqli_query($conexion, $buscaStock);
+$datos = mysqli_fetch_array($resultado);
 
 $stockMas = $datos['stock'] +1;
 $stockMenos = $datos['stock'] -1;

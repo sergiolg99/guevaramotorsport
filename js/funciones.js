@@ -87,7 +87,7 @@ function registrarse() {
     };
 
     $.ajax({
-      url: "../admin/users/createUser.php?action=cliente",
+      url: "../admin/users/crearUsuario.php?action=cliente",
       type: "POST",
       dataType: "HTML",
       data: data,
@@ -257,7 +257,7 @@ $("#pago").on("submit", function (e) {
         if (confirm('¿Confirmas esta compra?')) {
           e.preventDefault();
           $.ajax({
-            url: "../admin/sales/createSale.php",
+            url: "../admin/sales/nuevoPedido.php",
             type: "POST",
             dataType: "HTML",
             data: {

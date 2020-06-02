@@ -11,7 +11,7 @@ var $iva = document.querySelector('#iva');
 function cargarDatos() {
     $.ajax({
         dataType: "JSON",
-        url: "../admin/products/getProducts.php",
+        url: "../admin/products/getProductos.php",
     }).done(function (echo) {
         datos = echo;
         var $items = document.querySelector('#items');
@@ -37,7 +37,7 @@ function cargarDatos() {
             // Imagen
             let miNodoImagen = document.createElement('img');
             miNodoImagen.classList.add('img-fluid', 'agrandar');
-            miNodoImagen.setAttribute('src', '../admin/products/obtenerImagen.php?id=' + producto.id_producto);
+            miNodoImagen.setAttribute('src', '../admin/products/getImagen.php?id=' + producto.id_producto);
             // miNodoImagen.setAttribute('alt', info['alt']);
             miNodoImagen.setAttribute('data-toggle', "modal");
             miNodoImagen.setAttribute('data-target', "#infoProducto");
@@ -106,9 +106,7 @@ function anyadirCarrito() {
             renderizarCarrito();
             alert("Producto añadido al carrito");
         }
-
     }
-
 }
 
 function renderizarCarrito() {
@@ -228,7 +226,7 @@ function cargarModal() {
         lugarImagen.classList.add('col-xs-12', 'col-sm-12', 'col-md-6', 'col-lg-6');
         let imagen = document.createElement('img');
         imagen.classList.add('img-fluid', 'noHover');
-        imagen.setAttribute('src', '../admin/products/obtenerImagen.php?id=' + miItem[0]['id_producto']);
+        imagen.setAttribute('src', '../admin/products/getImagen.php?id=' + miItem[0]['id_producto']);
         lugarImagen.appendChild(imagen);
         var detalles = document.createElement('div');
         detalles.classList.add('col-xs-12', 'col-sm-12', 'col-md-6', 'col-lg-6');
@@ -265,7 +263,7 @@ function cargarModal() {
         botonComprar.setAttribute('data-dismiss', 'modal');
         botonComprar.addEventListener('click', anyadirCarrito);
     })
-
+    
     tituloModal.appendChild(titulo);
     descripcion.appendChild(cuerpo);
     footer.appendChild(botonComprar);

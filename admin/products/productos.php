@@ -17,14 +17,13 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
   <link rel="icon" type="image/png" href="../../recursos/imagenes/logo.png" />
   <title>Guevara MotorSport - Admin</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- CSS para la parte administrador-->
+  <!-- CSS para la parte administrador -->
   <link href="../../css/sidebar-admin.css" rel="stylesheet">
-  <!-- Custom styles for datatable -->
+  <!-- Estilos para la tabla -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.css" />
 </head>
 
@@ -110,11 +109,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </nav>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium" style="font-size: 20px"><?php print($usuario) ?></span>
                 <i class="fas fa-user-circle"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="usuarioDropdown">
                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                   Cerrar Sesíon
@@ -124,16 +123,16 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </ul>
         </nav>
 
-        <!-- Begin Page Content -->
+        <!-- Inicio Contenido Página -->
         <div class="container-fluid">
           <!-- DataTable -->
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <a class="btn btn-primary noFocus" href="newProduct.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
-                <a class="btn btn-warning" href="editStock.php" role="button" style="color: black;"><i class="fas fa-edit"></i> Gestionar Stock</a>
+                <a class="btn btn-primary noFocus" href="nuevoProducto.php" role="button"><i class="fas fa-plus"></i> Añadir Producto</a>
+                <a class="btn btn-warning" href="editarStock.php" role="button" style="color: black;"><i class="fas fa-edit"></i> Gestionar Stock</a>
                 <br><br>
-                <table class="table" id="products" cellspacing="0">
+                <table class="table" id="productos" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Nombre</th>
@@ -148,12 +147,12 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   <tbody>
                     <?php
                     $consulta = "SELECT `id_producto`, `nombre`, `precio`, `descripcion`, `stock`, `is_active` FROM productos";
-                    $result = mysqli_query($conexion, $consulta);
-                    while ($fila = mysqli_fetch_array($result)) { ?>
+                    $resultado = mysqli_query($conexion, $consulta);
+                    while ($fila = mysqli_fetch_array($resultado)) { ?>
                       <tr>
                         <td><?php echo $fila["nombre"]; ?></td>
                         <td><?php echo $fila["descripcion"]; ?></td>
-                        <td><img src="obtenerImagen.php?id=<?php echo $fila["id_producto"]; ?>" width="80" height="80" id="imagenProducto" /></td>
+                        <td><img src="getImagen.php?id=<?php echo $fila["id_producto"]; ?>" width="80" height="80" id="imagenProducto" /></td>
                         <td><?php echo $fila["precio"] . " €"; ?></td>
                         <td><?php
                             if ($fila['stock'] > 0) {
@@ -171,7 +170,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-warning noFocus" title="Editar Producto" href="editProduct.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-outline-warning noFocus" title="Editar Producto" href="editarProducto.php?id=<?php echo $fila["id_producto"]; ?>" role="button"><i class="fas fa-edit"></i></a>
                           <a class="btn btn-danger noFocus" style="cursor: pointer;" title="Borrar producto" onclick="borrarProducto('<?php echo $fila["id_producto"]; ?>');"><i class="fas fa-trash-alt" style="color: white"></i></a>
                         </td>
                       </tr>
@@ -203,11 +202,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </a>
 
   <!--Delete Product Modal-->
-  <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+  <div class="modal fade" id="borrarProductoModal" tabindex="-1" role="dialog" aria-labelledby="borrarProductoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteProductModal">Borrar Producto</h5>
+          <h5 class="modal-title" id="borrarProductoModal">Borrar Producto</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -224,11 +223,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </div>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+          <h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -243,7 +242,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   </div>
 
 
-  <!-- Bootstrap and jQuery JavaScript-->
+  <!-- Bootstrap y jQuery -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <!-- JS para la parte administrador -->
@@ -251,11 +250,11 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.4/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#products').DataTable();
+      $('#productos').DataTable();
     });
 
     function borrarProducto(id) {
-      $('#deleteProductModal').modal();
+      $('#borrarProductoModal').modal();
       $('#submit').click(function(e) {
         e.preventDefault();
         data = {
@@ -263,7 +262,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         };
 
         $.ajax({
-          url: "deleteProduct.php",
+          url: "borrarProducto.php",
           type: "POST",
           dataType: "HTML",
           data: data,

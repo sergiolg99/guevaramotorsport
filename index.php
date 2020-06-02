@@ -309,11 +309,11 @@ if (!isset($_SESSION['usuario'])) {
   </div>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ya te marchas?</h5>
+          <h5 class="modal-title" id="logoutModalLabel">Ya te marchas?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -373,7 +373,7 @@ if (!isset($_SESSION['usuario'])) {
         };
 
         $.ajax({
-          url: "admin/users/createUser.php?action=cliente",
+          url: "admin/users/crearUsuario.php?action=cliente",
           type: "POST",
           dataType: "HTML",
           data: data,
