@@ -314,7 +314,7 @@ if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 "order": [
                     [0, 'asc'],
                     [1, 'asc'],
-                    [4, 'asc'],
+                    [2, 'asc'],
                 ]
             });
 
