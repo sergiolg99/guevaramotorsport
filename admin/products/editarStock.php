@@ -1,7 +1,7 @@
 <?php
 require_once('../recursos/conexionBD.php');
 session_start();
-if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
+if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Administrador') {
     header('Location: ../administrar.php');
 } else {
     $estado = $_SESSION['estado'];

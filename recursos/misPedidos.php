@@ -225,7 +225,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['estado'])) {
                 $('#pedidos').DataTable({
                     "order": [
                         [4, 'asc'],
-                        [1, 'asc'],
+                        [1, 'desc'],
                     ]
                 });
             });

@@ -24,7 +24,7 @@ $cuentaMensajes = $consulta->num_rows;
 // Comprobamos si el usario está logueado
 // Si no lo está, se le redirecciona al login
 // Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
-if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
+if (!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Administrador') {
 	header('Location: administrar.php');
 } else {
 	$estado = $_SESSION['estado'];

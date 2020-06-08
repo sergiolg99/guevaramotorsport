@@ -90,7 +90,7 @@ function anyadirCarrito() {
     } else {
         renderizarCarrito();
         stock = this.getAttribute('stock');
-        if (numeroUnidadesItem == stock) {
+        if (numeroUnidadesItem >= stock) {
             alert("No disponemos de suficientes unidades");
             calcularIva();
             calcularTotal();

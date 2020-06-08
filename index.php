@@ -182,6 +182,37 @@ if (!isset($_SESSION['usuario'])) {
     </h2>
   </div>
 
+  <br><br>
+
+  <!-- FOOTER PÁGINA -->
+  <div id="cajaContacto">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <em class="fas fa-phone-alt"></em> Teléfono: <a href="tel:+34634473757" style="color:white;" title="Llamar por teléfono">666 66 66
+            66</a>
+        </div>
+        <br>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          &#9993; Email: <a href="mailto:sergiolg_99@hotmail.com?Subject=Contacto%20desde%20la%20pagina%20web" style="color:white;" title="Enviar correo">info@guevaramotorsport.com</a>
+        </div>
+      </div>
+      <hr>
+      <div class="row copy">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div id="copyright">
+            Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo una
+            licencia Creative Commons <em class="fab fa-creative-commons"></em> Attribution 4.0 International
+            <br>
+            Copyright&copy; 2020 Guevara MotorSport. Todos los derechos reservados
+          </div>
+        </div>
+      </div>
+      <br>
+      <a class="btn btn-sm admin" href="admin/administrar.php">ADMINISTRAR</a>
+    </div>
+  </div>
+
   <!--Modal: Inicio sesion / registrarse -->
   <div class="modal fade" id="inicioSesion" tabindex="0" role="dialog" aria-hidden="true">
     <div class="modal-dialog cascading-modal" role="document">
@@ -274,37 +305,6 @@ if (!isset($_SESSION['usuario'])) {
         </div>
       </div>
       <!--/.Content-->
-    </div>
-  </div>
-
-  <br><br>
-
-  <!-- FOOTER PÁGINA -->
-  <div id="cajaContacto">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <em class="fas fa-phone-alt"></em> Teléfono: <a href="tel:+34634473757" style="color:white;" title="Llamar por teléfono">666 66 66
-            66</a>
-        </div>
-        <br>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          &#9993; Email: <a href="mailto:sergiolg_99@hotmail.com?Subject=Contacto%20desde%20la%20pagina%20web" style="color:white;" title="Enviar correo">info@guevaramotorsport.com</a>
-        </div>
-      </div>
-      <hr>
-      <div class="row copy">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div id="copyright">
-            Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo una
-            licencia Creative Commons <em class="fab fa-creative-commons"></em> Attribution 4.0 International
-            <br>
-            Copyright&copy; 2020 Guevara MotorSport. Todos los derechos reservados
-          </div>
-        </div>
-      </div>
-      <br>
-      <a class="btn btn-sm admin" href="admin/administrar.php">ADMINISTRAR</a>
     </div>
   </div>
 

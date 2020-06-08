@@ -20,10 +20,6 @@ if ($existe == 1) {
     $existe2 = mysqli_num_rows($resultado2);
 
     if ($existe2 == 1) {
-        $consulta = "SELECT `id_usuario` FROM `usuarios` WHERE email = '$email'";
-        $resultado3 = mysqli_query($conexion, $consulta);
-        $fila = mysqli_fetch_array($resultado3);
-
         if (!isset($_GET['action'])) {
             $query = "UPDATE `usuarios` SET `password`='$password',`nombre`='$_POST[nombre]',`apellidos`='$_POST[apellidos]',`direccion`='$_POST[direccion]',`localidad`='$_POST[localidad]',
             `provincia`='$_POST[provincia]',`cp`='$_POST[cp]',`telefono`='$_POST[telefono]',`is_admin`='$_POST[is_admin]',`registrado`='1' WHERE email = '$email'";

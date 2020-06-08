@@ -14,17 +14,20 @@ $contrasenna = htmlspecialchars(mysqli_real_escape_string($conexion, $contrasenn
 // Codificamos la contraseña con sha1
 $contrasenna = sha1($contrasenna);
 
-// Escribimos la consulta necesaria
+// Buscamos la información del usuario en la BD
 $consulta = "SELECT `id_usuario`, `email`, `password`, `nombre`, `is_admin` FROM `usuarios` WHERE email='$usuario'";
 
 // Obtenemos los resultados
 $resultado = mysqli_query($conexion, $consulta);
 $datos = mysqli_fetch_array($resultado);
 
-if ($action == "cliente") {
-    $userBD = $datos['email'];
-    $passwordBD = $datos['password'];
+// Guardamos los resultados del nombre de usuario
+// y de la contraseña de la base de datos
+$userBD = $datos['email'];
+$passwordBD = $datos['password'];
+$is_admin = $datos['is_admin'];
 
+if ($action == "cliente") {
     // Comprobamos si los datos son correctos
     if ($userBD == $usuario and $passwordBD == $contrasenna) {
         session_start();
@@ -34,8 +37,11 @@ if ($action == "cliente") {
             $_SESSION['usuario'] = $datos['nombre'];
         }
         $_SESSION['id_usuario'] = $datos['id_usuario'];
-        $_SESSION['estado'] = 'Cliente';
-
+        if ($is_admin == true) {
+            $_SESSION['estado'] = 'Administrador';
+        } else {
+            $_SESSION['estado'] = 'Cliente';
+        }
         /* Sesión iniciada */
 
         // Si los datos no son correctos, o están vacíos, muestra un error
@@ -45,19 +51,11 @@ if ($action == "cliente") {
         die('Error');
     }
 } else if ($action == "admin") {
-    // Guardamos los resultados del nombre de usuario
-    // y de la contraseña de la base de datos
-    $userBD = $datos['email'];
-    $passwordBD = $datos['password'];
-    $is_admin = $datos['is_admin'];
-
     // Comprobamos si los datos son correctos
     if ($userBD == $usuario and $passwordBD == $contrasenna and $is_admin == true) {
-
         session_start();
         $_SESSION['usuario'] = $datos['nombre'];
-        $_SESSION['estado'] = 'Autenticado';
-
+        $_SESSION['estado'] = 'Administrador';
         /* Sesión iniciada */
 
         // Si los datos no son correctos, o están vacíos, muestra un error
