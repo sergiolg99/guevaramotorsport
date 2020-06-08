@@ -467,7 +467,7 @@ $fila = mysqli_fetch_array($resultado)
                     }
                 });
             } else {
-                alert("Faltan datos");
+                alert("Datos incorrectos, intentelo de nuevo");
             }
         };
     </script>
