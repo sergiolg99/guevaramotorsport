@@ -44,6 +44,7 @@
     -webkit-transition: .35s;
     transition: .35s;
     font-weight: 500;
+    min-width: max-content;
 }
 
 .navbar.navbar-light .navbar-nav .nav-item.active>.nav-link {
